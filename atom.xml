@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hale&#39;s Notes</title>
+  <title>Alan&#39;s Notes</title>
   
   <subtitle>记事本</subtitle>
   <link href="https://alanhaledc.com/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>https://alanhaledc.com/</id>
   
   <author>
-    <name>Hale</name>
+    <name>Alan Deng</name>
     
   </author>
   
