@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
@@ -27,7 +27,7 @@
 <meta property="og:description" content="排序算法是《数据结构与算法》中最基础的算法之一。 在排序算法中，常见的基础排序算法主要有四种：冒泡排序、选择排序、插入排序、希尔排序。 下面分别介绍几种基础的排序算法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-03-17T12:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-16T03:14:33.771Z">
+<meta property="article:modified_time" content="2022-11-10T09:14:14.223Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="排序算法">
@@ -101,7 +101,6 @@
       <h1 class="site-title">Alan's Notes</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">记事本</p>
   </div>
 
   <div class="site-nav-right">
@@ -198,7 +197,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar1.png">
       <meta itemprop="name" content="Alan Deng">
-      <meta itemprop="description" content="不忘初心">
+      <meta itemprop="description" content="A Web Developer">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -228,20 +227,13 @@
                 </span>
             </span>
 
-          
-            <span id="/blog/20180317-%E7%AE%97%E6%B3%95%E4%B9%8B%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="算法之基础排序算法" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
+          <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数</span>
-              <span>2.6k</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -265,58 +257,45 @@
 <p>下面分别介绍几种基础的排序算法。</p>
 <span id="more"></span>
 
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><ol>
-<li><p>比较相邻的元素。如果第一个比第二个大，就交换他们两个；</p>
-</li>
-<li><p>对每一对相邻的元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数；</p>
-</li>
-<li><p>针对所有的元素重复以上的步骤，除了最后一个；</p>
-</li>
-<li><p>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对元素需要比较。</p>
-</li>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><h4 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li>比较相邻的元素。如果第一个比第二个大，就交换他们两个。</li>
+<li>对每一对相邻的元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。</li>
+<li>针对所有的元素重复以上的步骤，除了最后一个。</li>
+<li>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对元素需要比较。</li>
 </ol>
-<h3 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.length</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[i] &gt; arr[j]) &#123;</span><br><span class="line">        <span class="comment">// 相邻元素两两对比，前一个元素比后一个元素大时</span></span><br><span class="line">        <span class="comment">// 元素交换（即小的交换到前面来）</span></span><br><span class="line">        ;[arr[i], arr[j]] = [arr[j], arr[i]]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">bubbleSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.<span class="property">length</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[i] &gt; arr[j]) &#123;</span><br><span class="line">        <span class="comment">// 相邻元素两两对比，前一个元素比后一个元素大时</span></span><br><span class="line">        <span class="comment">// 元素交换（即小的交换到前面来）</span></span><br><span class="line">        [arr[i], arr[j]] = [arr[j], arr[i]];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>优化：减少内循环不必要的比较</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort2</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.length</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="comment">// 优化：j &lt; len - 1 - i; 后面的已经是排好的比较大的数了，不用再比较了</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; len - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">        ;[arr[j], arr[j + <span class="number">1</span>]] = [arr[j + <span class="number">1</span>], arr[j]] <span class="comment">// 交换变量</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">bubbleSort2</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.<span class="property">length</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="comment">// 优化：j &lt; len - 1 - i; 后面的已经是排好的比较大的数了，不用再比较了</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; len - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">        [arr[j], arr[j + <span class="number">1</span>]] = [arr[j + <span class="number">1</span>], arr[j]]; <span class="comment">// 交换变量</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>冒泡排序的平均时间复杂度：O(N^2)，在实际生产环境中不推荐使用。</p>
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="算法步骤-1"><a href="#算法步骤-1" class="headerlink" title="算法步骤"></a>算法步骤</h3><ol>
-<li><p>在未排序序列中找到最小（大）元素，存放到排序序列的起始位置；</p>
-</li>
-<li><p>从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾；</p>
-</li>
-<li><p>重复第二步，直到所有元素均排序 1。</p>
-</li>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>冒泡排序的平均时间复杂度：O(N^2)，在实际生产环境中不推荐使用。</p>
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><h4 id="算法步骤-1"><a href="#算法步骤-1" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li>在未排序序列中找到最小（大）元素，存放到排序序列的起始位置。</li>
+<li>从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。</li>
+<li>重复第二步，直到所有元素均排序 1。</li>
 </ol>
-<h3 id="代码演示-1"><a href="#代码演示-1" class="headerlink" title="代码演示"></a>代码演示</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectionSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> len = arr.length</span><br><span class="line">  <span class="keyword">let</span> minIndex</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">    minIndex = i <span class="comment">// 寻找最小值，初始值为 i</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[j] &lt; arr[minIndex]) &#123;</span><br><span class="line">        minIndex = j <span class="comment">// 将最小值索引保存</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果一样就不用交换，节省时间</span></span><br><span class="line">    <span class="keyword">if</span> (i !== minIndex) &#123;</span><br><span class="line">      ;[arr[i], arr[minIndex]] = [arr[minIndex], arr[i]] <span class="comment">// 交换变量</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代码演示-1"><a href="#代码演示-1" class="headerlink" title="代码演示"></a>代码演示</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">selectionSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> len = arr.<span class="property">length</span>;</span><br><span class="line">  <span class="keyword">let</span> minIndex;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">    minIndex = i; <span class="comment">// 寻找最小值，初始值为 i</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[j] &lt; arr[minIndex]) &#123;</span><br><span class="line">        minIndex = j; <span class="comment">// 将最小值索引保存</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果一样就不用交换，节省时间</span></span><br><span class="line">    <span class="keyword">if</span> (i !== minIndex) &#123;</span><br><span class="line">      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]; <span class="comment">// 交换变量</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><p>选择排序的平均时间复杂度：O(N^2)，在实际生产环境中不推荐使用。</p>
-<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><h3 id="算法步骤-2"><a href="#算法步骤-2" class="headerlink" title="算法步骤"></a>算法步骤</h3><ol>
-<li><p>将第一待排序序列第一个元素看做一个有序序列，把第二个元素到最后一个元素当成是未排序序列；</p>
-</li>
-<li><p>从第二个元素开始，依次和前面的元素进行比较，如果发现元素比它大，交换位置，这样前二个的元素排序完成；</p>
-</li>
-<li><p>再第三个元素开始…以此类推，最后完成排序。</p>
-</li>
+<h4 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h4><p>选择排序的平均时间复杂度：O(N^2)，在实际生产环境中不推荐使用。</p>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><h4 id="算法步骤-2"><a href="#算法步骤-2" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li>将第一待排序序列第一个元素看做一个有序序列，把第二个元素到最后一个元素当成是未排序序列。</li>
+<li>从第二个元素开始，依次和前面的元素进行比较，如果发现元素比它大，交换位置，这样前二个的元素排序完成。</li>
+<li>再第三个元素开始…以此类推，最后完成排序。</li>
 </ol>
-<h3 id="代码演示-2"><a href="#代码演示-2" class="headerlink" title="代码演示"></a>代码演示</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertionSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.length</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i; j &gt; <span class="number">0</span> &amp;&amp; arr[j] &lt; arr[j - <span class="number">1</span>]; j--) &#123;</span><br><span class="line">      ;[arr[j], arr[j - <span class="number">1</span>]] = [arr[j - <span class="number">1</span>], arr[j]] <span class="comment">// 交换变量</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代码演示-2"><a href="#代码演示-2" class="headerlink" title="代码演示"></a>代码演示</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">insertionSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.<span class="property">length</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i; j &gt; <span class="number">0</span> &amp;&amp; arr[j] &lt; arr[j - <span class="number">1</span>]; j--) &#123;</span><br><span class="line">      [arr[j], arr[j - <span class="number">1</span>]] = [arr[j - <span class="number">1</span>], arr[j]]; <span class="comment">// 交换变量</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>优化：内循环只交换一次</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertionSort2</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.length</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> cur = arr[i] <span class="comment">// 保存待插入的元素</span></span><br><span class="line">    <span class="keyword">let</span> j = i <span class="comment">// 保存元素 cur 应该插入的位置</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 依次和前面的元素进行比较，如果它前一个元素比它大，这个元素往后挪一个位置，然后继续比较寻找</span></span><br><span class="line">    <span class="comment">// 直到找到前一个比它小的元素时，前面的元素不用往后挪了，待插入的元素就放在这个位置 j 上</span></span><br><span class="line">    <span class="comment">// 如果找不到，说明这个元素和前面的元素作比较是最小值，直接放到第一个位置，此时 j = 0</span></span><br><span class="line">    <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; arr[j - <span class="number">1</span>] &gt; cur) &#123;</span><br><span class="line">      arr[j] = arr[j - <span class="number">1</span>]</span><br><span class="line">      j--</span><br><span class="line">    &#125;</span><br><span class="line">    arr[j] = cur</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">insertionSort2</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> len = arr.<span class="property">length</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> cur = arr[i]; <span class="comment">// 保存待插入的元素</span></span><br><span class="line">    <span class="keyword">let</span> j = i; <span class="comment">// 保存元素 cur 应该插入的位置</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 依次和前面的元素进行比较，如果它前一个元素比它大，这个元素往后挪一个位置，然后继续比较寻找</span></span><br><span class="line">    <span class="comment">// 直到找到前一个比它小的元素时，前面的元素不用往后挪了，待插入的元素就放在这个位置 j 上</span></span><br><span class="line">    <span class="comment">// 如果找不到，说明这个元素和前面的元素作比较是最小值，直接放到第一个位置，此时 j = 0</span></span><br><span class="line">    <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; arr[j - <span class="number">1</span>] &gt; cur) &#123;</span><br><span class="line">      arr[j] = arr[j - <span class="number">1</span>];</span><br><span class="line">      j--;</span><br><span class="line">    &#125;</span><br><span class="line">    arr[j] = cur;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h3><p>插入排序的平均时间复杂度：O(N^2)，在实际生产环境中不推荐使用。</p>
-<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><h3 id="算法步骤-3"><a href="#算法步骤-3" class="headerlink" title="算法步骤"></a>算法步骤</h3><ol>
-<li><p>选择一个增量序列 t1，t2，……，tk，其中 ti &gt; tj, tk = 1；</p>
-</li>
-<li><p>按增量序列个数 k，对序列进行 k 趟排序；</p>
-</li>
-<li><p>每趟排序，根据对应的增量 ti，将待排序列分割成若干长度为 m 的子序列，分别对各子表进行直接插入排序。仅增量因子为 1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。</p>
-</li>
+<h4 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h4><p>插入排序的平均时间复杂度：O(N^2)，在实际生产环境中不推荐使用。</p>
+<h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><h4 id="算法步骤-3"><a href="#算法步骤-3" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li>选择一个增量序列 t1，t2，……，tk，其中 ti &gt; tj, tk &#x3D; 1。</li>
+<li>按增量序列个数 k，对序列进行 k 趟排序。</li>
+<li>每趟排序，根据对应的增量 ti，将待排序列分割成若干长度为 m 的子序列，分别对各子表进行直接插入排序。仅增量因子为 1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。</li>
 </ol>
-<h3 id="代码演示-3"><a href="#代码演示-3" class="headerlink" title="代码演示"></a>代码演示</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shellSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> len = arr.length,</span><br><span class="line">    temp,</span><br><span class="line">    gap = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (gap &lt; len / <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="comment">// 动态定义间隔序列</span></span><br><span class="line">    gap = gap * <span class="number">3</span> + <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (gap; gap &gt; <span class="number">0</span>; gap = <span class="built_in">Math</span>.floor(gap / <span class="number">3</span>)) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = gap; i &lt; len; i++) &#123;</span><br><span class="line">      temp = arr[i]</span><br><span class="line">      <span class="keyword">let</span> j</span><br><span class="line">      <span class="keyword">for</span> (j = i - gap; j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; temp; j -= gap) &#123;</span><br><span class="line">        arr[j + gap] = arr[j]</span><br><span class="line">      &#125;</span><br><span class="line">      arr[j + gap] = temp</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代码演示-3"><a href="#代码演示-3" class="headerlink" title="代码演示"></a>代码演示</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">shellSort</span>(<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> len = arr.<span class="property">length</span>;</span><br><span class="line">  <span class="keyword">let</span> temp;</span><br><span class="line">  <span class="keyword">let</span> gap = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (gap &lt; len / <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="comment">// 动态定义间隔序列</span></span><br><span class="line">    gap = gap * <span class="number">3</span> + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (gap; gap &gt; <span class="number">0</span>; gap = <span class="title class_">Math</span>.<span class="title function_">floor</span>(gap / <span class="number">3</span>)) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = gap; i &lt; len; i++) &#123;</span><br><span class="line">      temp = arr[i];</span><br><span class="line">      <span class="keyword">let</span> j;</span><br><span class="line">      <span class="keyword">for</span> (j = i - gap; j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; temp; j -= gap) &#123;</span><br><span class="line">        arr[j + gap] = arr[j];</span><br><span class="line">      &#125;</span><br><span class="line">      arr[j + gap] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="小结-3"><a href="#小结-3" class="headerlink" title="小结"></a>小结</h3><p>希尔排序的平时时间复杂度为 <code>O(N log N)</code>，比其它三种基础排序算法效率要好，但是比起高级排序的归并排序和快排要稍微差点。</p>
+<h4 id="小结-3"><a href="#小结-3" class="headerlink" title="小结"></a>小结</h4><p>希尔排序的平时时间复杂度为 <code>O(NlogN)</code>，比其它三种基础排序算法效率要好，但是比起高级排序的归并排序和快排要稍微差点。</p>
 
     </div>
 
@@ -423,7 +402,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA"><span class="nav-number">1.2.</span> <span class="nav-text">代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">1.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">2.1.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA-1"><span class="nav-number">2.2.</span> <span class="nav-text">代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-1"><span class="nav-number">2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">3.1.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA-2"><span class="nav-number">3.2.</span> <span class="nav-text">代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-2"><span class="nav-number">3.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F"><span class="nav-number">4.</span> <span class="nav-text">希尔排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4-3"><span class="nav-number">4.1.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA-3"><span class="nav-number">4.2.</span> <span class="nav-text">代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-3"><span class="nav-number">4.3.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA"><span class="nav-number">1.2.</span> <span class="nav-text">代码演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">1.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">2.1.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA-1"><span class="nav-number">2.2.</span> <span class="nav-text">代码演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-1"><span class="nav-number">2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">3.1.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA-2"><span class="nav-number">3.2.</span> <span class="nav-text">代码演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-2"><span class="nav-number">3.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F"><span class="nav-number">4.</span> <span class="nav-text">希尔排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4-3"><span class="nav-number">4.1.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA-3"><span class="nav-number">4.2.</span> <span class="nav-text">代码演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-3"><span class="nav-number">4.3.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -432,7 +411,7 @@
     <img class="site-author-image" itemprop="image" alt="Alan Deng"
       src="/images/avatar1.png">
   <p class="site-author-name" itemprop="name">Alan Deng</p>
-  <div class="site-description" itemprop="description">不忘初心</div>
+  <div class="site-description" itemprop="description">A Web Developer</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -496,12 +475,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">452k</span>
+    <span title="站点总字数">456k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:51</span>
+    <span title="站点阅读时长">6:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -513,97 +492,6 @@
 
 
 
-<script>
-  (function() {
-    function leancloudSelector(url) {
-      url = encodeURI(url);
-      return document.getElementById(url).querySelector('.leancloud-visitors-count');
-    }
-
-    function addCount(Counter) {
-      var visitors = document.querySelector('.leancloud_visitors');
-      var url = decodeURI(visitors.id);
-      var title = visitors.dataset.flagTitle;
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          if (results.length > 0) {
-            var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
-            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
-              .catch(error => {
-                console.error('Failed to save visitor count', error);
-              });
-          } else {
-              Counter('post', '/classes/Counter', { title, url, time: 1 })
-                .then(response => response.json())
-                .then(() => {
-                  leancloudSelector(url).innerText = 1;
-                })
-                .catch(error => {
-                  console.error('Failed to create', error);
-                });
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    function showTime(Counter) {
-      var visitors = document.querySelectorAll('.leancloud_visitors');
-      var entries = [...visitors].map(element => {
-        return decodeURI(element.id);
-      });
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          for (let url of entries) {
-            let target = results.find(item => item.url === url);
-            leancloudSelector(url).innerText = target ? target.time : 0;
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"yKMuxFXOwwu1YoDly0pnabsH-9Nh9j0Va","app_key":"hXdqvzY7wAwlTbrYXhDfmpnR","server_url":null,"security":false};
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${api_server}/1.1${url}`, {
-          method,
-          headers: {
-            'X-LC-Id'     : app_id,
-            'X-LC-Key'    : app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-      if (CONFIG.page.isPost) {
-        if (CONFIG.hostname !== location.hostname) return;
-        addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
-        showTime(Counter);
-      }
-    }
-
-    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({ api_server }) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
 
 
       </div>

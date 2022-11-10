@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
@@ -27,7 +27,7 @@
 <meta property="og:description" content="同一个路由的跳转在重构vue-trailer项目的时候，遇到过一个问题，在电影的详情页面上有一个同类电影的按钮，里面有最多 5 部的同类电影，可以通过点击跳转到相应的电影详情页中去。 比如：在电影巨齿鲨的详情页面中，有解码者等 5 部同类的电影，点击同类电影解码者区域就可以跳转到电影解码者的详情页面。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-07-27T12:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-16T03:14:33.775Z">
+<meta property="article:modified_time" content="2022-11-10T10:25:48.390Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="Vue">
 <meta property="article:tag" content="动画">
@@ -101,7 +101,6 @@
       <h1 class="site-title">Alan's Notes</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">记事本</p>
   </div>
 
   <div class="site-nav-right">
@@ -198,7 +197,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar1.png">
       <meta itemprop="name" content="Alan Deng">
-      <meta itemprop="description" content="不忘初心">
+      <meta itemprop="description" content="A Web Developer">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -228,14 +227,7 @@
                 </span>
             </span>
 
-          
-            <span id="/blog/20180727-Vue%E4%B8%AD%E5%90%8C%E4%B8%80%E4%B8%AA%E8%B7%AF%E7%94%B1%E7%9A%84%E8%B7%B3%E8%BD%AC%E5%8F%8A%E5%8A%A8%E7%94%BB/" class="post-meta-item leancloud_visitors" data-flag-title="Vue中同一个路由的跳转及动画" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
+          <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -260,7 +252,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="同一个路由的跳转"><a href="#同一个路由的跳转" class="headerlink" title="同一个路由的跳转"></a>同一个路由的跳转</h3><p>在重构<a target="_blank" rel="noopener" href="https://github.com/haledc/vue-trailer">vue-trailer</a>项目的时候，遇到过一个问题，在电影的详情页面上有一个同类电影的按钮，里面有最多 5 部的同类电影，可以通过点击跳转到相应的电影详情页中去。</p>
+        <h4 id="同一个路由的跳转"><a href="#同一个路由的跳转" class="headerlink" title="同一个路由的跳转"></a>同一个路由的跳转</h4><p>在重构<a target="_blank" rel="noopener" href="https://github.com/alanhaledc/vue-trailer">vue-trailer</a>项目的时候，遇到过一个问题，在电影的详情页面上有一个同类电影的按钮，里面有最多 5 部的同类电影，可以通过点击跳转到相应的电影详情页中去。</p>
 <p>比如：在电影<strong>巨齿鲨</strong>的详情页面中，有<strong>解码者</strong>等 5 部同类的电影，点击同类电影<strong>解码者</strong>区域就可以跳转到电影<strong>解码者</strong>的详情页面。</p>
 <span id="more"></span>
 
@@ -268,14 +260,14 @@
 <p>首先当然是翻看<code>vue-router</code>的文档了，发现在导航守卫下面的组件守卫<code>beforeRouteUpdate</code>的代码注释有提到过：带动态参数的路径之间的跳转可能会用到这个函数，因为 vue 渲染同样的组件，所以组件实例被复用了，然后可能会到这个钩子，看了后一脸的懵比。</p>
 <p>然后只好去万能<code>google</code>上找了，搜索了关键字<code>vue同路由页面的跳转</code>之后，发现在<code>vue-router</code>的仓库的 issue 中有人提出了这个问题，然后打开了页面看了下，发现是 16 年的 issue 的，而且还是针对<code>vue1.0</code>的提的 issue，不过大概看了下，发现有 vue 作者的回答，他建议是重新载入数据，也有其他人说是使用<code>canReuse</code>，但是这个这个 api 在 2.0 的时候已经删除掉了，后面只需往下看，也有人建议使用<code>beforeRouteUpdate</code>，但是没有说具体怎么操作，有点纠结。</p>
 <p>后面又重新研究了路由守卫和<code>beforeRouteUpdate</code>的用法之后，再根据之前 vue 作者建议的重新载入数据之后，终于明白了要怎么做了。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">beforeRouteUpdate</span>(<span class="params">to, <span class="keyword">from</span>, next</span>)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.id = to.params.id  <span class="comment">// 获得跳转电影页面的id</span></span><br><span class="line">  <span class="built_in">this</span>.getMovieDetail(<span class="built_in">this</span>.id)  <span class="comment">// 通过id获取数据</span></span><br><span class="line">  <span class="built_in">this</span>.setPlayer() <span class="comment">// 重置播放器</span></span><br><span class="line">  next()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">beforeRouteUpdate</span>(<span class="params">to, <span class="keyword">from</span>, next</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">id</span> = to.<span class="property">params</span>.<span class="property">id</span>  <span class="comment">// 获得跳转电影页面的id</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">getMovieDetail</span>(<span class="variable language_">this</span>.<span class="property">id</span>)  <span class="comment">// 通过id获取数据</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">setPlayer</span>() <span class="comment">// 重置播放器</span></span><br><span class="line">  <span class="title function_">next</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>原理是：使用<code>beforeRouteUpdate</code>钩子，在路由更新前获取跳转页面电影的数据，然后 vue 会把新的数据渲染到页面上。这样的话，页面应该就会更新了。</p>
 <p>按照上面的代码，点击同类电影跳转到同类电影的详情页，页面刷新了，问题就解决了。</p>
 <p>之后，在电影的列表页面也是使用这种方法切换页面，根据不同的类型或者年份来请求不同的电影数据。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">beforeRouteUpdate</span>(<span class="params">to, <span class="keyword">from</span>, next</span>)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.category = to.params.category</span><br><span class="line">  <span class="built_in">this</span>.year = to.params.year</span><br><span class="line">  <span class="built_in">this</span>.getMovies(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="built_in">this</span>.category === <span class="string">&#x27;全部&#x27;</span> ? <span class="literal">null</span> : <span class="built_in">this</span>.category,</span><br><span class="line">    <span class="attr">year</span>: <span class="built_in">this</span>.year</span><br><span class="line">  &#125;)</span><br><span class="line">  next()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">beforeRouteUpdate</span>(<span class="params">to, <span class="keyword">from</span>, next</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">category</span> = to.<span class="property">params</span>.<span class="property">category</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">year</span> = to.<span class="property">params</span>.<span class="property">year</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">getMovies</span>(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="variable language_">this</span>.<span class="property">category</span> === <span class="string">&#x27;全部&#x27;</span> ? <span class="literal">null</span> : <span class="variable language_">this</span>.<span class="property">category</span>,</span><br><span class="line">    <span class="attr">year</span>: <span class="variable language_">this</span>.<span class="property">year</span></span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="title function_">next</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="同一个路由的切换的动画"><a href="#同一个路由的切换的动画" class="headerlink" title="同一个路由的切换的动画"></a>同一个路由的切换的动画</h3><p>页面渲染完成了，然后想添加一些过渡动画增加效果。又遇到了类似的问题，添加过渡动画无效。</p>
+<h4 id="同一个路由的切换的动画"><a href="#同一个路由的切换的动画" class="headerlink" title="同一个路由的切换的动画"></a>同一个路由的切换的动画</h4><p>页面渲染完成了，然后想添加一些过渡动画增加效果。又遇到了类似的问题，添加过渡动画无效。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transition</span></span></span><br><span class="line"><span class="tag">  <span class="attr">appear</span></span></span><br><span class="line"><span class="tag">  <span class="attr">mode</span>=<span class="string">&quot;out-in&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">enter-active-class</span>=<span class="string">&quot;animated slideInLeft&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">leave-active-class</span>=<span class="string">&quot;animated slideOutRight&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">router-view</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>官方文档有说明这个问题:</p>
@@ -283,7 +275,7 @@
 <p>当有相同标签名的元素切换时，需要通过 key 特性设置唯一的值来标记以让 Vue 区分它们，否则 Vue 为了效率只会替换相同标签内部的内容。即使在技术上没有必要，给在<code>transition</code>组件中的多个元素设置 key 是一个更好的实践。</p>
 </blockquote>
 <p>然后修改代码，设置 key 值：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transition</span></span></span><br><span class="line"><span class="tag">  <span class="attr">appear</span></span></span><br><span class="line"><span class="tag">  <span class="attr">mode</span>=<span class="string">&quot;out-in&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">enter-active-class</span>=<span class="string">&quot;animated slideInLeft&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">leave-active-class</span>=<span class="string">&quot;animated slideOutRight&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">router-view</span> <span class="attr">:key</span>=<span class="string">&quot;key&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">// ...</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="attr">computed</span>: &#123;</span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">key</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> <span class="built_in">this</span>.$route.path</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transition</span></span></span><br><span class="line"><span class="tag">  <span class="attr">appear</span></span></span><br><span class="line"><span class="tag">  <span class="attr">mode</span>=<span class="string">&quot;out-in&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">enter-active-class</span>=<span class="string">&quot;animated slideInLeft&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">leave-active-class</span>=<span class="string">&quot;animated slideOutRight&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">router-view</span> <span class="attr">:key</span>=<span class="string">&quot;key&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// ...</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">computed</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">key</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$route</span>.<span class="property">path</span></span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>给<code>router-view</code>标签绑定一个 key 属性，值为不相同的字符串就可以了，这里可以使用 router 的<code>path</code>，因为它们都不一样。这样 vue 就可以根据 key 值来区分他们，动画效果也就出来了。</p>
 
@@ -392,7 +384,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E4%B8%80%E4%B8%AA%E8%B7%AF%E7%94%B1%E7%9A%84%E8%B7%B3%E8%BD%AC"><span class="nav-number">1.</span> <span class="nav-text">同一个路由的跳转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E4%B8%80%E4%B8%AA%E8%B7%AF%E7%94%B1%E7%9A%84%E5%88%87%E6%8D%A2%E7%9A%84%E5%8A%A8%E7%94%BB"><span class="nav-number">2.</span> <span class="nav-text">同一个路由的切换的动画</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E4%B8%80%E4%B8%AA%E8%B7%AF%E7%94%B1%E7%9A%84%E8%B7%B3%E8%BD%AC"><span class="nav-number">1.</span> <span class="nav-text">同一个路由的跳转</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E4%B8%80%E4%B8%AA%E8%B7%AF%E7%94%B1%E7%9A%84%E5%88%87%E6%8D%A2%E7%9A%84%E5%8A%A8%E7%94%BB"><span class="nav-number">2.</span> <span class="nav-text">同一个路由的切换的动画</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -401,7 +393,7 @@
     <img class="site-author-image" itemprop="image" alt="Alan Deng"
       src="/images/avatar1.png">
   <p class="site-author-name" itemprop="name">Alan Deng</p>
-  <div class="site-description" itemprop="description">不忘初心</div>
+  <div class="site-description" itemprop="description">A Web Developer</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -465,12 +457,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">452k</span>
+    <span title="站点总字数">456k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:51</span>
+    <span title="站点阅读时长">6:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -482,97 +474,6 @@
 
 
 
-<script>
-  (function() {
-    function leancloudSelector(url) {
-      url = encodeURI(url);
-      return document.getElementById(url).querySelector('.leancloud-visitors-count');
-    }
-
-    function addCount(Counter) {
-      var visitors = document.querySelector('.leancloud_visitors');
-      var url = decodeURI(visitors.id);
-      var title = visitors.dataset.flagTitle;
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          if (results.length > 0) {
-            var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
-            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
-              .catch(error => {
-                console.error('Failed to save visitor count', error);
-              });
-          } else {
-              Counter('post', '/classes/Counter', { title, url, time: 1 })
-                .then(response => response.json())
-                .then(() => {
-                  leancloudSelector(url).innerText = 1;
-                })
-                .catch(error => {
-                  console.error('Failed to create', error);
-                });
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    function showTime(Counter) {
-      var visitors = document.querySelectorAll('.leancloud_visitors');
-      var entries = [...visitors].map(element => {
-        return decodeURI(element.id);
-      });
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          for (let url of entries) {
-            let target = results.find(item => item.url === url);
-            leancloudSelector(url).innerText = target ? target.time : 0;
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"yKMuxFXOwwu1YoDly0pnabsH-9Nh9j0Va","app_key":"hXdqvzY7wAwlTbrYXhDfmpnR","server_url":null,"security":false};
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${api_server}/1.1${url}`, {
-          method,
-          headers: {
-            'X-LC-Id'     : app_id,
-            'X-LC-Key'    : app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-      if (CONFIG.page.isPost) {
-        if (CONFIG.hostname !== location.hostname) return;
-        addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
-        showTime(Counter);
-      }
-    }
-
-    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({ api_server }) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
 
 
       </div>

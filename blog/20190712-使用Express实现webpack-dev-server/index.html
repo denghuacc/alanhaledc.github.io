@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
@@ -27,7 +27,7 @@
 <meta property="og:description" content="Webpack 是前端最流行的编译工具之一，而webpack-dev-server 是 Webpack 的开发环境服务器，它的底层依赖的就是服务器框架 Express。下面使用 Express 的实现一个简单的 webpack-dev-server。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-07-12T12:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-16T03:14:33.779Z">
+<meta property="article:modified_time" content="2022-11-10T06:30:46.345Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="Webpack">
 <meta property="article:tag" content="Express">
@@ -101,7 +101,6 @@
       <h1 class="site-title">Alan's Notes</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">记事本</p>
   </div>
 
   <div class="site-nav-right">
@@ -198,7 +197,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar1.png">
       <meta itemprop="name" content="Alan Deng">
-      <meta itemprop="description" content="不忘初心">
+      <meta itemprop="description" content="A Web Developer">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -228,20 +227,13 @@
                 </span>
             </span>
 
-          
-            <span id="/blog/20190712-%E4%BD%BF%E7%94%A8Express%E5%AE%9E%E7%8E%B0webpack-dev-server/" class="post-meta-item leancloud_visitors" data-flag-title="使用Express实现webpack-dev-server" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
+          <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数</span>
-              <span>3.7k</span>
+              <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -272,17 +264,17 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add express webpack webpack-dev-middleware webpack-hot-middleware html-webpack-plugin -D</span><br></pre></td></tr></table></figure>
 
 <p>创建配置文件<code>webpack.config.js</code>（这个配置文件和普通配置文件没什么区别），编写下面代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">&#x27;webpack&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="attr">mode</span>: <span class="string">&#x27;development&#x27;</span>,</span><br><span class="line">  <span class="attr">devtool</span>: <span class="string">&#x27;cheap-module-eval-source-map&#x27;</span>,</span><br><span class="line">  <span class="attr">entry</span>: path.resolve(__dirname, <span class="string">&#x27;src/index.js&#x27;</span>),</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.resolve(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      <span class="attr">template</span>: path.resolve(__dirname, <span class="string">&#x27;template.html&#x27;</span>),</span><br><span class="line">      <span class="attr">filename</span>: <span class="string">&#x27;index.html&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> webpack.HotModuleReplacementPlugin() <span class="comment">// 注意：这里需要设置模块热重载插件。</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">&quot;webpack&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;html-webpack-plugin&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">mode</span>: <span class="string">&quot;development&quot;</span>,</span><br><span class="line">  <span class="attr">devtool</span>: <span class="string">&quot;cheap-module-eval-source-map&quot;</span>,</span><br><span class="line">  <span class="attr">entry</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;src/index.js&quot;</span>),</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;dist&quot;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&quot;bundle.js&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;</span><br><span class="line">      <span class="attr">template</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;template.html&quot;</span>),</span><br><span class="line">      <span class="attr">filename</span>: <span class="string">&quot;index.html&quot;</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> webpack.<span class="title class_">HotModuleReplacementPlugin</span>(), <span class="comment">// 注意：这里需要设置模块热重载插件。</span></span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>在根目录的<code>src</code>文件夹下编写下面的文件</p>
 <p>模块文件<code>button.js</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">generateBtn</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> button = <span class="built_in">document</span>.createElement(<span class="string">&#x27;button&#x27;</span>)</span><br><span class="line">  button.id = <span class="string">&#x27;btn&#x27;</span></span><br><span class="line">  button.innerText = <span class="string">&#x27;click me&#x27;</span></span><br><span class="line">  button.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="built_in">this</span>.innerText)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(button)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">generateBtn</span>(<span class="params">params</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> button = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;button&quot;</span>);</span><br><span class="line">  button.<span class="property">id</span> = <span class="string">&quot;btn&quot;</span>;</span><br><span class="line">  button.<span class="property">innerText</span> = <span class="string">&quot;click me&quot;</span>;</span><br><span class="line">  button.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="variable language_">this</span>.<span class="property">innerText</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(button);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>入口文件<code>index.js</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; generateBtn &#125; <span class="keyword">from</span> <span class="string">&#x27;./button&#x27;</span></span><br><span class="line">generateBtn()</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; generateBtn &#125; <span class="keyword">from</span> <span class="string">&quot;./button&quot;</span>;</span><br><span class="line"><span class="title function_">generateBtn</span>();</span><br></pre></td></tr></table></figure>
 
 <p>Express 服务器文件<code>server.js</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">&#x27;webpack&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> webpackConfig = <span class="built_in">require</span>(<span class="string">&#x27;./webpack.config&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> webpackDevMiddleware = <span class="built_in">require</span>(<span class="string">&#x27;webpack-dev-middleware&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> webpackHotMiddleware = <span class="built_in">require</span>(<span class="string">&#x27;webpack-hot-middleware&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里只处理 entry 选项是 string 和 array 的情况</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> webpackConfig.entry === <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> entry = webpackConfig.entry</span><br><span class="line">  webpackConfig.entry = [entry]</span><br><span class="line">&#125;</span><br><span class="line">webpackConfig.entry.push(<span class="string">&#x27;webpack-hot-middleware/client&#x27;</span>) <span class="comment">// 引入 client</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> compiler = webpack(webpackConfig) <span class="comment">// 生成 webpack 编译器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用中间件，都需要传入 webpack 编译器作为参数</span></span><br><span class="line">app.use(</span><br><span class="line">  webpackDevMiddleware(compiler, &#123;</span><br><span class="line">    <span class="attr">noInfo</span>: <span class="literal">true</span></span><br><span class="line">  &#125;)</span><br><span class="line">)</span><br><span class="line">app.use(webpackHotMiddleware(compiler))</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PORT = process.env.PORT || <span class="number">3000</span></span><br><span class="line"></span><br><span class="line">app.listen(PORT, <span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">throw</span> error</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;Server running at http://127.0.0.1:3000&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">&quot;webpack&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> webpackConfig = <span class="built_in">require</span>(<span class="string">&quot;./webpack.config&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> webpackDevMiddleware = <span class="built_in">require</span>(<span class="string">&quot;webpack-dev-middleware&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> webpackHotMiddleware = <span class="built_in">require</span>(<span class="string">&quot;webpack-hot-middleware&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里只处理 entry 选项是 string 和 array 的情况</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> webpackConfig.<span class="property">entry</span> === <span class="string">&quot;string&quot;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> entry = webpackConfig.<span class="property">entry</span>;</span><br><span class="line">  webpackConfig.<span class="property">entry</span> = [entry];</span><br><span class="line">&#125;</span><br><span class="line">webpackConfig.<span class="property">entry</span>.<span class="title function_">push</span>(<span class="string">&quot;webpack-hot-middleware/client&quot;</span>); <span class="comment">// 引入 client</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> compiler = <span class="title function_">webpack</span>(webpackConfig); <span class="comment">// 生成 webpack 编译器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用中间件，都需要传入 webpack 编译器作为参数</span></span><br><span class="line">app.<span class="title function_">use</span>(</span><br><span class="line">  <span class="title function_">webpackDevMiddleware</span>(compiler, &#123;</span><br><span class="line">    <span class="attr">noInfo</span>: <span class="literal">true</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">);</span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">webpackHotMiddleware</span>(compiler));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PORT</span> = process.<span class="property">env</span>.<span class="property">PORT</span> || <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="variable constant_">PORT</span>, <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Server running at http://127.0.0.1:3000&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>这里采用的是最简单的配置，只实现基本的功能。</p>
 <p>首先通过 Express 创建一个服务器，然后分别调用<code>webpack-dev-middleware</code> 和 <code>webpack-hot-middleware</code>这 两个中间件。</p>
@@ -294,12 +286,12 @@
 <p>发现 Webpack 编译打包成功。页面显示正常，模块文件<code>button.js</code>里面的点击事件监听器也能正常调用。</p>
 <p>然后我们修改下模块<code>button</code>中元素的内容，比如把<code>innerText</code>的内容<code>click me</code> 改成<code>click me123</code>，重新查看页面，发现页面并没有热重载，然后发现控制台中有警告信息，页面热重载实现失败，页面内容没有更新。不过尝试刷新下页面，浏览器重新渲染页面后，页面内容更新了。</p>
 <p>给<code>webpack-hot-middleware/client</code>添加参数，在热重载失败的时候自动刷新页面。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">webpackConfig.entry.push(</span><br><span class="line">  <span class="comment">// &#x27;webpack-hot-middleware/client&#x27;</span></span><br><span class="line">  <span class="string">&#x27;webpack-hot-middleware/client?path=/__webpack_hmr&amp;timeout=20000&amp;reload=true&#x27;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">webpackConfig.<span class="property">entry</span>.<span class="title function_">push</span>(</span><br><span class="line">  <span class="comment">// &#x27;webpack-hot-middleware/client&#x27;</span></span><br><span class="line">  <span class="string">&quot;webpack-hot-middleware/client?path=/__webpack_hmr&amp;timeout=20000&amp;reload=true&quot;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
 <p>这种传参数的形式有点类似于 HTTP 请求时 URL 中的<code>query</code>字符串。其中<code>reload=true</code>参数表示热重载失败后会自动刷新页面。</p>
 <p>重新启动服务器，刷新浏览器页面，再次修改<code>innerText</code>的值，发现页面热重载还是失败，不过浏览器自动刷新页面，重新渲染了页面的内容。其实到这一步，已经基本能满足一般的开发需求了。</p>
 <p>如果还需要实现热重载的话，需要编写特定的热重载代码，在入口文件<code>index.js</code>中，增加下面代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">module</span>.hot) &#123;</span><br><span class="line">  <span class="built_in">module</span>.hot.accept(<span class="string">&#x27;./button&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.body.removeChild(<span class="built_in">document</span>.getElementById(<span class="string">&#x27;btn&#x27;</span>))</span><br><span class="line">    generateBtn()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="variable language_">module</span>.<span class="property">hot</span>) &#123;</span><br><span class="line">  <span class="variable language_">module</span>.<span class="property">hot</span>.<span class="title function_">accept</span>(<span class="string">&quot;./button&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">removeChild</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btn&quot;</span>));</span><br><span class="line">    <span class="title function_">generateBtn</span>();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>重新启动服务器，刷新浏览器页面，再修改<code>innerText</code>的值，发现页面热重载已经生效。可以通过查看控制台打印的信息确认页面热重载是否生效。</p>
 <p>在上面的代码中，需要手动的编写模块<code>module</code>的热重载代码。这些代码表示在模块热重载时，需要先删除掉原来的元素，然后再执行函数<code>generateBtn</code>重新生成新的元素。如果不删除原来的原生，页面中就会出现两个<code>button</code>元素，这样就和预期不相符。</p>
@@ -418,7 +410,7 @@
     <img class="site-author-image" itemprop="image" alt="Alan Deng"
       src="/images/avatar1.png">
   <p class="site-author-name" itemprop="name">Alan Deng</p>
-  <div class="site-description" itemprop="description">不忘初心</div>
+  <div class="site-description" itemprop="description">A Web Developer</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -482,12 +474,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">452k</span>
+    <span title="站点总字数">456k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:51</span>
+    <span title="站点阅读时长">6:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -499,97 +491,6 @@
 
 
 
-<script>
-  (function() {
-    function leancloudSelector(url) {
-      url = encodeURI(url);
-      return document.getElementById(url).querySelector('.leancloud-visitors-count');
-    }
-
-    function addCount(Counter) {
-      var visitors = document.querySelector('.leancloud_visitors');
-      var url = decodeURI(visitors.id);
-      var title = visitors.dataset.flagTitle;
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          if (results.length > 0) {
-            var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
-            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
-              .catch(error => {
-                console.error('Failed to save visitor count', error);
-              });
-          } else {
-              Counter('post', '/classes/Counter', { title, url, time: 1 })
-                .then(response => response.json())
-                .then(() => {
-                  leancloudSelector(url).innerText = 1;
-                })
-                .catch(error => {
-                  console.error('Failed to create', error);
-                });
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    function showTime(Counter) {
-      var visitors = document.querySelectorAll('.leancloud_visitors');
-      var entries = [...visitors].map(element => {
-        return decodeURI(element.id);
-      });
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          for (let url of entries) {
-            let target = results.find(item => item.url === url);
-            leancloudSelector(url).innerText = target ? target.time : 0;
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"yKMuxFXOwwu1YoDly0pnabsH-9Nh9j0Va","app_key":"hXdqvzY7wAwlTbrYXhDfmpnR","server_url":null,"security":false};
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${api_server}/1.1${url}`, {
-          method,
-          headers: {
-            'X-LC-Id'     : app_id,
-            'X-LC-Key'    : app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-      if (CONFIG.page.isPost) {
-        if (CONFIG.hostname !== location.hostname) return;
-        addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
-        showTime(Counter);
-      }
-    }
-
-    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({ api_server }) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
 
 
       </div>

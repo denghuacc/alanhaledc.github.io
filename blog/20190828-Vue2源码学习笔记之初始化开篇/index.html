@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
@@ -19,15 +19,15 @@
     var CONFIG = {"hostname":"alanhaledc.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"ETZWTJO7QM","apiKey":"2637d77dbb15451056cd521bebf6fb6c","indexName":"search_demo","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Vue 的基本的结构我们已经弄清楚了，下面正式学习 Vue 的实例对象初始化过程。 现在我们回到出生地文件core&#x2F;instance&#x2F;index.js，查看下面的代码 123456789101112import &amp;#123; initMixin &amp;#125; from &amp;#x27;.&#x2F;init&amp;#x27;&#x2F;&#x2F; ...function Vue(options) &amp;#123;  if (process">
+  <meta name="description" content="Vue 的基本的结构我们已经弄清楚了，下面正式学习 Vue 的实例对象初始化过程。 现在我们回到出生地文件core&#x2F;instance&#x2F;index.js，查看下面的代码 123456789101112import &amp;#123; initMixin &amp;#125; from &quot;.&#x2F;init&quot;;&#x2F;&#x2F; ...function Vue(options) &amp;#123;  if (proces">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue2源码学习笔记之初始化开篇">
 <meta property="og:url" content="https://alanhaledc.com/blog/20190828-Vue2%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E5%BC%80%E7%AF%87/index.html">
 <meta property="og:site_name" content="Alan&#39;s Notes">
-<meta property="og:description" content="Vue 的基本的结构我们已经弄清楚了，下面正式学习 Vue 的实例对象初始化过程。 现在我们回到出生地文件core&#x2F;instance&#x2F;index.js，查看下面的代码 123456789101112import &amp;#123; initMixin &amp;#125; from &amp;#x27;.&#x2F;init&amp;#x27;&#x2F;&#x2F; ...function Vue(options) &amp;#123;  if (process">
+<meta property="og:description" content="Vue 的基本的结构我们已经弄清楚了，下面正式学习 Vue 的实例对象初始化过程。 现在我们回到出生地文件core&#x2F;instance&#x2F;index.js，查看下面的代码 123456789101112import &amp;#123; initMixin &amp;#125; from &quot;.&#x2F;init&quot;;&#x2F;&#x2F; ...function Vue(options) &amp;#123;  if (proces">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-08-28T12:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-16T03:14:33.781Z">
+<meta property="article:modified_time" content="2022-11-10T10:25:48.395Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="Vue">
 <meta property="article:tag" content="源码学习">
@@ -101,7 +101,6 @@
       <h1 class="site-title">Alan's Notes</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">记事本</p>
   </div>
 
   <div class="site-nav-right">
@@ -198,7 +197,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar1.png">
       <meta itemprop="name" content="Alan Deng">
-      <meta itemprop="description" content="不忘初心">
+      <meta itemprop="description" content="A Web Developer">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -228,14 +227,7 @@
                 </span>
             </span>
 
-          
-            <span id="/blog/20190828-Vue2%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E5%BC%80%E7%AF%87/" class="post-meta-item leancloud_visitors" data-flag-title="Vue2源码学习笔记之初始化开篇" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
+          <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -262,24 +254,24 @@
       
         <p>Vue 的基本的结构我们已经弄清楚了，下面正式学习 Vue 的实例对象初始化过程。</p>
 <p>现在我们回到出生地文件<code>core/instance/index.js</code>，查看下面的代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; initMixin &#125; <span class="keyword">from</span> <span class="string">&#x27;./init&#x27;</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; !(<span class="built_in">this</span> <span class="keyword">instanceof</span> Vue)) &#123;</span><br><span class="line">    warn(<span class="string">&#x27;Vue is a constructor and should be called with the `new` keyword&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">this</span>._init(options)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">initMixin(Vue)</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; initMixin &#125; <span class="keyword">from</span> <span class="string">&quot;./init&quot;</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Vue</span>(<span class="params">options</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NODE_ENV</span> !== <span class="string">&quot;production&quot;</span> &amp;&amp; !(<span class="variable language_">this</span> <span class="keyword">instanceof</span> <span class="title class_">Vue</span>)) &#123;</span><br><span class="line">    <span class="title function_">warn</span>(<span class="string">&quot;Vue is a constructor and should be called with the `new` keyword&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">_init</span>(options);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">initMixin</span>(<span class="title class_">Vue</span>);</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
 
 <p>在使用<code>new</code>的创建实例对象的过程中，会执行构造函数中的<code>this._init()</code>方法，并且把选项参数<code>options</code>传入，这就是 Vue 的初始化方法。</p>
 <span id="more"></span>
 
-<h2 id="init-初始化方法"><a href="#init-初始化方法" class="headerlink" title="_init 初始化方法"></a><code>_init</code> 初始化方法</h2><p>这个方法是通过<code>initMixin(Vue)</code>函数添加到 Vue 的构造函数的原型对象中的，现在打开<code>core/instance/init.js</code>文件，看下面的代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uid = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">initMixin</span>(<span class="params">Vue: Class&lt;Component&gt;</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ! 初始化的方法</span></span><br><span class="line">  Vue.prototype._init = <span class="function"><span class="keyword">function</span>(<span class="params">options?: <span class="built_in">Object</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> vm: Component = <span class="built_in">this</span></span><br><span class="line">    <span class="comment">// a uid</span></span><br><span class="line">    vm._uid = uid++ <span class="comment">// ! 唯一标示</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="init-初始化方法"><a href="#init-初始化方法" class="headerlink" title="_init 初始化方法"></a><code>_init</code> 初始化方法</h3><p>这个方法是通过<code>initMixin(Vue)</code>函数添加到 Vue 的构造函数的原型对象中的，现在打开<code>core/instance/init.js</code>文件，看下面的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uid = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">initMixin</span>(<span class="params">Vue: Class&lt;Component&gt;</span>) &#123;</span><br><span class="line">  <span class="comment">// ! 初始化的方法</span></span><br><span class="line">  <span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">_init</span> = <span class="keyword">function</span>(<span class="params">options?: <span class="built_in">Object</span></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="attr">vm</span>: <span class="title class_">Component</span> = <span class="variable language_">this</span></span><br><span class="line">    <span class="comment">// a uid</span></span><br><span class="line">    vm.<span class="property">_uid</span> = uid++ <span class="comment">// ! 唯一标示</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>_init</code>方法中首先使用常量<code>vm</code>来缓存<code>this</code>，但是这个<code>this</code>到底指向哪里呢？</p>
 <p>我们知道在构造函数中，是使用<code>this._init()</code>调用的这个方法的，而且是在使用<code>new</code>创建实例的时候调用的，那么这个<code>this</code>很明显应该指向的是创建的<strong>实例对象</strong>。</p>
 <p>然后往实例对象中添加唯一标识<code>_uid</code>，它是一个常量，初始值是<code>0</code>，它的值是递增的 ，所以每一个实例对象的<code>_uid</code>值都是<strong>不一样</strong>的。</p>
 <p>继续看下面的代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> startTag, endTag</span><br><span class="line"><span class="comment">/* istanbul ignore if */</span></span><br><span class="line"><span class="comment">// ! 性能追踪相关</span></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; config.performance &amp;&amp; mark) &#123;</span><br><span class="line">  startTag = <span class="string">`vue-perf-start:<span class="subst">$&#123;vm._uid&#125;</span>`</span></span><br><span class="line">  endTag = <span class="string">`vue-perf-end:<span class="subst">$&#123;vm._uid&#125;</span>`</span></span><br><span class="line">  mark(startTag) <span class="comment">// ! 性能追踪前标记</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* istanbul ignore if */</span></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; config.performance &amp;&amp; mark) &#123;</span><br><span class="line">  vm._name = formatComponentName(vm, <span class="literal">false</span>)</span><br><span class="line">  mark(endTag) <span class="comment">// ! 性能追踪后标记</span></span><br><span class="line">  measure(<span class="string">`vue <span class="subst">$&#123;vm._name&#125;</span> init`</span>, startTag, endTag)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> startTag, endTag;</span><br><span class="line"><span class="comment">/* istanbul ignore if */</span></span><br><span class="line"><span class="comment">// ! 性能追踪相关</span></span><br><span class="line"><span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NODE_ENV</span> !== <span class="string">&quot;production&quot;</span> &amp;&amp; config.<span class="property">performance</span> &amp;&amp; mark) &#123;</span><br><span class="line">  startTag = <span class="string">`vue-perf-start:<span class="subst">$&#123;vm._uid&#125;</span>`</span>;</span><br><span class="line">  endTag = <span class="string">`vue-perf-end:<span class="subst">$&#123;vm._uid&#125;</span>`</span>;</span><br><span class="line">  <span class="title function_">mark</span>(startTag); <span class="comment">// ! 性能追踪前标记</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* istanbul ignore if */</span></span><br><span class="line"><span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NODE_ENV</span> !== <span class="string">&quot;production&quot;</span> &amp;&amp; config.<span class="property">performance</span> &amp;&amp; mark) &#123;</span><br><span class="line">  vm.<span class="property">_name</span> = <span class="title function_">formatComponentName</span>(vm, <span class="literal">false</span>);</span><br><span class="line">  <span class="title function_">mark</span>(endTag); <span class="comment">// ! 性能追踪后标记</span></span><br><span class="line">  <span class="title function_">measure</span>(<span class="string">`vue <span class="subst">$&#123;vm._name&#125;</span> init`</span>, startTag, endTag);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上面代码的省略了中间的主要逻辑代码，只保留了两处代码。这两处代码是非生产环境时使用的，用来测试中间代码的性能。</p>
 <p>接下来查看省略的中间部分的代码，这才是<code>_init</code>主要的逻辑代码。</p>
 <p>先看代码的前面部分</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a flag to avoid this being observed</span></span><br><span class="line">vm._isVue = <span class="literal">true</span></span><br><span class="line"><span class="comment">// merge options</span></span><br><span class="line"><span class="keyword">if</span> (options &amp;&amp; options._isComponent) &#123;</span><br><span class="line">  <span class="comment">// optimize internal component instantiation</span></span><br><span class="line">  <span class="comment">// since dynamic options merging is pretty slow, and none of the</span></span><br><span class="line">  <span class="comment">// internal component options needs special treatment.</span></span><br><span class="line">  initInternalComponent(vm, options)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// ! 合并配置</span></span><br><span class="line">  vm.$options = mergeOptions(</span><br><span class="line">    resolveConstructorOptions(vm.constructor), <span class="comment">// ! Vue 初始化时的默认配置,比如默认的指令和组件等等</span></span><br><span class="line">    options || &#123;&#125;, <span class="comment">// ! 用户传入的配置</span></span><br><span class="line">    vm <span class="comment">// !  Vue 实例对象本身</span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a flag to avoid this being observed</span></span><br><span class="line">vm.<span class="property">_isVue</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">// merge options</span></span><br><span class="line"><span class="keyword">if</span> (options &amp;&amp; options.<span class="property">_isComponent</span>) &#123;</span><br><span class="line">  <span class="comment">// optimize internal component instantiation</span></span><br><span class="line">  <span class="comment">// since dynamic options merging is pretty slow, and none of the</span></span><br><span class="line">  <span class="comment">// internal component options needs special treatment.</span></span><br><span class="line">  <span class="title function_">initInternalComponent</span>(vm, options);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// ! 合并配置</span></span><br><span class="line">  vm.<span class="property">$options</span> = <span class="title function_">mergeOptions</span>(</span><br><span class="line">    <span class="title function_">resolveConstructorOptions</span>(vm.<span class="property">constructor</span>), <span class="comment">// ! Vue 初始化时的默认配置,比如默认的指令和组件等等</span></span><br><span class="line">    options || &#123;&#125;, <span class="comment">// ! 用户传入的配置</span></span><br><span class="line">    vm <span class="comment">// !  Vue 实例对象本身</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>首先定义了<code>_isVue</code>属性，这个属性是一个布尔值，用来标识当前的对象是 Vue 的实例对象。然后通过选项的<code>_isComponent</code>属性判断这是不是一个组件，如果是组件就调用<code>initInternalComponent</code>函数初始化这个组件。</p>
 <p>在创建实例对象的过程中，根本就没有<code>_isComponent</code>这个属性，所以现在应该执行<code>else</code>块中的代码，调用<code>mergeOptions</code>函数<strong>合并选项（配置）</strong>，把 Vue 的默认选项和用户输入的选项进行合并，这里需要把实例对象也传入进去。</p>
@@ -287,33 +279,33 @@
 <p>后面在 Runtime 入口文件对构造函数进行包装时，也设置了 Web 平台的<code>config</code>属性，还增加两个指令到<code>directives</code>, 增加了两个过渡动画组件到<code>components</code>中，其实这些就是 Vue 的<strong>默认选项</strong>。</p>
 <p>这里通过<code>resolveConstructorOptions</code>函数来获取这些默认选项。</p>
 <p>用户选项就是我们创建 Vue 实例时输入的选项，比如在项目入口文件时使用<code>new</code>创建根组件时传入的对象就是根实例的选项配置。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  <span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&quot;#app&quot;</span>,</span><br><span class="line">  <span class="attr">render</span>: <span class="function">(<span class="params">h</span>) =&gt;</span> <span class="title function_">h</span>(<span class="title class_">App</span>),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>另外，我们在 Vue 组件中的<code>script</code>标签导出的对象也是实例组件的选项配置。</p>
 <p>现在 Vue2 的 API 其实就是选项（options） API，所以合并选项是 Vue 源码中非常重要的内容，后面会单独分析。</p>
 <p>继续查看下面的代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* istanbul ignore else */</span></span><br><span class="line"><span class="comment">// ! 初始化代理</span></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">  initProxy(vm)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  vm._renderProxy = vm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* istanbul ignore else */</span></span><br><span class="line"><span class="comment">// ! 初始化代理</span></span><br><span class="line"><span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NODE_ENV</span> !== <span class="string">&quot;production&quot;</span>) &#123;</span><br><span class="line">  <span class="title function_">initProxy</span>(vm);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  vm.<span class="property">_renderProxy</span> = vm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在非生产环境中会调用<code>initProxy</code>方法并传入 Vue 的实例对象，而在生产环境中是直接给实例赋值属性<code>_renderProxy</code>为 <code>vm</code>。现在虽然不知道<code>initProxy</code>方法的内容，但是我们可以判断它的功能应该也是为实例属性<code>_renderProxy</code>赋值，因为生产环境和开发环境的代码实现的结果应该是一致的。</p>
 <p>继续查看后面的代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// expose real self</span></span><br><span class="line">vm._self = vm</span><br><span class="line">initLifecycle(vm) <span class="comment">// ! 初始化生命周期相关配置 存储本身实例到父节点 新增属性 $parent $root $children $refs 等</span></span><br><span class="line">initEvents(vm) <span class="comment">// ! 初始化事件相关配置 更新 listeners</span></span><br><span class="line">initRender(vm) <span class="comment">// ! 初始化渲染, 创建VNode 另新增属性 $attrs 和 $listeners</span></span><br><span class="line">callHook(vm, <span class="string">&#x27;beforeCreate&#x27;</span>) <span class="comment">// ! 调用 beforeCreate 钩子函数</span></span><br><span class="line">initInjections(vm) <span class="comment">// ! 初始化 Injections resolve injections before data/props</span></span><br><span class="line">initState(vm) <span class="comment">// ! 初始化状态 按顺序 props =&gt; methods =&gt; data =&gt; computed  =&gt; watch</span></span><br><span class="line">initProvide(vm) <span class="comment">// ! 初始化 Provide resolve provide after data/props</span></span><br><span class="line">callHook(vm, <span class="string">&#x27;created&#x27;</span>) <span class="comment">// ! 调用 created 钩子函数</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// expose real self</span></span><br><span class="line">vm.<span class="property">_self</span> = vm;</span><br><span class="line"><span class="title function_">initLifecycle</span>(vm); <span class="comment">// ! 初始化生命周期相关配置 存储本身实例到父节点 新增属性 $parent $root $children $refs 等</span></span><br><span class="line"><span class="title function_">initEvents</span>(vm); <span class="comment">// ! 初始化事件相关配置 更新 listeners</span></span><br><span class="line"><span class="title function_">initRender</span>(vm); <span class="comment">// ! 初始化渲染, 创建VNode 另新增属性 $attrs 和 $listeners</span></span><br><span class="line"><span class="title function_">callHook</span>(vm, <span class="string">&quot;beforeCreate&quot;</span>); <span class="comment">// ! 调用 beforeCreate 钩子函数</span></span><br><span class="line"><span class="title function_">initInjections</span>(vm); <span class="comment">// ! 初始化 Injections resolve injections before data/props</span></span><br><span class="line"><span class="title function_">initState</span>(vm); <span class="comment">// ! 初始化状态 按顺序 props =&gt; methods =&gt; data =&gt; computed  =&gt; watch</span></span><br><span class="line"><span class="title function_">initProvide</span>(vm); <span class="comment">// ! 初始化 Provide resolve provide after data/props</span></span><br><span class="line"><span class="title function_">callHook</span>(vm, <span class="string">&quot;created&quot;</span>); <span class="comment">// ! 调用 created 钩子函数</span></span><br></pre></td></tr></table></figure>
 
 <p>上面函数中的函数名很多是以<code>init</code>开头的，因为这些函数才是真正初始化实例的函数。</p>
 <p>大概查看了一下这些函数，发现它们也是为实例对象<code>vm</code>添加或者更新各种属性或者方法的，但是和前面为构造函数的原型对象添加属性和方法时不同。</p>
 <p>这些函数都有一个<strong>共同点</strong>：那就是需要传入实例对象<code>vm</code>，并且会用到<code>vm.$options</code>这个属性。这个属性是合并后的选项，借助这个属性为实例对象<code>vm</code>再次添加或者更新属性或者方法。比如我们在<code>options</code>设置了<code>data: &#123; name: &#39;Hale&#39;&#125;</code>，那么在初始化后会把这个属性放入到实例的<code>_data</code>属性中，并且还会把它变成响应式数据。</p>
 <p>这里还有两个是调用了<code>callHook</code>方法，这是去执行生命周期钩子函数，它们是<code>beforeCreate</code>和<code>created</code>这两个生命周期钩子函数。在 <code>options</code> 选项中，如果我们设置了这两个生命周期钩子函数，那么就会在这里，按照上面函数的执行顺序来执行。</p>
-<h3 id="关于组件中请求数据的时机"><a href="#关于组件中请求数据的时机" class="headerlink" title="关于组件中请求数据的时机"></a>关于组件中请求数据的时机</h3><p>这里简单分析一下请求数据的时机，在实际开发中，我们可能需要在实例组件向后端请求接口数据，然后保存到<code>data</code>属性中，让他们变成响应式数据。</p>
+<h4 id="关于组件中请求数据的时机"><a href="#关于组件中请求数据的时机" class="headerlink" title="关于组件中请求数据的时机"></a>关于组件中请求数据的时机</h4><p>这里简单分析一下请求数据的时机，在实际开发中，我们可能需要在实例组件向后端请求接口数据，然后保存到<code>data</code>属性中，让他们变成响应式数据。</p>
 <p>从上面的代码中，我们发现<code>beforeCreate</code>生命周期函数钩子执行的时机，是在<code>initState</code>之前执行，而在这个时候 Vue 实例组件中还没有初始化<code>state</code>，所以不适合在这个钩子函数里面去请求数据并赋值给<code>data</code>属性。</p>
 <p>而<code>created</code>生命周期函数钩子是在最后面的时候执行的，也就是在实例初始化完成之后执行。这个时候就可以去请求数据的，因为这是<code>state</code>应该初始化完成了，在这个钩子函数里面请求后的数据赋值给<code>data</code>后也会变成响应式的数据。</p>
 <p>另外也还可以在<code>mounted</code>生命周期函数钩子中请求数据，这个钩子在挂载组件后执行，但是它没有在<code>created</code>钩子中请求的时机那么快。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
 <li><p><a target="_blank" rel="noopener" href="http://hcysun.me/vue-design/zh/">Vue 技术内幕</a></p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://ustbhuangyi.github.io/vue-analysis/">Vue 技术揭秘</a></p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/">Vue 文档</a></p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/haledc/vue/tree/learn-vue">Vue 源码学习分支</a></p>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/alanhaledc/vue/tree/learn-vue">Vue 源码学习分支</a></p>
 </li>
 </ul>
 
@@ -422,7 +414,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#init-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">_init 初始化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%AF%B7%E6%B1%82%E6%95%B0%E6%8D%AE%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">关于组件中请求数据的时机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">_init 初始化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%AF%B7%E6%B1%82%E6%95%B0%E6%8D%AE%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">关于组件中请求数据的时机</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -431,7 +423,7 @@
     <img class="site-author-image" itemprop="image" alt="Alan Deng"
       src="/images/avatar1.png">
   <p class="site-author-name" itemprop="name">Alan Deng</p>
-  <div class="site-description" itemprop="description">不忘初心</div>
+  <div class="site-description" itemprop="description">A Web Developer</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -495,12 +487,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">452k</span>
+    <span title="站点总字数">456k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:51</span>
+    <span title="站点阅读时长">6:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -512,97 +504,6 @@
 
 
 
-<script>
-  (function() {
-    function leancloudSelector(url) {
-      url = encodeURI(url);
-      return document.getElementById(url).querySelector('.leancloud-visitors-count');
-    }
-
-    function addCount(Counter) {
-      var visitors = document.querySelector('.leancloud_visitors');
-      var url = decodeURI(visitors.id);
-      var title = visitors.dataset.flagTitle;
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          if (results.length > 0) {
-            var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
-            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
-              .catch(error => {
-                console.error('Failed to save visitor count', error);
-              });
-          } else {
-              Counter('post', '/classes/Counter', { title, url, time: 1 })
-                .then(response => response.json())
-                .then(() => {
-                  leancloudSelector(url).innerText = 1;
-                })
-                .catch(error => {
-                  console.error('Failed to create', error);
-                });
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    function showTime(Counter) {
-      var visitors = document.querySelectorAll('.leancloud_visitors');
-      var entries = [...visitors].map(element => {
-        return decodeURI(element.id);
-      });
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          for (let url of entries) {
-            let target = results.find(item => item.url === url);
-            leancloudSelector(url).innerText = target ? target.time : 0;
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"yKMuxFXOwwu1YoDly0pnabsH-9Nh9j0Va","app_key":"hXdqvzY7wAwlTbrYXhDfmpnR","server_url":null,"security":false};
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${api_server}/1.1${url}`, {
-          method,
-          headers: {
-            'X-LC-Id'     : app_id,
-            'X-LC-Key'    : app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-      if (CONFIG.page.isPost) {
-        if (CONFIG.hostname !== location.hostname) return;
-        addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
-        showTime(Counter);
-      }
-    }
-
-    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({ api_server }) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
 
 
       </div>

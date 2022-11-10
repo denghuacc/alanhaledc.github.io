@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
@@ -19,15 +19,15 @@
     var CONFIG = {"hostname":"alanhaledc.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"ETZWTJO7QM","apiKey":"2637d77dbb15451056cd521bebf6fb6c","indexName":"search_demo","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言上次体验了一下小程序开发，用的是小程序原生语法来开发。虽然体验了一把原汁原味的小程序开发，但是发现现在版本的小程序原生语法还是比较繁杂的，不够灵活；比如单单页面就由 4 个文件组成，还有组件上不支持脚本等等。在现在 MVVM 框架盛行的年代，可以使用尝试使用框架来开发小程序。">
+  <meta name="description" content="前言上次体验了一下小程序开发，用的是小程序原生语法来开发。虽然体验了一把原汁原味的小程序开发，但是发现现在版本的小程序原生语法还是比较繁杂的，不够灵活。比如单单页面就由 4 个文件组成，还有组件上不支持脚本等等。在现在 MVVM 框架盛行的年代，可以使用尝试使用框架来开发小程序。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微信小程序框架WePy学习笔记">
 <meta property="og:url" content="https://alanhaledc.com/blog/20180613-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6wepy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Alan&#39;s Notes">
-<meta property="og:description" content="前言上次体验了一下小程序开发，用的是小程序原生语法来开发。虽然体验了一把原汁原味的小程序开发，但是发现现在版本的小程序原生语法还是比较繁杂的，不够灵活；比如单单页面就由 4 个文件组成，还有组件上不支持脚本等等。在现在 MVVM 框架盛行的年代，可以使用尝试使用框架来开发小程序。">
+<meta property="og:description" content="前言上次体验了一下小程序开发，用的是小程序原生语法来开发。虽然体验了一把原汁原味的小程序开发，但是发现现在版本的小程序原生语法还是比较繁杂的，不够灵活。比如单单页面就由 4 个文件组成，还有组件上不支持脚本等等。在现在 MVVM 框架盛行的年代，可以使用尝试使用框架来开发小程序。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-06-13T12:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-16T03:14:33.774Z">
+<meta property="article:modified_time" content="2022-11-10T10:25:48.390Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="小程序">
 <meta property="article:tag" content="WePy">
@@ -101,7 +101,6 @@
       <h1 class="site-title">Alan's Notes</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">记事本</p>
   </div>
 
   <div class="site-nav-right">
@@ -198,7 +197,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar1.png">
       <meta itemprop="name" content="Alan Deng">
-      <meta itemprop="description" content="不忘初心">
+      <meta itemprop="description" content="A Web Developer">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -228,14 +227,7 @@
                 </span>
             </span>
 
-          
-            <span id="/blog/20180613-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6wepy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="微信小程序框架WePy学习笔记" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
+          <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -260,11 +252,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上次体验了一下小程序开发，用的是小程序原生语法来开发。虽然体验了一把原汁原味的小程序开发，但是发现现在版本的小程序原生语法还是比较繁杂的，不够灵活；比如单单页面就由 4 个文件组成，还有组件上不支持脚本等等。在现在 MVVM 框架盛行的年代，可以使用尝试使用框架来开发小程序。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>上次体验了一下小程序开发，用的是小程序原生语法来开发。虽然体验了一把原汁原味的小程序开发，但是发现现在版本的小程序原生语法还是比较繁杂的，不够灵活。比如单单页面就由 4 个文件组成，还有组件上不支持脚本等等。在现在 MVVM 框架盛行的年代，可以使用尝试使用框架来开发小程序。</p>
 <span id="more"></span>
 
 <p><strong>补充说明：原生小程序开发并不会比使用框架开发效率低，而且原生开发没有那么多的 BUG，这个主要看开发者的熟练水平！</strong></p>
-<h2 id="选择框架"><a href="#选择框架" class="headerlink" title="选择框架"></a>选择框架</h2><p>网上查了下，微信小程序现在已经有不少开发框架，比如 WePy，Tina，MpVue 等等。选择哪个比较好呢？</p>
+<h3 id="选择框架"><a href="#选择框架" class="headerlink" title="选择框架"></a>选择框架</h3><p>网上查了下，微信小程序现在已经有不少开发框架，比如 WePy，Tina，MpVue 等等。选择哪个比较好呢？</p>
 <p>最后我选择的是 WePy！ 为什么呢？</p>
 <ol>
 <li><p>WePy 是微信官方腾讯公司的前端团队开发的一款小程序开发框架，应该会和小程序开发很搭配（后来才发现主力开发也就是一个人，一开始不是他并不是 Tencent 团队的，后面被招进来了）。</p>
@@ -275,23 +267,23 @@
 </li>
 </ol>
 <p>所以，没错！就是 WePy 了。</p>
-<h2 id="主要特点"><a href="#主要特点" class="headerlink" title="主要特点"></a>主要特点</h2><p>看了 WePy 的文档，发现 WePy 还是很强大的，和 Vuejs 的语法风格和功能特性，非常适合 Vuejs 开发者。<br>其中，有几个特性个人非常喜欢。</p>
+<h3 id="主要特点"><a href="#主要特点" class="headerlink" title="主要特点"></a>主要特点</h3><p>看了 WePy 的文档，发现 WePy 还是很强大的，和 Vuejs 的语法风格和功能特性，非常适合 Vuejs 开发者。<br>其中，有几个特性个人非常喜欢。</p>
 <ol>
 <li><p>和 Vue 一样的语法风格和功能特性，更贴近 MVVM 架构模式。</p>
 </li>
-<li><p>支持 Sass/Scss，Less，Stylus 等 CSS 预处理器。(个人比较喜欢简洁风格的 Stylus 预处理器)。</p>
+<li><p>支持 Sass&#x2F;Scss，Less，Stylus 等 CSS 预处理器。(个人比较喜欢简洁风格的 Stylus 预处理器)。</p>
 </li>
 <li><p>单文件模式，和 Vue 的<code>.vue</code>文件一样，把结构、样式、脚本都放在一个.wpy 文件里，使得目录结构非常清晰、简便。</p>
 </li>
 <li><p>支持加载外部的 NPM 包，也就是说可以使用第三方库了。</p>
 </li>
-<li><p>支持 ES6/7 的新特性，比如 <code>Promise</code>、<code>Async/Await</code>，处理异步很方便。</p>
+<li><p>支持 ES6&#x2F;7 的新特性，比如 <code>Promise</code>、<code>Async/Await</code>，处理异步很方便。</p>
 </li>
 <li><p>支持页面和组件间通信，不但数据可以双向传值，还可以进行事件派发。</p>
 </li>
 </ol>
 <p>其实，WePy 还有很多好的特性，比如支持 ESLink 规则等等， 详见<a target="_blank" rel="noopener" href="https://tencent.github.io/wepy/document.html#/?id=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6wepy%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3">WePy 官方文档</a>。总之，WePy 对 Vue 开发者真的是非常友好。</p>
-<h2 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h2><ul>
+<h3 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h3><ul>
 <li>安装 WePy 命令行工具</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install wepy-cli -g</span><br></pre></td></tr></table></figure>
@@ -312,13 +304,13 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wepy build --watch</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>如果使用 Stylus 预处理器，需要配置 Stylus 编译（默认已经配置好了 Less 和 Sass/Scss 预处理器）</li>
+<li>如果使用 Stylus 预处理器，需要配置 Stylus 编译（默认已经配置好了 Less 和 Sass&#x2F;Scss 预处理器）</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install wepy-compiler-stylus --save-dev</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// wepy.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="attr">compilers</span>: &#123;</span><br><span class="line">    <span class="attr">stylus</span>: &#123;</span><br><span class="line">      <span class="attr">compress</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// wepy.config.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">compilers</span>: &#123;</span><br><span class="line">    <span class="attr">stylus</span>: &#123;</span><br><span class="line">      <span class="attr">compress</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h2 id="项目结构解析"><a href="#项目结构解析" class="headerlink" title="项目结构解析"></a>项目结构解析</h2><p>主要分析其中四个部分</p>
+<h3 id="项目结构解析"><a href="#项目结构解析" class="headerlink" title="项目结构解析"></a>项目结构解析</h3><p>主要分析其中四个部分</p>
 <ol>
 <li><p>dist：小程序运行目录，由 WePy 框架编译源文件生成，不要直接修改这个目录的代码。</p>
 </li>
@@ -340,19 +332,19 @@
 <li><code>package.json</code>：项目的 package 管理文件。</li>
 <li><code>wepy.config.js</code>：框架的配置文件，比如配置 Stylus 编译就在这里配置。</li>
 </ol>
-<h2 id="wpy-文件解析"><a href="#wpy-文件解析" class="headerlink" title="wpy 文件解析"></a>wpy 文件解析</h2><p><code>.wpy</code>文件结构和<code>.vue</code> 文件一样，分为三个部分，主要由三个标签组成，分别是<code>template</code>、<code>style</code>和<code>script</code>。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;stylus&quot;</span> <span class="attr">src</span>=<span class="string">&quot;page1.styl&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">  <span class="comment">/* 编写样式, 对应原生的.wxss, 支持lang和src属性, lang默认为css，支持less，sass，stylus, postcss */</span></span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--编写结构, 对应原生的.wxml文件, 支持lang和src属性, lang默认为wxml，支持xml，pug --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">// 编写脚本, 对应原生的.js文件和json文件, 支持lang和src属性, lang默认为babel，支持TypeScript</span></span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="wpy-文件解析"><a href="#wpy-文件解析" class="headerlink" title="wpy 文件解析"></a>wpy 文件解析</h3><p><code>.wpy</code>文件结构和<code>.vue</code> 文件一样，分为三个部分，主要由三个标签组成，分别是<code>template</code>、<code>style</code>和<code>script</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;stylus&quot;</span> <span class="attr">src</span>=<span class="string">&quot;page1.styl&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="comment">/* 编写样式, 对应原生的.wxss, 支持lang和src属性, lang默认为css，支持less，sass，stylus, postcss */</span></span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--编写结构, 对应原生的.wxml文件, 支持lang和src属性, lang默认为wxml，支持xml，pug --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 编写脚本, 对应原生的.js文件和json文件, 支持lang和src属性, lang默认为babel，支持TypeScript</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>其中，在<code>script</code>可以配置对应原生小程序的 json 文件，在<code>script</code>标签里面继承的类的<code>config</code>属性中配置，其他的代码为 js 文件的逻辑部分。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Index</span> <span class="keyword">extends</span> <span class="title">wepy</span>.<span class="title">page</span> </span>&#123;</span><br><span class="line">  config = &#123;</span><br><span class="line">    <span class="attr">navigationBarTitleText</span>: <span class="string">&#x27;小小休闲&#x27;</span>,</span><br><span class="line">    <span class="attr">navigationBarBackgroundColor</span>: <span class="string">&#x27;#b3d4db&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">  methods = &#123;</span><br><span class="line">    <span class="function"><span class="title">onTap</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">      wepy.switchTab(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;../../pages/posts/posts&#x27;</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Index</span> <span class="keyword">extends</span> <span class="title class_ inherited__">wepy.page</span> &#123;</span><br><span class="line">  config = &#123;</span><br><span class="line">    <span class="attr">navigationBarTitleText</span>: <span class="string">&quot;小小休闲&quot;</span>,</span><br><span class="line">    <span class="attr">navigationBarBackgroundColor</span>: <span class="string">&quot;#b3d4db&quot;</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">  methods = &#123;</span><br><span class="line">    <span class="title function_">onTap</span>(<span class="params"></span>) &#123;</span><br><span class="line">      wepy.<span class="title function_">switchTab</span>(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&quot;../../pages/posts/posts&quot;</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="异同点"><a href="#异同点" class="headerlink" title="异同点"></a>异同点</h2><p>在这里，只列举自己使用时遇到的部分异同点，分别和小程序原生语法和 Vuejs 语法进行比较，这部分应该不全，详情请查看<a target="_blank" rel="noopener" href="https://tencent.github.io/wepy/document.html#/?id=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6wepy%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3">官方文档</a>。</p>
+<h3 id="异同点"><a href="#异同点" class="headerlink" title="异同点"></a>异同点</h3><p>在这里，只列举自己使用时遇到的部分异同点，分别和小程序原生语法和 Vuejs 语法进行比较，这部分应该不全，详情请查看<a target="_blank" rel="noopener" href="https://tencent.github.io/wepy/document.html#/?id=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6wepy%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3">官方文档</a>。</p>
 <ol>
 <li><p>事件绑定</p>
 <ol>
-<li><p>原生：<code>bindtap</code>；WePy： <code>@tap</code>； Vuejs：<code>@click</code>。</p>
+<li><p>原生：<code>bindtap</code>。WePy： <code>@tap</code>。 Vuejs：<code>@click</code>。</p>
 </li>
-<li><p>原生：<code>catchtap</code>； WePy：<code>@tap.stop</code>； Vuejs： <code>@click.stop</code>。</p>
+<li><p>原生：<code>catchtap</code>。 WePy：<code>@tap.stop</code>。 Vuejs： <code>@click.stop</code>。</p>
 </li>
 </ol>
 </li>
@@ -364,7 +356,8 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repeat</span> <span class="attr">for</span>=<span class="string">&quot;/&#123;&#123;list&#125;&#125;/&quot;</span> <span class="attr">item</span>=<span class="string">&quot;itemName&quot;</span> <span class="attr">key</span>=<span class="string">&quot;keyName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">repeat</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>Vue</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">&quot;itemName in list&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;keyName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">&quot;itemName in list&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;keyName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>页面和组件传值：</p>
 <p>原生： <code>data</code>属性。</p>
 <p>WePy：<code>props</code>，动态传值需要加上<code>.sync</code>后缀，支持双向传值， 组件可以改变页面的值。</p>
@@ -392,32 +385,33 @@
 </li>
 <li><p>存取 data 属性</p>
 <p>原生</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存 data 数据</span></span><br><span class="line"><span class="built_in">this</span>.setData(&#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&#x27;home&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 data 数据</span></span><br><span class="line"><span class="keyword">const</span> title = <span class="built_in">this</span>.data.title</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存 data 数据</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">setData</span>(&#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&quot;home&quot;</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 data 数据</span></span><br><span class="line"><span class="keyword">const</span> title = <span class="variable language_">this</span>.<span class="property">data</span>.<span class="property">title</span>;</span><br></pre></td></tr></table></figure>
 
 <p>WePy</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存 data 数据</span></span><br><span class="line"><span class="built_in">this</span>.title = <span class="string">&#x27;home&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 data 数据</span></span><br><span class="line"><span class="keyword">const</span> title = <span class="built_in">this</span>.title</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存 data 数据</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">title</span> = <span class="string">&quot;home&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 data 数据</span></span><br><span class="line"><span class="keyword">const</span> title = <span class="variable language_">this</span>.<span class="property">title</span>;</span><br></pre></td></tr></table></figure>
 
 <p>Vue</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存 data 数据</span></span><br><span class="line"><span class="built_in">this</span>.title = <span class="string">&#x27;home&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 data 数据</span></span><br><span class="line"><span class="keyword">const</span> title = <span class="built_in">this</span>.title</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存 data 数据</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">title</span> = <span class="string">&quot;home&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 data 数据</span></span><br><span class="line"><span class="keyword">const</span> title = <span class="variable language_">this</span>.<span class="property">title</span>;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>存取全局变量</p>
 <p>原生</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存全局变量</span></span><br><span class="line"><span class="keyword">const</span> app = getApp()</span><br><span class="line">app.globalData.isPlaying = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取全局变量</span></span><br><span class="line"><span class="keyword">const</span> isPlaying = app.globalData.isPlaying</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存全局变量</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">getApp</span>();</span><br><span class="line">app.<span class="property">globalData</span>.<span class="property">isPlaying</span> = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取全局变量</span></span><br><span class="line"><span class="keyword">const</span> isPlaying = app.<span class="property">globalData</span>.<span class="property">isPlaying</span>;</span><br></pre></td></tr></table></figure>
 
 <p>WePy</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存全局变量</span></span><br><span class="line"><span class="built_in">this</span>.$parent.globalData.isPlaying = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取全局变量</span></span><br><span class="line"><span class="keyword">const</span> isPlaying = <span class="built_in">this</span>.$parent.globalData.isPlaying</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存全局变量</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$parent</span>.<span class="property">globalData</span>.<span class="property">isPlaying</span> = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取全局变量</span></span><br><span class="line"><span class="keyword">const</span> isPlaying = <span class="variable language_">this</span>.<span class="property">$parent</span>.<span class="property">globalData</span>.<span class="property">isPlaying</span>;</span><br></pre></td></tr></table></figure>
 
 <p>Vue：自定义全局变量或者使用 Vuex 状态管理器。</p>
 </li>
 </ol>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
 <li><p>使用 WePy 框架开发小程序时，需要关闭开发者工具中的“ES6 转 ES5”、“上传代码是样式自动补全”、“上传代码时自动压缩”这几个选项。或者在<code>project.config.json</code>设置成<code>false</code>也可以，不然会莫名其妙的报错。</p>
 </li>
 <li><p>开发中遇到的一个 BUG：就是用<code>&lt;repeat&gt;</code>循环传入子组件的值，无法再传入给孙组件。从 Issue 中查了下，很多人都遇到了这个问题，维护人员说 2.0 版本才会解决这个 Bug，现在版本解决的办法是下载最新的 1.7.2-alpha1 版本，然后导入组件时再变量上加@，再用原生的<code>&lt;block&gt;</code>和<code>wx:for</code>来传值，不过试了下，貌似没有效果。</p>
 </li>
 </ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>代码可参考：</p>
-<p>Github 仓库的原生小程序代码：<a target="_blank" rel="noopener" href="https://github.com/haledc/mp-demo">mp-demo</a></p>
-<p>WePy 框架编写的小程序代码：<a target="_blank" rel="noopener" href="https://github.com/haledc/wepy-demo">wepy-demo</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>代码可参考：</p>
+<p>Github 仓库的原生小程序代码：<a target="_blank" rel="noopener" href="https://github.com/alanhaledc/mp-demo">mp-demo</a></p>
+<p>WePy 框架编写的小程序代码：<a target="_blank" rel="noopener" href="https://github.com/alanhaledc/wepy-demo">wepy-demo</a></p>
 <p>第一次使用 WePy 框架开发小程序难免会出现很多问题，文章中不足之处还请见谅。</p>
 
     </div>
@@ -525,7 +519,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%A1%86%E6%9E%B6"><span class="nav-number">2.</span> <span class="nav-text">选择框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">主要特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">使用流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">项目结构解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wpy-%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">wpy 文件解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%90%8C%E7%82%B9"><span class="nav-number">7.</span> <span class="nav-text">异同点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">8.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%A1%86%E6%9E%B6"><span class="nav-number">2.</span> <span class="nav-text">选择框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">主要特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">使用流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">项目结构解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wpy-%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">wpy 文件解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%90%8C%E7%82%B9"><span class="nav-number">7.</span> <span class="nav-text">异同点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">8.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -534,7 +528,7 @@
     <img class="site-author-image" itemprop="image" alt="Alan Deng"
       src="/images/avatar1.png">
   <p class="site-author-name" itemprop="name">Alan Deng</p>
-  <div class="site-description" itemprop="description">不忘初心</div>
+  <div class="site-description" itemprop="description">A Web Developer</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -598,12 +592,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">452k</span>
+    <span title="站点总字数">456k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:51</span>
+    <span title="站点阅读时长">6:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -615,97 +609,6 @@
 
 
 
-<script>
-  (function() {
-    function leancloudSelector(url) {
-      url = encodeURI(url);
-      return document.getElementById(url).querySelector('.leancloud-visitors-count');
-    }
-
-    function addCount(Counter) {
-      var visitors = document.querySelector('.leancloud_visitors');
-      var url = decodeURI(visitors.id);
-      var title = visitors.dataset.flagTitle;
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          if (results.length > 0) {
-            var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
-            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
-              .catch(error => {
-                console.error('Failed to save visitor count', error);
-              });
-          } else {
-              Counter('post', '/classes/Counter', { title, url, time: 1 })
-                .then(response => response.json())
-                .then(() => {
-                  leancloudSelector(url).innerText = 1;
-                })
-                .catch(error => {
-                  console.error('Failed to create', error);
-                });
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    function showTime(Counter) {
-      var visitors = document.querySelectorAll('.leancloud_visitors');
-      var entries = [...visitors].map(element => {
-        return decodeURI(element.id);
-      });
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          for (let url of entries) {
-            let target = results.find(item => item.url === url);
-            leancloudSelector(url).innerText = target ? target.time : 0;
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"yKMuxFXOwwu1YoDly0pnabsH-9Nh9j0Va","app_key":"hXdqvzY7wAwlTbrYXhDfmpnR","server_url":null,"security":false};
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${api_server}/1.1${url}`, {
-          method,
-          headers: {
-            'X-LC-Id'     : app_id,
-            'X-LC-Key'    : app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-      if (CONFIG.page.isPost) {
-        if (CONFIG.hostname !== location.hostname) return;
-        addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
-        showTime(Counter);
-      }
-    }
-
-    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({ api_server }) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
 
 
       </div>

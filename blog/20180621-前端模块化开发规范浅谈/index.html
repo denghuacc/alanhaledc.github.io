@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
@@ -27,7 +27,7 @@
 <meta property="og:description" content="模块化的开发方式使得代码更加灵活，提高代码复用率，方便进行代码的管理。 通常一个文件就是一个模块，有自己的作用域，只向外暴露特定的变量和函数，而不会对全局对象造成污染。 目前流行的模块化主要有 AMD，CMD，CommonJS，ES6 模块这几种。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-06-21T12:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-16T03:14:33.774Z">
+<meta property="article:modified_time" content="2022-11-10T10:16:53.703Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="模块化">
 <meta name="twitter:card" content="summary">
@@ -100,7 +100,6 @@
       <h1 class="site-title">Alan's Notes</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">记事本</p>
   </div>
 
   <div class="site-nav-right">
@@ -197,7 +196,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar1.png">
       <meta itemprop="name" content="Alan Deng">
-      <meta itemprop="description" content="不忘初心">
+      <meta itemprop="description" content="A Web Developer">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -227,14 +226,7 @@
                 </span>
             </span>
 
-          
-            <span id="/blog/20180621-%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83%E6%B5%85%E8%B0%88/" class="post-meta-item leancloud_visitors" data-flag-title="前端模块化开发规范浅谈" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
+          <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -264,15 +256,15 @@
 <p>目前流行的模块化主要有 AMD，CMD，CommonJS，ES6 模块这几种。</p>
 <span id="more"></span>
 
-<h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><p>AMD 是 Requirejs 在推广过程中对模块定义的规范化产出。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模块的定义</span></span><br><span class="line"><span class="comment">// 不依赖其他模块</span></span><br><span class="line"><span class="comment">// math.js</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 通过return提供接口</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">add</span>: add</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 依赖其他的模块</span></span><br><span class="line"><span class="comment">// foo.js</span></span><br><span class="line">define([<span class="string">&#x27;math&#x27;</span>], <span class="function"><span class="keyword">function</span>(<span class="params">math</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> math.add(a, b)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 通过return提供接口</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">fn</span>: fn</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模块的引入</span></span><br><span class="line"><span class="comment">// bar.js</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">&#x27;foo&#x27;</span>], <span class="function"><span class="keyword">function</span>(<span class="params">foo</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> foo.fn(a, b)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(bar(<span class="number">1</span>, <span class="number">2</span>)) <span class="comment">// 3</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h3><p>AMD 是 Requirejs 在推广过程中对模块定义的规范化产出。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模块的定义</span></span><br><span class="line"><span class="comment">// 不依赖其他模块</span></span><br><span class="line"><span class="comment">// math.js</span></span><br><span class="line"><span class="title function_">define</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 通过return提供接口</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">add</span>: add,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 依赖其他的模块</span></span><br><span class="line"><span class="comment">// foo.js</span></span><br><span class="line"><span class="title function_">define</span>([<span class="string">&quot;math&quot;</span>], <span class="keyword">function</span> (<span class="params">math</span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> math.<span class="title function_">add</span>(a, b);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 通过return提供接口</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">fn</span>: fn,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模块的引入</span></span><br><span class="line"><span class="comment">// bar.js</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">&quot;foo&quot;</span>], <span class="keyword">function</span> (<span class="params">foo</span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">bar</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> foo.<span class="title function_">fn</span>(a, b);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">bar</span>(<span class="number">1</span>, <span class="number">2</span>)); <span class="comment">// 3</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--在html中引入，需要导入requireJs库--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">data-main</span>=<span class="string">&quot;./bar&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;https://cdn.bootcss.com/require.js/2.3.5/require.js&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>AMD 模块规范主要用于浏览器端，因为需要从服务器请求模块，同步的方法影响用户体验，只能是异步加载，</p>
 <p>每个模块如果需要依赖前置模块，只有等前置模块加载完成后，才去执行回调函数。但是不影响程序后面语句的执行。</p>
-<h2 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h2><p>CMD 是 Seajs 在推广过程中对模块定义的规范化中产出</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模块的定义和引入</span></span><br><span class="line"><span class="comment">// math.js</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"><span class="built_in">require</span>, <span class="built_in">exports</span>, <span class="built_in">module</span></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 通过require引入依赖</span></span><br><span class="line">  <span class="keyword">const</span> <span class="built_in">module</span> = <span class="built_in">require</span>(<span class="string">&#x27;module&#x27;</span>)</span><br><span class="line">  <span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 通过exports对外提供接口</span></span><br><span class="line">  <span class="built_in">exports</span>.add = add</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 或者通过module.export提供整个接口</span></span><br><span class="line">  <span class="built_in">module</span>.export = &#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模块的引入</span></span><br><span class="line"><span class="comment">// foo.js</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"><span class="built_in">require</span>, <span class="built_in">exports</span>, <span class="built_in">module</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> add = <span class="built_in">require</span>(<span class="string">&#x27;math&#x27;</span>).add</span><br><span class="line">  <span class="built_in">console</span>.log(add(<span class="number">1</span>, <span class="number">2</span>)) <span class="comment">// 3</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p>CMD 是 <code>Sea.js</code> 在推广过程中对模块定义的规范化中产出</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模块的定义和引入</span></span><br><span class="line"><span class="comment">// math.js</span></span><br><span class="line"><span class="title function_">define</span>(<span class="keyword">function</span> (<span class="params"><span class="built_in">require</span>, <span class="built_in">exports</span>, <span class="variable language_">module</span></span>) &#123;</span><br><span class="line">  <span class="comment">// 通过require引入依赖</span></span><br><span class="line">  <span class="keyword">const</span> <span class="variable language_">module</span> = <span class="built_in">require</span>(<span class="string">&quot;module&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> add = <span class="keyword">function</span> (<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 通过exports对外提供接口</span></span><br><span class="line">  <span class="built_in">exports</span>.<span class="property">add</span> = add;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 或者通过module.export提供整个接口</span></span><br><span class="line">  <span class="variable language_">module</span>.<span class="property">export</span> = &#123;&#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模块的引入</span></span><br><span class="line"><span class="comment">// foo.js</span></span><br><span class="line"><span class="title function_">define</span>(<span class="keyword">function</span> (<span class="params"><span class="built_in">require</span>, <span class="built_in">exports</span>, <span class="variable language_">module</span></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> add = <span class="built_in">require</span>(<span class="string">&quot;math&quot;</span>).<span class="property">add</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">add</span>(<span class="number">1</span>, <span class="number">2</span>)); <span class="comment">// 3</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>CMD 没有把依赖写在 define 里，而是写在回调函数中，当需要依赖时，才通过 require 去引入。</p>
 <p>回调函数包含 3 个参数，分别是 require，exports，module。</p>
@@ -284,8 +276,8 @@
 <li><p>而 CMD 推崇就近依赖，延迟执行。把依赖的引入放在回调的 factory 函数中，当要用到依赖时才会就近加载。</p>
 </li>
 </ul>
-<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><p>CommonJS 是 Node 服务器的模块规范化。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模块的定义</span></span><br><span class="line"><span class="comment">// math.js</span></span><br><span class="line"><span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> number = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="attr">fn</span>: add,</span><br><span class="line">  <span class="attr">num</span>: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模块的引入</span></span><br><span class="line"><span class="keyword">const</span> math = <span class="built_in">require</span>(<span class="string">&#x27;./math&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(math.fn(<span class="number">1</span>, <span class="number">2</span>)) <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(math.num) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h3 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h3><p>CommonJS 是 Node 服务器的模块规范化。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模块的定义</span></span><br><span class="line"><span class="comment">// math.js</span></span><br><span class="line"><span class="keyword">const</span> add = <span class="keyword">function</span> (<span class="params">a, b</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> number = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">fn</span>: add,</span><br><span class="line">  <span class="attr">num</span>: number,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模块的引入</span></span><br><span class="line"><span class="keyword">const</span> math = <span class="built_in">require</span>(<span class="string">&quot;./math&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(math.<span class="title function_">fn</span>(<span class="number">1</span>, <span class="number">2</span>)); <span class="comment">// 3</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(math.<span class="property">num</span>); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
 
 <p>CommonJS 模块化主要是用于 Node 服务器端或者是 Node 运行环境中。</p>
 <p>因为在服务器端，依赖都保存在本地硬盘中，所以读取速度非常快，可以同步加载。</p>
@@ -293,10 +285,10 @@
 <p>后面再调用这个模块都是从这个 exports 对象中去取值，即使后来模块修改了值，也不会更改内存中对象的值，除非手动清除掉缓存。</p>
 <p>现在写前端代码一般都需要借助构建工具或者 MVVM 框架，这些工具和框架都是在 Node 环境下运行的，</p>
 <p>所以 CommonJS 规范被广泛的使用。可以说使用 Node 环境开发，就会用到 CommonJS 模块。</p>
-<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><p>ES6 实现了模块功能，有属于自己的模块规范。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模块的定义</span></span><br><span class="line"><span class="comment">// 输出变量</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> number = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出函数</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以集中输出</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;hale&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;hale&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123; name, foo &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认输出</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="function"><span class="title">add</span>(<span class="params">a, b</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><p>ES6 实现了模块功能，有属于自己的模块规范。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模块的定义</span></span><br><span class="line"><span class="comment">// 输出变量</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> number = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出函数</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以集中输出</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&quot;hale&quot;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;hale&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123; name, foo &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认输出</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">add</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模块的引入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入fs库(第三方库)</span></span><br><span class="line"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">&#x27;fs&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入模块的默认输出</span></span><br><span class="line"><span class="keyword">import</span> Add <span class="keyword">from</span> <span class="string">&#x27;./add.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用模块输出的某个函数和变量</span></span><br><span class="line"><span class="keyword">import</span> &#123; add, number &#125; <span class="keyword">from</span> <span class="string">&#x27;./add.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入整个模块, 用as作为别名</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> math <span class="keyword">from</span> <span class="string">&#x27;./add.js&#x27;</span></span><br><span class="line"></span><br><span class="line">Add(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// 3</span></span><br><span class="line">add(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// 3</span></span><br><span class="line">math.add(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// 3</span></span><br><span class="line">math.number <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以直接引入，这样引入就直接加载这个模块</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;index.css&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模块的引入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入fs库(第三方库)</span></span><br><span class="line"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">&quot;fs&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入模块的默认输出</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Add</span> <span class="keyword">from</span> <span class="string">&quot;./add.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用模块输出的某个函数和变量</span></span><br><span class="line"><span class="keyword">import</span> &#123; add, number &#125; <span class="keyword">from</span> <span class="string">&quot;./add.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入整个模块, 用as作为别名</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> math <span class="keyword">from</span> <span class="string">&quot;./add.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Add</span>(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 3</span></span><br><span class="line"><span class="title function_">add</span>(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 3</span></span><br><span class="line">math.<span class="title function_">add</span>(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 3</span></span><br><span class="line">math.<span class="property">number</span>; <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以直接引入，这样引入就直接加载这个模块</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;index.css&quot;</span>;</span><br></pre></td></tr></table></figure>
 
 <p>ES6 模块化功能主要通过<code>import</code>引入和<code>export</code>输出来实现的，另外 ES6 模块是动态取值的，不会缓存运行的结果</p>
 <p>ES6 模块化功能不仅支持客户端，还支持服务器（node 服务器）。</p>
@@ -423,7 +415,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AMD"><span class="nav-number">1.</span> <span class="nav-text">AMD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMD"><span class="nav-number">2.</span> <span class="nav-text">CMD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CommonJS"><span class="nav-number">3.</span> <span class="nav-text">CommonJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6"><span class="nav-number">4.</span> <span class="nav-text">ES6</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#AMD"><span class="nav-number">1.</span> <span class="nav-text">AMD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD"><span class="nav-number">2.</span> <span class="nav-text">CMD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonJS"><span class="nav-number">3.</span> <span class="nav-text">CommonJS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6"><span class="nav-number">4.</span> <span class="nav-text">ES6</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -432,7 +424,7 @@
     <img class="site-author-image" itemprop="image" alt="Alan Deng"
       src="/images/avatar1.png">
   <p class="site-author-name" itemprop="name">Alan Deng</p>
-  <div class="site-description" itemprop="description">不忘初心</div>
+  <div class="site-description" itemprop="description">A Web Developer</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -496,12 +488,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">452k</span>
+    <span title="站点总字数">456k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:51</span>
+    <span title="站点阅读时长">6:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -513,97 +505,6 @@
 
 
 
-<script>
-  (function() {
-    function leancloudSelector(url) {
-      url = encodeURI(url);
-      return document.getElementById(url).querySelector('.leancloud-visitors-count');
-    }
-
-    function addCount(Counter) {
-      var visitors = document.querySelector('.leancloud_visitors');
-      var url = decodeURI(visitors.id);
-      var title = visitors.dataset.flagTitle;
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          if (results.length > 0) {
-            var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
-            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
-              .catch(error => {
-                console.error('Failed to save visitor count', error);
-              });
-          } else {
-              Counter('post', '/classes/Counter', { title, url, time: 1 })
-                .then(response => response.json())
-                .then(() => {
-                  leancloudSelector(url).innerText = 1;
-                })
-                .catch(error => {
-                  console.error('Failed to create', error);
-                });
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    function showTime(Counter) {
-      var visitors = document.querySelectorAll('.leancloud_visitors');
-      var entries = [...visitors].map(element => {
-        return decodeURI(element.id);
-      });
-
-      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
-        .then(response => response.json())
-        .then(({ results }) => {
-          for (let url of entries) {
-            let target = results.find(item => item.url === url);
-            leancloudSelector(url).innerText = target ? target.time : 0;
-          }
-        })
-        .catch(error => {
-          console.error('LeanCloud Counter Error', error);
-        });
-    }
-
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"yKMuxFXOwwu1YoDly0pnabsH-9Nh9j0Va","app_key":"hXdqvzY7wAwlTbrYXhDfmpnR","server_url":null,"security":false};
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${api_server}/1.1${url}`, {
-          method,
-          headers: {
-            'X-LC-Id'     : app_id,
-            'X-LC-Key'    : app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-      if (CONFIG.page.isPost) {
-        if (CONFIG.hostname !== location.hostname) return;
-        addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
-        showTime(Counter);
-      }
-    }
-
-    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({ api_server }) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
 
 
       </div>
