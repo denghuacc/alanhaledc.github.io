@@ -19,15 +19,15 @@
     var CONFIG = {"hostname":"alanhaledc.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"ETZWTJO7QM","apiKey":"2637d77dbb15451056cd521bebf6fb6c","indexName":"search_demo","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="上次体验了 webpack4 的零配置，现在进行 webpack4 开发环境搭建。 本地安装依赖1npm install webpack webpack-cli --save-dev">
+  <meta name="description" content="上次体验了 Webpack4 的零配置，现在进行 Webpack4 开发环境搭建。 本地安装依赖1npm install webpack webpack-cli --save-dev">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Webpack4之开发环境搭建">
 <meta property="og:url" content="https://alanhaledc.com/blog/20180407-Webpack4%E4%B9%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Alan&#39;s Notes">
-<meta property="og:description" content="上次体验了 webpack4 的零配置，现在进行 webpack4 开发环境搭建。 本地安装依赖1npm install webpack webpack-cli --save-dev">
+<meta property="og:description" content="上次体验了 Webpack4 的零配置，现在进行 Webpack4 开发环境搭建。 本地安装依赖1npm install webpack webpack-cli --save-dev">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-04-07T12:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-10T10:25:48.331Z">
+<meta property="article:modified_time" content="2022-11-11T03:12:48.449Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="Webpack">
 <meta name="twitter:card" content="summary">
@@ -251,7 +251,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>上次体验了 webpack4 的零配置，现在进行 webpack4 开发环境搭建。</p>
+        <p>上次体验了 Webpack4 的零配置，现在进行 Webpack4 开发环境搭建。</p>
 <h3 id="本地安装依赖"><a href="#本地安装依赖" class="headerlink" title="本地安装依赖"></a>本地安装依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack webpack-cli --save-dev</span><br></pre></td></tr></table></figure>
 
 <span id="more"></span>
@@ -349,19 +349,19 @@
 <h3 id="webpack-常用插件"><a href="#webpack-常用插件" class="headerlink" title="webpack 常用插件"></a>webpack 常用插件</h3><p>Webpack 除了上面列举的插件外，还有一些插件也非常好用，下面列举几个：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">&quot;webpack&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">ExtractTextPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;extract-text-webpack-plugin&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">OptimizeCSSPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;optimize-css-assets-webpack-plugin&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">CopyWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;copy-webpack-plugin&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">new</span> webpack.<span class="title class_">NamedModulesPlugin</span>(), <span class="comment">// 显示热更新模块的名称</span></span><br><span class="line">    <span class="keyword">new</span> webpack.<span class="title class_">NoErrorsPlugin</span>(), <span class="comment">// 不显示错误插件</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">ExtractTextPlugin</span>(&#123;</span><br><span class="line">      <span class="comment">// 抽离css样式，还需要在loader下配置，请参考相关文档</span></span><br><span class="line">      <span class="attr">filename</span>: <span class="string">&quot;css/[name]-[contenthash].css&quot;</span>, <span class="comment">// 重命名</span></span><br><span class="line">      <span class="attr">allChunks</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">OptimizeCSSPlugin</span>(), <span class="comment">// 压缩分离出来的css</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">CopyWebpackPlugin</span>([</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 拷贝文件</span></span><br><span class="line">        <span class="attr">from</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;./static&quot;</span>),</span><br><span class="line">        <span class="attr">to</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;./dist/static&quot;</span>),</span><br><span class="line">        <span class="attr">ignore</span>: [<span class="string">&quot;.*&quot;</span>],</span><br><span class="line">      &#125;,</span><br><span class="line">    ]),</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>上面列举了几个常用的插件，这些插件都需要安装后才能使用。有的插件需要下载最新版才能在 webpack4 中正常使用，插件的参数需要根据实际开发来配置，请查看插件的文档。另外一些未例举的插件在 webpack4 有改动或者删除了，请查看插件的迁移文档。</p>
+<p>上面列举了几个常用的插件，这些插件都需要安装后才能使用。有的插件需要下载最新版才能在 Webpack4 中正常使用，插件的参数需要根据实际开发来配置，请查看插件的文档。另外一些未例举的插件在 Webpack4 有改动或者删除了，请查看插件的迁移文档。</p>
 <h3 id="补充-2018-6-30"><a href="#补充-2018-6-30" class="headerlink" title="补充 [2018.6.30]"></a>补充 [2018.6.30]</h3><ol>
 <li><p><code>mode</code> 设置为 <code>development</code> 时，会将 <code>process.env.NODE_ENV</code> 的值设为 <code>development</code>，并且提供了一些开发环境的默认配置，比如启用 <code>NamedChunksPlugin</code> 和 <code>NamedModulesPlugin</code> 插件等。</p>
 </li>
 <li><p><code>model</code> 设置为 <code>production</code> 时，会将 <code>process.env.NODE_ENV</code> 的值设为 <code>production</code>，并且提供了一些生产环境的默认配置，比如启用 <code>NoEmitOnErrorsPlugin</code> 插件等。</p>
 </li>
-<li><p>提取 CSS 文件的插件<code>extract-text-webpack-plugin</code> 在 Webpack4 中被弃用，需要使用<br><code>mini-css-extract-plugin</code>库。</p>
+<li><p>提取 CSS 文件的插件<code>extract-text-webpack-plugin</code> 在 Webpack4 中被弃用，需要使用 <code>mini-css-extract-plugin</code>库。</p>
 </li>
 <li><p>提取公共代码的插件<code>CommonsChunkPlugin</code>在 Webpack4 中被弃用，改为配置<code>optimization.splitChunks</code>和<code>optimization.runtimeChunk</code>属性。</p>
 </li>
 </ol>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Webpack 是目前最流行的前端工程化工具之一，本文讲的都是一些入门的粗浅知识，以后还会补充一些高级内容。</p>
-<p>可参考我搭建的 <a target="_blank" rel="noopener" href="https://github.com/alanhaledc/webpack-vue">Vue 开发环境</a>，比文中要详细很多，并且区分开发环境和生产环境，另外还有<code>Eslint</code>等配置。</p>
+<p>可参考我搭建的 <a target="_blank" rel="noopener" href="https://github.com/alanhaledc/webpack-vue">Vue 开发环境</a>，比文中要详细很多，并且区分开发环境和生产环境，另外还有<code>eslint</code>等配置。</p>
 <p>如需了解<code>vue-cli2</code> 的关于 Webpack3 的配置，请查看<a target="_blank" rel="noopener" href="https://github.com/alanhaledc/vue-cli2-webpack-comment">vue-cli2-webpack-comment</a>，有较详细的注释（个人理解）。</p>
 <p>最后，如果需要更加深入学习了解 Webpack，请查看<a target="_blank" rel="noopener" href="https://webpack.js.org/">官方文档</a>，建议查看英文文档，里面有最新的内容。</p>
 

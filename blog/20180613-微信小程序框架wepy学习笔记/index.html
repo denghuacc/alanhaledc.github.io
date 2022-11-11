@@ -27,7 +27,7 @@
 <meta property="og:description" content="前言上次体验了一下小程序开发，用的是小程序原生语法来开发。虽然体验了一把原汁原味的小程序开发，但是发现现在版本的小程序原生语法还是比较繁杂的，不够灵活。比如单单页面就由 4 个文件组成，还有组件上不支持脚本等等。在现在 MVVM 框架盛行的年代，可以使用尝试使用框架来开发小程序。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-06-13T12:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-10T10:25:48.390Z">
+<meta property="article:modified_time" content="2022-11-11T08:56:12.101Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="小程序">
 <meta property="article:tag" content="WePy">
@@ -255,32 +255,26 @@
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>上次体验了一下小程序开发，用的是小程序原生语法来开发。虽然体验了一把原汁原味的小程序开发，但是发现现在版本的小程序原生语法还是比较繁杂的，不够灵活。比如单单页面就由 4 个文件组成，还有组件上不支持脚本等等。在现在 MVVM 框架盛行的年代，可以使用尝试使用框架来开发小程序。</p>
 <span id="more"></span>
 
+<blockquote>
+<p>本篇文章基于 WePy v1.7.2-alpha1</p>
+</blockquote>
 <p><strong>补充说明：原生小程序开发并不会比使用框架开发效率低，而且原生开发没有那么多的 BUG，这个主要看开发者的熟练水平！</strong></p>
 <h3 id="选择框架"><a href="#选择框架" class="headerlink" title="选择框架"></a>选择框架</h3><p>网上查了下，微信小程序现在已经有不少开发框架，比如 WePy，Tina，MpVue 等等。选择哪个比较好呢？</p>
 <p>最后我选择的是 WePy！ 为什么呢？</p>
 <ol>
-<li><p>WePy 是微信官方腾讯公司的前端团队开发的一款小程序开发框架，应该会和小程序开发很搭配（后来才发现主力开发也就是一个人，一开始不是他并不是 Tencent 团队的，后面被招进来了）。</p>
-</li>
-<li><p>WePy 在小程序公测的时候就开源了，现在已经到 1.7.1 版本了，听说马上出 2.0 版本了，算是比较成熟稳定的框架了。（其实比起原生， BUG 还是挺多的）</p>
-</li>
-<li><p>WePy 借鉴了三大前端 MVVM 框架 Vue 的语法分格和功能特性，正好我也比较熟悉 Vue。（后来发现还不如直接使用 Vue 语法）</p>
-</li>
+<li>WePy 是微信官方腾讯公司的前端团队开发的一款小程序开发框架，应该会和小程序开发很搭配（后来才发现主力开发也就是一个人，一开始不是他并不是 Tencent 团队的，后面被招进来了）。</li>
+<li>WePy 在小程序公测的时候就开源了，现在已经到 1.7.1 版本了，听说马上出 2.0 版本了，算是比较成熟稳定的框架了。（其实比起原生， BUG 还是挺多的）</li>
+<li>WePy 借鉴了三大前端 MVVM 框架 Vue 的语法分格和功能特性，正好我也比较熟悉 Vue。（后来发现还不如直接使用 Vue 语法）</li>
 </ol>
 <p>所以，没错！就是 WePy 了。</p>
-<h3 id="主要特点"><a href="#主要特点" class="headerlink" title="主要特点"></a>主要特点</h3><p>看了 WePy 的文档，发现 WePy 还是很强大的，和 Vuejs 的语法风格和功能特性，非常适合 Vuejs 开发者。<br>其中，有几个特性个人非常喜欢。</p>
+<h3 id="主要特点"><a href="#主要特点" class="headerlink" title="主要特点"></a>主要特点</h3><p>看了 WePy 的文档，发现 WePy 还是很强大的，和 Vue 的语法风格和功能特性，非常适合 Vue 开发者。<br>其中，有几个特性个人非常喜欢。</p>
 <ol>
-<li><p>和 Vue 一样的语法风格和功能特性，更贴近 MVVM 架构模式。</p>
-</li>
-<li><p>支持 Sass&#x2F;Scss，Less，Stylus 等 CSS 预处理器。(个人比较喜欢简洁风格的 Stylus 预处理器)。</p>
-</li>
-<li><p>单文件模式，和 Vue 的<code>.vue</code>文件一样，把结构、样式、脚本都放在一个.wpy 文件里，使得目录结构非常清晰、简便。</p>
-</li>
-<li><p>支持加载外部的 NPM 包，也就是说可以使用第三方库了。</p>
-</li>
-<li><p>支持 ES6&#x2F;7 的新特性，比如 <code>Promise</code>、<code>Async/Await</code>，处理异步很方便。</p>
-</li>
-<li><p>支持页面和组件间通信，不但数据可以双向传值，还可以进行事件派发。</p>
-</li>
+<li>和 Vue 一样的语法风格和功能特性，更贴近 MVVM 架构模式。</li>
+<li>支持 Sass&#x2F;Scss，Less，Stylus 等 CSS 预处理器。(个人比较喜欢简洁风格的 Stylus 预处理器)。</li>
+<li>单文件模式，和 Vue 的<code>.vue</code>文件一样，把结构、样式、脚本都放在一个.wpy 文件里，使得目录结构非常清晰、简便。</li>
+<li>支持加载外部的 NPM 包，也就是说可以使用第三方库了。</li>
+<li>支持 ES6&#x2F;7 的新特性，比如 <code>Promise</code>、<code>Async/Await</code>，处理异步很方便。</li>
+<li>支持页面和组件间通信，不但数据可以双向传值，还可以进行事件派发。</li>
 </ol>
 <p>其实，WePy 还有很多好的特性，比如支持 ESLink 规则等等， 详见<a target="_blank" rel="noopener" href="https://tencent.github.io/wepy/document.html#/?id=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6wepy%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3">WePy 官方文档</a>。总之，WePy 对 Vue 开发者真的是非常友好。</p>
 <h3 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h3><ul>
@@ -317,20 +311,15 @@
 <li><p>src：代码源文件，自动生成分为三个部分：pages 目录、components 目录、<code>app.js</code>。</p>
 <ul>
 <li>pages 目录：小程序的页面目录，存放小程序的页面，继承<code>wepy.page</code> 类。</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><p>components 目录： 小程序的组件目录，存放小程序的组件，继承<code>wepy.component</code>类。</p>
-<ul>
+<li>components 目录： 小程序的组件目录，存放小程序的组件，继承<code>wepy.component</code>类。</li>
 <li>app.js：小程序的配置文件，比如全局变量，全局样式，声明钩子等，继承的是 <code>wepy.app</code> 类。</li>
+<li>其他的自定义目录。比如存在工具类方法的 utils，混合 mixins，存放图片文件的目录 images 等。</li>
 </ul>
-<p>其他的自定义目录。比如存在工具类方法的 utils，混合 mixins，存放图片文件的目录 images 等。</p>
 </li>
-</ul>
-<ol start="3">
-<li><code>package.json</code>：项目的 package 管理文件。</li>
-<li><code>wepy.config.js</code>：框架的配置文件，比如配置 Stylus 编译就在这里配置。</li>
+<li><p><code>package.json</code>：项目的 package 管理文件。</p>
+</li>
+<li><p><code>wepy.config.js</code>：框架的配置文件，比如配置 Stylus 编译就在这里配置。</p>
+</li>
 </ol>
 <h3 id="wpy-文件解析"><a href="#wpy-文件解析" class="headerlink" title="wpy 文件解析"></a>wpy 文件解析</h3><p><code>.wpy</code>文件结构和<code>.vue</code> 文件一样，分为三个部分，主要由三个标签组成，分别是<code>template</code>、<code>style</code>和<code>script</code>。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;stylus&quot;</span> <span class="attr">src</span>=<span class="string">&quot;page1.styl&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="comment">/* 编写样式, 对应原生的.wxss, 支持lang和src属性, lang默认为css，支持less，sass，stylus, postcss */</span></span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--编写结构, 对应原生的.wxml文件, 支持lang和src属性, lang默认为wxml，支持xml，pug --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 编写脚本, 对应原生的.js文件和json文件, 支持lang和src属性, lang默认为babel，支持TypeScript</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -338,80 +327,108 @@
 <p>其中，在<code>script</code>可以配置对应原生小程序的 json 文件，在<code>script</code>标签里面继承的类的<code>config</code>属性中配置，其他的代码为 js 文件的逻辑部分。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Index</span> <span class="keyword">extends</span> <span class="title class_ inherited__">wepy.page</span> &#123;</span><br><span class="line">  config = &#123;</span><br><span class="line">    <span class="attr">navigationBarTitleText</span>: <span class="string">&quot;小小休闲&quot;</span>,</span><br><span class="line">    <span class="attr">navigationBarBackgroundColor</span>: <span class="string">&quot;#b3d4db&quot;</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">  methods = &#123;</span><br><span class="line">    <span class="title function_">onTap</span>(<span class="params"></span>) &#123;</span><br><span class="line">      wepy.<span class="title function_">switchTab</span>(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&quot;../../pages/posts/posts&quot;</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="异同点"><a href="#异同点" class="headerlink" title="异同点"></a>异同点</h3><p>在这里，只列举自己使用时遇到的部分异同点，分别和小程序原生语法和 Vuejs 语法进行比较，这部分应该不全，详情请查看<a target="_blank" rel="noopener" href="https://tencent.github.io/wepy/document.html#/?id=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6wepy%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3">官方文档</a>。</p>
+<h3 id="异同点"><a href="#异同点" class="headerlink" title="异同点"></a>异同点</h3><p>在这里，只列举自己使用时遇到的部分异同点，分别和小程序原生语法和 Vue 语法进行比较，这部分应该不全，详情请查看<a target="_blank" rel="noopener" href="https://tencent.github.io/wepy/document.html#/?id=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6wepy%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3">官方文档</a>。</p>
 <ol>
 <li><p>事件绑定</p>
 <ol>
-<li><p>原生：<code>bindtap</code>。WePy： <code>@tap</code>。 Vuejs：<code>@click</code>。</p>
-</li>
-<li><p>原生：<code>catchtap</code>。 WePy：<code>@tap.stop</code>。 Vuejs： <code>@click.stop</code>。</p>
-</li>
+<li>原生：<code>bindtap</code>。WePy： <code>@tap</code>。 Vue：<code>@click</code>。</li>
+<li>原生：<code>catchtap</code>。 WePy：<code>@tap.stop</code>。 Vue： <code>@click.stop</code>。</li>
 </ol>
 </li>
 <li><p>循环渲染</p>
-<p>原生</p>
+<ul>
+<li>原生</li>
+</ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">block</span> <span class="attr">wx:for</span>=<span class="string">&quot;&#123;&#123;list&#125;&#125;&quot;</span> <span class="attr">wx:for-item</span>=<span class="string">&quot;itemName&quot;</span> <span class="attr">wx:key</span>=<span class="string">&quot;keyName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">block</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>WePy</p>
+<ul>
+<li>WePy</li>
+</ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repeat</span> <span class="attr">for</span>=<span class="string">&quot;/&#123;&#123;list&#125;&#125;/&quot;</span> <span class="attr">item</span>=<span class="string">&quot;itemName&quot;</span> <span class="attr">key</span>=<span class="string">&quot;keyName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">repeat</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>Vue</p>
+<ul>
+<li>Vue</li>
+</ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">&quot;itemName in list&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;keyName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>页面和组件传值：</p>
-<p>原生： <code>data</code>属性。</p>
-<p>WePy：<code>props</code>，动态传值需要加上<code>.sync</code>后缀，支持双向传值， 组件可以改变页面的值。</p>
-<p>Vuejs：<code>Props</code>，2.3 以后重新支持双向传值。</p>
+<ul>
+<li>原生： <code>data</code>属性。</li>
+<li>WePy：<code>props</code>，动态传值需要加上<code>.sync</code>后缀，支持双向传值， 组件可以改变页面的值。</li>
+<li>Vue：<code>Props</code>，2.3 以后重新支持双向传值。</li>
+</ul>
 </li>
 <li><p>组件向页面派发事件：</p>
-<p>原生：不支持。</p>
-<p>WePy：<code>this.$emit()</code>，传递的事件需要加上<code>.user</code>后缀。</p>
-<p>Vuejs：<code>this.$emit()</code>，不需要加后缀。</p>
+<ul>
+<li>原生：不支持。</li>
+<li>WePy：<code>this.$emit()</code>，传递的事件需要加上<code>.user</code>后缀。</li>
+<li>Vue：<code>this.$emit()</code>，不需要加后缀。</li>
+</ul>
 </li>
 <li><p>调用全局 api：</p>
-<p>原生：<code>wx:xxx</code>。</p>
-<p>WePy：<code>wepy:xxx</code> &amp; <code>this.$xxx</code> <code>this.xxx</code>。</p>
-<p>Vuejs：<code>Vue.xxx</code> &amp; <code>this.$xxx</code>。</p>
+<ul>
+<li>原生：<code>wx:xxx</code>。</li>
+<li>WePy：<code>wepy:xxx</code> &amp; <code>this.$xxx</code> <code>this.xxx</code>。</li>
+<li>Vue：<code>Vue.xxx</code> &amp; <code>this.$xxx</code>。</li>
+</ul>
 </li>
 <li><p>指令</p>
-<p>原生：<code>wx:xxx</code>。</p>
-<p>WePy：<code>wx:xxx</code> 部分省略 <code>wx</code>， 比如在<code>&lt;repeat&gt;</code>循环标签时使用<code>for</code>不是<code>wx:for</code>。</p>
-<p>Vuejs：<code>v-xxx</code> 部分省略 <code>v-</code>, 比如 <code>ref</code>等。</p>
+<ul>
+<li>原生：<code>wx:xxx</code>。</li>
+<li>WePy：<code>wx:xxx</code> 部分省略 <code>wx</code>， 比如在<code>&lt;repeat&gt;</code>循环标签时使用<code>for</code>不是<code>wx:for</code>。</li>
+<li>Vue：<code>v-xxx</code> 部分省略 <code>v-</code>, 比如 <code>ref</code>等。</li>
+</ul>
 </li>
 <li><p>方法</p>
-<p>原生：放在<code>page</code>里面。</p>
-<p>WePy：放在继承的<code>Page</code>类里面，特定的方法必须放在<code>methods</code>属性里面，即<code>methods=&#123;method&#125;</code>。比如页面接收的派发事件，组件的事件绑定等。</p>
-<p>Vue：方法全部放在<code>methods</code>里面。</p>
+<ul>
+<li>原生：放在<code>page</code>里面。</li>
+<li>WePy：放在继承的<code>Page</code>类里面，特定的方法必须放在<code>methods</code>属性里面，即<code>methods=&#123;method&#125;</code>。比如页面接收的派发事件，组件的事件绑定等。</li>
+<li>Vue：方法全部放在<code>methods</code>里面。</li>
+</ul>
 </li>
 <li><p>存取 data 属性</p>
-<p>原生</p>
+<ul>
+<li>原生</li>
+</ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存 data 数据</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">setData</span>(&#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&quot;home&quot;</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 data 数据</span></span><br><span class="line"><span class="keyword">const</span> title = <span class="variable language_">this</span>.<span class="property">data</span>.<span class="property">title</span>;</span><br></pre></td></tr></table></figure>
 
-<p>WePy</p>
+<ul>
+<li>WePy</li>
+</ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存 data 数据</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">title</span> = <span class="string">&quot;home&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 data 数据</span></span><br><span class="line"><span class="keyword">const</span> title = <span class="variable language_">this</span>.<span class="property">title</span>;</span><br></pre></td></tr></table></figure>
 
-<p>Vue</p>
+<ul>
+<li>Vue</li>
+</ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存 data 数据</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">title</span> = <span class="string">&quot;home&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 data 数据</span></span><br><span class="line"><span class="keyword">const</span> title = <span class="variable language_">this</span>.<span class="property">title</span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>存取全局变量</p>
-<p>原生</p>
+<ul>
+<li>原生</li>
+</ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存全局变量</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">getApp</span>();</span><br><span class="line">app.<span class="property">globalData</span>.<span class="property">isPlaying</span> = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取全局变量</span></span><br><span class="line"><span class="keyword">const</span> isPlaying = app.<span class="property">globalData</span>.<span class="property">isPlaying</span>;</span><br></pre></td></tr></table></figure>
 
-<p>WePy</p>
+<ul>
+<li>WePy</li>
+</ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存全局变量</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$parent</span>.<span class="property">globalData</span>.<span class="property">isPlaying</span> = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取全局变量</span></span><br><span class="line"><span class="keyword">const</span> isPlaying = <span class="variable language_">this</span>.<span class="property">$parent</span>.<span class="property">globalData</span>.<span class="property">isPlaying</span>;</span><br></pre></td></tr></table></figure>
 
-<p>Vue：自定义全局变量或者使用 Vuex 状态管理器。</p>
+<ul>
+<li>Vue：自定义全局变量或者使用 Vuex 状态管理器。</li>
+</ul>
 </li>
 </ol>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
 <li><p>使用 WePy 框架开发小程序时，需要关闭开发者工具中的“ES6 转 ES5”、“上传代码是样式自动补全”、“上传代码时自动压缩”这几个选项。或者在<code>project.config.json</code>设置成<code>false</code>也可以，不然会莫名其妙的报错。</p>
 </li>
-<li><p>开发中遇到的一个 BUG：就是用<code>&lt;repeat&gt;</code>循环传入子组件的值，无法再传入给孙组件。从 Issue 中查了下，很多人都遇到了这个问题，维护人员说 2.0 版本才会解决这个 Bug，现在版本解决的办法是下载最新的 1.7.2-alpha1 版本，然后导入组件时再变量上加@，再用原生的<code>&lt;block&gt;</code>和<code>wx:for</code>来传值，不过试了下，貌似没有效果。</p>
+<li><p>开发中遇到的一个 BUG：就是用<code>&lt;repeat&gt;</code>循环传入子组件的值，无法再传入给孙组件。从 Issue 中查了下，很多人都遇到了这个问题，维护人员说 2.0 版本才会解决这个 Bug，现在版本解决的办法是下载最新的 v1.7.2-alpha1 版本，然后导入组件时再变量上加@，再用原生的<code>&lt;block&gt;</code>和<code>wx:for</code>来传值，不过试了下，貌似没有效果。</p>
 </li>
 </ol>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>代码可参考：</p>
-<p>Github 仓库的原生小程序代码：<a target="_blank" rel="noopener" href="https://github.com/alanhaledc/mp-demo">mp-demo</a></p>
-<p>WePy 框架编写的小程序代码：<a target="_blank" rel="noopener" href="https://github.com/alanhaledc/wepy-demo">wepy-demo</a></p>
+<ul>
+<li>Github 仓库的原生小程序代码：<a target="_blank" rel="noopener" href="https://github.com/alanhaledc/mp-demo">mp-demo</a></li>
+<li>WePy 框架编写的小程序代码：<a target="_blank" rel="noopener" href="https://github.com/alanhaledc/wepy-demo">wepy-demo</a></li>
+</ul>
 <p>第一次使用 WePy 框架开发小程序难免会出现很多问题，文章中不足之处还请见谅。</p>
 
     </div>

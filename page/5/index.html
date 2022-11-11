@@ -337,8 +337,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="浏览器缓存浅析"><a href="#浏览器缓存浅析" class="headerlink" title="浏览器缓存浅析"></a>浏览器缓存浅析</h1><h3 id="什么是浏览器缓存"><a href="#什么是浏览器缓存" class="headerlink" title="什么是浏览器缓存"></a>什么是浏览器缓存</h3><blockquote>
-<p>浏览器缓存也就是 HTTP 缓存。缓存是一种保存资源副本并在下次请求时直接使用该副本的技术。当 web 缓存发现请求的资源已经被存储，它会拦截请求，返回该资源的拷贝，而不会去源服务器重新下载。这样带来的好处有：缓解服务器端压力，提升性能(获取资源的耗时更短了)。对于网站来说，缓存是达到高性能的重要组成部分。缓存需要合理配置，因为并不是所有资源都是永久不变的：重要的是对一个资源的缓存应截止到其下一次发生改变（即不能缓存过期的资源）。(摘自 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ">MDN</a> )</p>
+          <h3 id="什么是浏览器缓存"><a href="#什么是浏览器缓存" class="headerlink" title="什么是浏览器缓存"></a>什么是浏览器缓存</h3><blockquote>
+<p>浏览器缓存也就是 HTTP 缓存。缓存是一种保存资源副本并在下次请求时直接使用该副本的技术。当 Web 缓存发现请求的资源已经被存储，它会拦截请求，返回该资源的拷贝，而不会去源服务器重新下载。这样带来的好处有：缓解服务器端压力，提升性能(获取资源的耗时更短了)。对于网站来说，缓存是达到高性能的重要组成部分。缓存需要合理配置，因为并不是所有资源都是永久不变的：重要的是对一个资源的缓存应截止到其下一次发生改变（即不能缓存过期的资源）。(摘自 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ">MDN</a> )</p>
 </blockquote>
 <h3 id="浏览器缓存位置"><a href="#浏览器缓存位置" class="headerlink" title="浏览器缓存位置"></a>浏览器缓存位置</h3><p>浏览器缓存的存储主要有“Service Worker”、“Memory Cache”、“Disk Cache” 和“Push Cache”。</p>
           <!--noindex-->
@@ -409,7 +409,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数</span>
-              <span>5k</span>
+              <span>5.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -428,7 +428,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="TypeScript-在-Vue-的一些实践"><a href="#TypeScript-在-Vue-的一些实践" class="headerlink" title="TypeScript 在 Vue 的一些实践"></a>TypeScript 在 Vue 的一些实践</h1><p>今天无意中看到 Vue 作者尤大在知乎问题 <strong>TypeScript 不适合在 vue 业务开发中使用吗？</strong> 的<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/310485097/answer/591869966">回答</a>，说 Vue2.0 现在确实不是很适合用 TypeScript，现有的 API 和类型系统的结合存在缺陷，存在着一些历史遗留的问题，这个将会在在 Vue 3.0 中得到改善。</p>
+          <p>今天无意中看到 Vue 作者尤大在知乎问题 <strong>TypeScript 不适合在 vue 业务开发中使用吗？</strong> 的<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/310485097/answer/591869966">回答</a>，说 Vue2 现在确实不是很适合用 TypeScript，现有的 API 和类型系统的结合存在缺陷，存在着一些历史遗留的问题，这个将会在在 Vue3 中得到改善。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/20190210-TypeScript%E5%9C%A8Vue%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AE%9E%E8%B7%B5/#more" rel="contents">
@@ -604,8 +604,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近写了一个 Nuxt 项目，打算部署到服务器中。</p>
-<p>因为很久没有部署过新项目，一些部署的流程都已经忘记了，所以打算写一篇 Node.js 项目的部署文章。</p>
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近写了一个 Nuxt 项目，打算部署到服务器中。因为很久没有部署过新项目，一些部署的流程都已经忘记了，所以打算写一篇 Node.js 项目的部署文章。</p>
 <p>写这篇文章，第一可以加深理解，第二也可以方便以后查看。</p>
           <!--noindex-->
             <div class="post-button">
@@ -695,10 +694,8 @@
 
       
           <h3 id="父子组件通信"><a href="#父子组件通信" class="headerlink" title="父子组件通信"></a>父子组件通信</h3><h4 id="props-和-emit"><a href="#props-和-emit" class="headerlink" title="props 和 $emit"></a><code>props</code> 和 <code>$emit</code></h4><ul>
-<li><p><code>props</code> 接受父组件传递的数据</p>
-</li>
-<li><p><code>$emit</code> 派发事件</p>
-</li>
+<li><code>props</code> 接受父组件传递的数据</li>
+<li><code>$emit</code> 派发事件</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- CompA.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>This is Comp A<span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 监听自定义事件，传入数据 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CompB</span> @<span class="attr">count</span>=<span class="string">&quot;getCount&quot;</span> <span class="attr">:message</span>=<span class="string">&quot;message&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">CompB</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">import</span> <span class="title class_">CompB</span> <span class="keyword">from</span> <span class="string">&#x27;./CompB&#x27;</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">components</span>: &#123;&#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">data</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">message</span>: <span class="string">&#x27;hello&#x27;</span></span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">getCount</span>(<span class="params">val</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">console</span>.<span class="title function_">log</span>(val)</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- CompB.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>This is Comp B<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;emitEvent&quot;</span>&gt;</span>Emit Event<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 获取父组件传入的数据</span></span></span><br><span class="line"><span class="language-javascript">    <span class="attr">props</span>: [<span class="string">&#x27;message&#x27;</span>],</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">emitEvent</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">this</span>.$emit(<span class="string">&#x27;count&#x27;</span>, <span class="number">123</span>) <span class="comment">// 派发自定义事件</span></span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -788,7 +785,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>国庆前夕，Vuejs 作者发布了关于 Vuejs3.0 开发计划的文章，文章中有提到将会使用 TypeScript 重新编写 Vuejs 的源码，使得源码结构更清晰，更易维护。因此觉得是时候学习下 TypeScript 了。</p>
+          <p>国庆前夕，Vue.js 作者发布了关于 Vue.js v3.0 开发计划的文章，文章中有提到将会使用 TypeScript 重新编写 Vue.js 的源码，使得源码结构更清晰，更易维护。因此觉得是时候学习下 TypeScript 了。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/20181006-%E5%9F%BA%E4%BA%8Etypescript%E6%90%AD%E5%BB%BAvue%E9%A1%B9%E7%9B%AE%E5%88%9D%E8%AF%95/#more" rel="contents">

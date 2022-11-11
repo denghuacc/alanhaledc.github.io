@@ -249,7 +249,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>前面章节主要通过<code>initData</code>函数在初始化<code>data</code>选项的过程来讲解 Vue 的响应式系统。</p>
+          <p>前面章节主要通过<code>initData</code>函数在初始化<code>data</code>选项的过程来学习了 Vue 的响应式系统。</p>
 <p>主要讲了响应式系统中的工厂函数<code>observe</code>和监听器<code>Observer</code>以及如何定义响应式属性的<code>defineReactive</code>函数。因为响应式的原理是使用<code>Object.defineProperty</code>来定义对象数据的，所以还需要对数组类型的数据进行特殊处理，重写数组的一些常用方法，使得数组中的元素也和对象里面的数据一样，可以收集依赖和触发依赖。</p>
           <!--noindex-->
             <div class="post-button">
@@ -427,7 +427,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>讲解完对象的响应式定义后，再看下数组的响应式定义，回到<code>Observer</code>的构造函数中，看下面的代码。</p>
+          <p>学习完对象的响应式定义后，再看下数组的响应式定义，回到<code>Observer</code>的构造函数中，看下面的代码。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="title class_">Array</span>.<span class="title function_">isArray</span>(value)) &#123;</span><br><span class="line">  <span class="comment">// ! 判断当前环境的对象中是否有 __proto__ 属性 （是否支持使用 __proto__）</span></span><br><span class="line">  <span class="keyword">if</span> (hasProto) &#123;</span><br><span class="line">    <span class="title function_">protoAugment</span>(value, arrayMethods);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">copyAugment</span>(value, arrayMethods, arrayKeys);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">observeArray</span>(value); <span class="comment">// ! 再次监听数组，监听一些嵌套的数组</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>if</code>代码块中定义了数组响应式，首先判断宿主环境中是否存在<code>__proto__</code>属性，这个属性是对象的隐式原型对象，只有在 IE 11 以上的浏览器才会支持。</p>
@@ -613,13 +613,11 @@
 
       
           <p>Vue 最核心的地方就是它的响应式系统，这是它最核心的精华，也是明显区别于其他的框架像<code>React</code>、<code>Angular</code>的地方。</p>
-<p>在上一章初始化实例属性的时候，讲解了<code>initState</code>函数，这个函数里面调用了一系列初始化选项的函数，为实例对象<code>vm</code>初始化了很多属性，这些属性大都是和响应式系统相关的。本章主要围绕<code>initData</code>函数来进行，因为初始化<code>data</code>选项几乎涉及到了响应式系统的全部内容。</p>
+<p>在上一章初始化实例属性的时候，学习了<code>initState</code>函数，这个函数里面调用了一系列初始化选项的函数，为实例对象<code>vm</code>初始化了很多属性，这些属性大都是和响应式系统相关的。本章主要围绕<code>initData</code>函数来进行，因为初始化<code>data</code>选项几乎涉及到了响应式系统的全部内容。</p>
 <p>先看下<code>initData</code>函数在<code>initState</code>函数中的代码</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (opts.<span class="property">data</span>) &#123;</span><br><span class="line">  <span class="title function_">initData</span>(vm);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="title function_">observe</span>((vm.<span class="property">_data</span> = &#123;&#125;), <span class="literal">true</span> <span class="comment">/* asRootData */</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>判断<code>opts</code>中是否有<code>data</code>属性，如果有的话，调用<code>initData</code>函数初始化<code>data</code>选项。</p>
-<p>如果没有的话，把实例对象的私有属性<code>_data</code>设置空对象，并调用<code>observe</code>函数监听这个空对象。</p>
-<p>其实，Vue 还对外提供了<code>$data</code> 属性让我们获取<code>data</code>的值，而<code>$data</code>代理的就是<code>_data</code>的值。</p>
+<p>判断<code>opts</code>中是否有<code>data</code>属性，如果有的话，调用<code>initData</code>函数初始化<code>data</code>选项。如果没有的话，把实例对象的私有属性<code>_data</code>设置空对象，并调用<code>observe</code>函数监听这个空对象。其实，Vue 还对外提供了<code>$data</code> 属性让我们获取<code>data</code>的值，而<code>$data</code>代理的就是<code>_data</code>的值。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/20190910-Vue2%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%9B%91%E5%90%AC%E5%99%A8/#more" rel="contents">
@@ -707,11 +705,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在前面我们讲解 Vue 的实例化时，单独用了两章讲解 Vue 的选项合并的内容，下面开始真正学习 Vue 的实例化。</p>
+          <p>在前面我们学习 Vue 的实例化时，单独用了两章说明 Vue 的选项合并的内容，下面开始真正学习 Vue 的实例化。</p>
 <p>继续看<code>_init</code>函数下面的代码，在文件<code>core/instance/init.js</code>中</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* istanbul ignore else */</span></span><br><span class="line"><span class="comment">// ! 初始化代理</span></span><br><span class="line"><span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NODE_ENV</span> !== <span class="string">&quot;production&quot;</span>) &#123;</span><br><span class="line">  <span class="title function_">initProxy</span>(vm);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  vm.<span class="property">_renderProxy</span> = vm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在前面讲解中只是提到在非生产环境和生产环境的代码实现结果必须一致，所以<code>initProxy</code>的函数的作用应该为实例对象<code>vm</code>添加属性<code>_renderProxy</code>为<code>vm</code>。真的是这样吗？</p>
+<p>在前面学习中只是提到在非生产环境和生产环境的代码实现结果必须一致，所以<code>initProxy</code>的函数的作用应该为实例对象<code>vm</code>添加属性<code>_renderProxy</code>为<code>vm</code>。</p>
+<p>真的是这样吗？</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/20190906-Vue2%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%AE%9E%E4%BE%8B%E5%8C%96/#more" rel="contents">

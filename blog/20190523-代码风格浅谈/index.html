@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://alanhaledc.com/_static/gitCz.png">
 <meta property="article:published_time" content="2019-05-23T12:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-10T09:45:10.969Z">
+<meta property="article:modified_time" content="2022-11-11T08:45:48.940Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="代码风格">
 <meta name="twitter:card" content="summary">
@@ -265,11 +265,8 @@
 <p>用 VSCode 的一开始是写博客内容或者一些笔记，博客文章使用的是 markdown 格式，VSCode 天生就对 Markdown 支持非常好，特别是比 WebStorm 的预览效果好多了。WebStorm 一开始对 Markdown 的预览还好，后面不知道怎么搞的，预览的页面不清晰，非常模糊。</p>
 <p>这时候写代码还是用 WebStorm，毕竟它的智能补全很好用，直到后面发现 VSCode 的插件系统是如此强大，好多插件完全可以替代 WebStorm 的功能，而且定制化更强，也有很多非常漂亮的主题，后面就逐渐改用 VSCode，然后再也离不开它了。比如<code>CodeRunner</code> 插件可以直接运行各种语言的代码，非常方便。小程序插件 <code>minapp</code>，让我写小程序更好方便，这在 WebStorm 上是无法实现的。</p>
 <p>前端代码格式化插件<code>Prettier</code>，美化我的前端代码文件比如<code>Html</code>、<code>CSS</code>、<code>JavaScrip</code> ，甚至是 Vue 文件和 或者 Markdown 文件。虽然 WebStorm 也可以实现相同的功能，但是需要你去详细的配置。VSCode 一个插件就搞定了。之后，我的项目基本上都是采用<code>Prettier</code>美化代码。</p>
-<p>一些非常美观的主题，图标，还有自定义的字体，都让我爱不释手。</p>
-<p>其他的功能插件比如同步配置<code>Setting sync</code> 和 LeetCode 插件，更是让我离不开它。</p>
-<p>VSCode 不仅有强大的插件系统，还自带调试功能，可以轻松调试代码。</p>
-<p>另外最重要的一点，VSCode 是开源的、完全免费的软件，再也不用去隔三岔五的去找 WebStorm 的服务许可。</p>
-<p>而且 VSCode 是微软主推的 Github 明星项目，全世界的开发者去更新和维护它，以后只会越来越好。</p>
+<p>一些非常美观的主题，图标，还有自定义的字体，都让我爱不释手。其他的功能插件比如同步配置<code>Setting sync</code> 和 LeetCode 插件，更是让我离不开它。</p>
+<p>VSCode 不仅有强大的插件系统，还自带调试功能，可以轻松调试代码。另外最重要的一点，VSCode 是开源的、完全免费的软件，再也不用去隔三岔五的去找 WebStorm 的服务许可。而且 VSCode 是微软主推的 Github 明星项目，全世界的开发者去更新和维护它，以后只会越来越好。</p>
 <p>有的团队要求统一使用编辑器，相信 VSCode 会是个很好的选择。</p>
 <h3 id="文件结构相关"><a href="#文件结构相关" class="headerlink" title="文件结构相关"></a>文件结构相关</h3><h4 id="Yarn"><a href="#Yarn" class="headerlink" title="Yarn"></a>Yarn</h4><p>前端项目的工程化离不开 Node.js，它自带的包管理工具 NPM，但是感觉并不好用。我一般会使用脸书出品的 Yarn 工具来管理包。Yarn 的安装包的速度也比 NPM 快，而且提示信息更友好，也更安全。</p>
 <h4 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h4><p>现在前端的三大框架 Vue、React、Angular 提倡经常组件化开发，把页面切分成一个个组件，提高开发效率和可维护性。对于组件，我有自己的风格。</p>
@@ -299,10 +296,8 @@
 <h4 id="CSS-x2F-Stylus-x2F-Scss"><a href="#CSS-x2F-Stylus-x2F-Scss" class="headerlink" title="CSS &#x2F; Stylus &#x2F; Scss"></a>CSS &#x2F; Stylus &#x2F; Scss</h4><p>现在直接写 CSS 的代码比较少，一般都写 Stylus 或者 Scss 代码。</p>
 <p>Stylus 是 Node 社区推出的 CSS 预处理器，语法灵活简单。另外，在格式上也可以设置两种不同的风格：</p>
 <ul>
-<li><p>极简风格，没有大括号，没有分号，甚至在属性名和属性之间也没有冒号，只用空格隔开。</p>
-</li>
-<li><p>正常风格，和极简风格完全相反，有大括号、分号和冒号。这种风格有点类似于 Scss，如果你使用这种格式，再加上 Scss 的关键字，就可以转换成 Scss 文件。</p>
-</li>
+<li>极简风格，没有大括号，没有分号，甚至在属性名和属性之间也没有冒号，只用空格隔开。</li>
+<li>正常风格，和极简风格完全相反，有大括号、分号和冒号。这种风格有点类似于 Scss，如果你使用这种格式，再加上 Scss 的关键字，就可以转换成 Scss 文件。</li>
 </ul>
 <p>当然你也可以自定义格式，我喜欢取两者之间的设置，保留了冒号，但是去掉了分号和大括号，这样可读性更好，也很节省空间。</p>
 <p>因为我现在主要使用 VSCode 编辑器，安装了“Manta’s Stylus Supremacy”插件，这样插件可以设置 Stylus 的格式，不但可以设置一般的 Stylus 文件，还可以设置 Vue 文件中的 Stylus 代码的风格，只需要在 Vue 的插件 Vetur 中设置 Stylus 的格式化工具为“stylus-supremacy”即可。</p>
@@ -341,11 +336,10 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;semi&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;singleQuote&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="关于注释"><a href="#关于注释" class="headerlink" title="关于注释"></a>关于注释</h4><p>JavaScript 的注释主要有两种，单行的注释 <code>//</code> 和多行注释 <code>/* */</code>。</p>
-<p>一般我喜欢使用单行的注释<code>//</code>，占用空间比较小，并且会把注释写在代码的右边，只有代码很长才会写在代码的上一行。</p>
-<p>多行注释<code>/* */</code>一般用于注释函数、类、各种语句等代码块，特别是注释函数的参数和返回值非常方便。不过我还是喜欢用单行注释，因为多行注释太占用空间了，除非需要特别注释参数。</p>
+<p>一般我喜欢使用单行的注释<code>//</code>，占用空间比较小，并且会把注释写在代码的右边，只有代码很长才会写在代码的上一行。多行注释<code>/* */</code>一般用于注释函数、类、各种语句等代码块，特别是注释函数的参数和返回值非常方便。不过我还是喜欢用单行注释，因为多行注释太占用空间了，除非需要特别注释参数。</p>
 <p>另外，单行注释 <code>//</code> 也可以注释函数等代码块或者多行代码，只需要多写几行 <code>//</code> 就可以了，即使这样也比 <code>/* */</code> 更节省空间。</p>
 <p>为了可读性更强，<strong>英文单词和汉字之间用空格隔开</strong>，<strong>数字和汉字之间用空格隔开</strong>，在 Markdown 中使用 <code>prettier</code>插件可以很好美化我们编写的内容，这个插件会帮我们分隔开。但是，在代码文件的注释中，就只能靠我们自己去分隔了。</p>
-<h3 id="Github-相关"><a href="#Github-相关" class="headerlink" title="Github 相关"></a>Github 相关</h3><p>Git 是代码版本控制软件，Github 是著名的 代码托管平台，这个平台所使用的就是 Git 控制软件版本的。</p>
+<h3 id="Github-相关"><a href="#Github-相关" class="headerlink" title="Github 相关"></a>Github 相关</h3><p>Git 是代码版本控制软件，Github 是著名的代码托管平台，这个平台所使用的就是 Git 控制软件版本的。</p>
 <p>现在学编程的同学或者已经有工作的程序员，基本上都会在 GitHub 或者其他类似的平台上注册账号，建立自己的代码托管仓库，分享自己的代码或者和他人进行交流和学习。</p>
 <p>我们每次为自己的仓库提交或者更新代码的时候，都会提交一条 Commit Message，用来记录我们提交的信息，之以后就可以很好的查询这些信息了。</p>
 <p>如果是个人的项目的仓库提交代码信息时，按照自己想法提交信息即可，比如提交 update、第一次提交等信息。像怎么写就怎么写，这都没有关系。但是如果想把项目做好点，就不能这样随便提交信息，应该要规范一点。</p>
@@ -353,7 +347,7 @@
 <p>首先，安装依赖</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add commitizen cz-conventional-changelog</span><br></pre></td></tr></table></figure>
 
-<p>配置文件，在 <code>package.JavaScripton</code>中：</p>
+<p>配置文件，在 <code>package.json</code>中：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;script&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    ...<span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;commit&quot;</span><span class="punctuation">:</span> <span class="string">&quot;git-cz&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;config&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;commitizen&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node_modules/cz-conventional-changelog&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>然后当你提交 commit 的时候，输入命令后，会出现下面的提示界面</p>
@@ -385,17 +379,15 @@
 <p>之后再任何一个项目文件中，你提交了文件到暂存区后，需要提交修改时，只需要在命令行中输入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cz</span><br></pre></td></tr></table></figure>
 
-<p>就会跳出和上面<code>yarn commit</code> 一样的提示界面，然后根据提示信息输入相关内容即可。</p>
-<p>其实如果搭配 Git Hook，效果会更好。在我们每次提交信息之前都会检测代码格式是否符合规范，只有符合规范，才能正常提交代码。</p>
+<p>就会跳出和上面<code>yarn commit</code> 一样的提示界面，然后根据提示信息输入相关内容即可。其实如果搭配 Git Hook，效果会更好。在我们每次提交信息之前都会检测代码格式是否符合规范，只有符合规范，才能正常提交代码。</p>
 <p>首先，安装相关依赖</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add @commitlint/cli @commitlint/config-conventional lint-staged -D</span><br></pre></td></tr></table></figure>
 
-<p>配置文件，在 <code>package.JavaScripton</code>中:</p>
+<p>配置文件，在 <code>package.json</code>中:</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;script&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;precommit&quot;</span><span class="punctuation">:</span> <span class="string">&quot;lint-staged&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line"><span class="attr">&quot;lint-staged&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;**/*.JavaScript&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;prettier --write&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;git add&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line"><span class="attr">&quot;commitlint&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;extends&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;@commitlint/config-conventional&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
 
 <p>运行 <code>yarn commit</code>命令时，会先触发 precommit 的脚本，然后执行 <code>lint-staged</code> 命令，检测所有的 JavaScript 文件是否符合我们设置的规范，如果不符合规范，有先尝试使用<code>prettier --write</code> 来修复一些简单的格式问题，如果修复成功，会重新进行提交，如果修复不成功，而不会提交代码，并且提示出现问题，需要我们手动修复之后再进行提交。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>代码风格是我们在写代码的过程中慢慢形成的，好的代码风格对于我们有非常重要的影响。</p>
-<p>好的代码风格不仅增强可读性和提高代码可维护性，还能体现一个人的编程素养。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>代码风格是我们在写代码的过程中慢慢形成的，好的代码风格对于我们有非常重要的影响。好的代码风格不仅增强可读性和提高代码可维护性，还能体现一个人的编程素养。</p>
 
     </div>
 

@@ -27,7 +27,7 @@
 <meta property="og:description" content="使用 DllPlugin 插件先提前打包一些不经常变化的第三方库，然后在后面项目打包的时候直接引用它们，而不需要重新打包这些库，这样可以有效的提升项目打包速度。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-07-05T12:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-10T07:15:54.935Z">
+<meta property="article:modified_time" content="2022-11-11T07:57:09.946Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="Webpack">
 <meta name="twitter:card" content="summary">
@@ -273,11 +273,11 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">&quot;webpack&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">AddAssetHtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;add-asset-html-webpack-plugin&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">AddAssetHtmlWebpackPlugin</span>(&#123;</span><br><span class="line">      <span class="attr">filepath</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;dll/vendors.dll.js&quot;</span>),</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> webpack.<span class="title class_">DllReferencePlugin</span>(&#123;</span><br><span class="line">      <span class="attr">manifest</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;dll/vendors.manifest.json&quot;</span>),</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>这里还是使用了<code>DllReferencePlugin</code>插件，但是配置不一样，这里配置<code>manifest</code>选项引入之前打包好的文件的映射清单，然后再借助一个第三方库<code>add-asset-html-webpack-plugin</code>把打包好的文件引入到现在的 HTML 文件中。</p>
-<p>修改好原来的配置文件后，重新进行打包编译</p>
+<p>修改好原来的配置文件后，重新进行打包编译。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn build</span><br></pre></td></tr></table></figure>
 
 <p>文件打包成功。我们可以通过注释掉<code>DllReferencePlugin</code>插件的代码，进行编译打包，多打包几次。然后取消注释，也进行编译打包，也多打包几次。然后比较这两种配置之间的打包时间，就会发现使用<code>DllReferencePlugin</code>插件后编译打包的时间明显更少。因为使用<code>DllReferencePlugin</code>插件后就不需要再重新去打包<code>react</code>和<code>react-dom</code>这两个库了，而是直接引用原来已经打包好的文件。</p>
-<p>现在启动开发模式测试一下</p>
+<p>现在启动开发模式测试一下。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn dev</span><br></pre></td></tr></table></figure>
 
 <p>发现编译也是成功的。</p>
@@ -302,8 +302,7 @@
 <li>遍历文件名数组<code>files</code>，通过正则表达式匹配文件名，再使用插件引入匹配的文件，再把插件放入到<code>plugins</code>数组中。</li>
 <li>最后把<code>plugins</code>数组赋值给配置文件的<code>plugins</code>字段中。</li>
 </ol>
-<p>重新进行编译打包，打包成功。使用开发者模式测试代码，编译也是成功的。</p>
-<p>说明自动引入的方法是有效的，以后再也不用担心提前打包的文件多的问题。</p>
+<p>重新进行编译打包，打包成功。使用开发者模式测试代码，编译也是成功的。说明自动引入的方法是有效的，以后再也不用担心提前打包的文件多的问题。</p>
 
     </div>
 

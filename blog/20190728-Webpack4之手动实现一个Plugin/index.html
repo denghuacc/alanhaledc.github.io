@@ -27,7 +27,7 @@
 <meta property="og:description" content="下面手动实现一个简单的 Webpack Plugin。 搭建项目先创建一个 Webpack 项目 1234mkdir make-plugincd make-pluginyarn init -yyarn add webpack webpack-cli -D  在根目录中创建 src 文件夹，并在里面中创建一个index.js文件，编写下面代码">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-07-28T12:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-10T07:15:59.061Z">
+<meta property="article:modified_time" content="2022-11-11T08:10:22.301Z">
 <meta property="article:author" content="Alan Deng">
 <meta property="article:tag" content="Webpack">
 <meta name="twitter:card" content="summary">
@@ -287,8 +287,7 @@
 
 <p>这个方法接受<code>compiler</code>作为参数，<code>compiler</code>是 Webpack 编译后生成的文件，里面包含了很多内容，包括配置、钩子 hooks 等。这里使用<code>hooks</code>钩子来增加文件。<code>compiler</code>的 hooks 和前端框架<code>Vue</code> 、<code>React</code>的生命函数的钩子类似，都是在某一个时刻执行的函数。</p>
 <p>钩子的<code>emit</code>方法是在生成打包文件前执行的，我们使用这个方法在打包前创建一个<code>copyright.md</code>文件。</p>
-<p>因为这个钩子是异步执行的，所以使用<code>tapAsync</code>方法来调用钩子，需要转入两个参数，第一个参数是本身插件的名称，第二个参数是一个函数。</p>
-<p>函数需要传入<code>compilation</code>参数，这个参数也包含了很多属性。因为这是一个异步的钩子，所以还需要传入函数的第二个参数<code>cb</code>，这是一个回调函数，在这个钩子函数结束时调用它。</p>
+<p>因为这个钩子是异步执行的，所以使用<code>tapAsync</code>方法来调用钩子，需要转入两个参数，第一个参数是本身插件的名称，第二个参数是一个函数。函数需要传入<code>compilation</code>参数，这个参数也包含了很多属性。因为这是一个异步的钩子，所以还需要传入函数的第二个参数<code>cb</code>，这是一个回调函数，在这个钩子函数结束时调用它。</p>
 <p><code>compilation</code>的<code>assets</code>属性表示生成后的文件，我们可以在赋值前打印下这个属性</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(compilation, cb) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(compilation.<span class="property">assets</span>); <span class="comment">// ! 打印属性</span></span><br><span class="line">  compilation.<span class="property">assets</span>[<span class="string">&quot;copyright.md&quot;</span>] = &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -300,12 +299,10 @@
 
 <p>其中<code>source</code>是源码文件，而<code>size</code>是生成文件的大小，返回 15 表示生成的文件大小是 15 byte。</p>
 <p>插件编写完成后，重新进行编译打包，就会发现<code>dist</code>文化夹中新增加了一个<code>copyright.md</code>文件，内容是<code>written by Hale</code>，说明我们编写的这个插件生效了。</p>
-<p>其实，插件可以使用多个钩子，下面使用一个同步的钩子<code>compile</code>，这个钩子是在 Webpack 初始化编译时执行的，执行的顺序还在<code>emit</code>钩子之前。</p>
-<p>因为这是一个同步执行的钩子，所以使用<code>tap</code>来调用，并且在第二个函数参数中也不需要再传入回调函数<code>cb</code>。</p>
+<p>其实，插件可以使用多个钩子，下面使用一个同步的钩子<code>compile</code>，这个钩子是在 Webpack 初始化编译时执行的，执行的顺序还在<code>emit</code>钩子之前。因为这是一个同步执行的钩子，所以使用<code>tap</code>来调用，并且在第二个函数参数中也不需要再传入回调函数<code>cb</code>。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CopyrightWebpackPlugin</span> &#123;</span><br><span class="line">  <span class="title function_">apply</span>(<span class="params">compiler</span>) &#123;</span><br><span class="line">    compiler.<span class="property">hooks</span>.<span class="property">compile</span>.<span class="title function_">tap</span>(<span class="string">&quot;CopyrightWebpackPlugin&quot;</span>, <span class="function">(<span class="params">compilation</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;compile hook&quot;</span>); <span class="comment">// compile 钩子的打印信息</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    compiler.<span class="property">hooks</span>.<span class="property">emit</span>.<span class="title function_">tapAsync</span>(</span><br><span class="line">      <span class="string">&quot;CopyrightWebpackPlugin&quot;</span>,</span><br><span class="line">      <span class="function">(<span class="params">compilation, cb</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;emit hook&quot;</span>); <span class="comment">// emit 钩子的打印信息</span></span><br><span class="line">        compilation.<span class="property">assets</span>[<span class="string">&quot;copyright.md&quot;</span>] = &#123;</span><br><span class="line">          <span class="attr">source</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;written by Hale&quot;</span>;</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="attr">size</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">15</span>;</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="title function_">cb</span>();</span><br><span class="line">      &#125;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>重新进行编译打包，编译成功。</p>
-<p>然后，我们发现在命令行中是先打印出<code>compile hook</code>信息，然后再打印出<code>emit hook</code>信息。</p>
+<p>重新进行编译打包，编译成功。然后，我们发现在命令行中是先打印出<code>compile hook</code>信息，然后再打印出<code>emit hook</code>信息。</p>
 <h4 id="Node-调试"><a href="#Node-调试" class="headerlink" title="Node 调试"></a>Node 调试</h4><p>我们在初次编写插件时，不知道插件中一些的参数是什么样子的，可以使用<code>console.log</code>在命令行把参数的信息打印出来查看，也可以使用 Node 的调试模式进行断点调试，来查看它的参数的属性。</p>
 <p>下面我们使用 Node 调试模式调试代码</p>
 <p>在<code>package.json</code>新增<code>debug</code>脚本命令，这里调用<code>node</code>命令进行 debug 调试。</p>
@@ -319,7 +316,7 @@
 <p>命令行中会出现下面这些提示信息</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ node --inspect --inspect-brk node_modules/webpack/bin/webpack.js</span><br><span class="line">Debugger listening on ws://127.0.0.1:9229/cf7f577c-b23f-417a-813e-c42299328113</span><br><span class="line">For <span class="built_in">help</span>, see: https://nodejs.org/en/docs/inspector</span><br><span class="line">Debugger attached.</span><br></pre></td></tr></table></figure>
 
-<p>这时，打开<code>chrome</code> 浏览器，在地址栏输入<code>127.0.0.1:9229</code>按回车，然后按下<code>F12</code>打开页面的控制台，发现控制面板的左上角有个绿色的 Node 的 Logo 标识，点击这个标识就可以进入到代码的调试界面。</p>
+<p>这时，打开<code>chrome</code>浏览器，在地址栏输入<code>127.0.0.1:9229</code>按回车，然后按下<code>F12</code>打开页面的控制台，发现控制面板的左上角有个绿色的 Node 的 Logo 标识，点击这个标识就可以进入到代码的调试界面。</p>
 <p>此时，我们发现代码已经在 Webpack 模块的第一行代码中停下来，因为我们前面设置了在第一行打断点。这时我们就可以进行调试了。</p>
 <p>从一开始就在 Webpack 模块的第一行代码中停下来并没有什么意义。因为我们还需要跳到插件的代码中去查看属性，这样需要花费不少时间进行跳转。所以，我们可以手动在插件代码中新增一个断点，然后直接跳这行代码中去调试。</p>
 <p>怎么新增断点呢？在插件中插入一句<code>debugger</code>代码，这样相当于在插件的这行代码中打了一个断点。</p>
@@ -328,8 +325,7 @@
 <p>重新启动 Node 的调试模式</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn debug</span><br></pre></td></tr></table></figure>
 
-<p>再次打开调试页面，然后点击跳转按钮，或者按<code>F8</code>直接跳到插件代码中的<code>debugger</code>这一行上。</p>
-<p>这时，把鼠标移动到相关的代码上面就可以查看它们的属性信息了。</p>
+<p>再次打开调试页面，然后点击跳转按钮，或者按<code>F8</code>直接跳到插件代码中的<code>debugger</code>这一行上。这时，把鼠标移动到相关的代码上面就可以查看它们的属性信息了。</p>
 
     </div>
 

@@ -431,7 +431,7 @@
       
           <p><code>Store.js</code>文件中的代码中，会导出一个<code>Store</code>类，我们在使用 Vuex 的时候都是从先创建一个<code>Store</code>实例对象开始的。</p>
 <p>下面看下<code>Store</code>实例对象的初始化过程。</p>
-<h3 id="Store-的初始化"><a href="#Store-的初始化" class="headerlink" title="Store 的初始化"></a>Store 的初始化</h3><p>先看下<code>Store</code>类的初始化函数<code>constructor</code>的代码</p>
+<h3 id="Store-的初始化"><a href="#Store-的初始化" class="headerlink" title="Store 的初始化"></a>Store 的初始化</h3><p>先看下<code>Store</code>类的初始化函数<code>constructor</code>的代码。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params">options = &#123;&#125;</span>) &#123;</span><br><span class="line">  <span class="comment">// Auto install if it is not done yet and `window` has `Vue`.</span></span><br><span class="line">  <span class="comment">// To allow users to avoid auto-installation in some cases,</span></span><br><span class="line">  <span class="comment">// this code should be placed here. See #731</span></span><br><span class="line">  <span class="comment">// ! 使用 Vuex 为引入外链时，会自动安装插件</span></span><br><span class="line">  <span class="keyword">if</span> (!<span class="title class_">Vue</span> &amp;&amp; <span class="keyword">typeof</span> <span class="variable language_">window</span> !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="variable language_">window</span>.<span class="property">Vue</span>) &#123;</span><br><span class="line">    <span class="title function_">install</span>(<span class="variable language_">window</span>.<span class="property">Vue</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在我们使用外链来引入 Vuex 时，会自动安装 Vuex，不需要再手动调用<code>use</code>方法来安装。</p>
@@ -523,7 +523,7 @@
 
       
           <p>Vuex 是一个专为 Vue.js 应用程序开发的<strong>状态管理模式</strong>。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。</p>
-<h3 id="源码结构"><a href="#源码结构" class="headerlink" title="源码结构"></a>源码结构</h3><p>先查看下 src 下面的文件目录结构</p>
+<h3 id="源码结构"><a href="#源码结构" class="headerlink" title="源码结构"></a>源码结构</h3><p>先查看下 src 下面的文件目录结构。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/20191005-Vuex3%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BVuex%E7%9A%84%E5%AE%89%E8%A3%85/#more" rel="contents">
@@ -611,11 +611,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>再次回到<code>initState</code>函数中，其中<code>data</code>、<code>watch</code>、<code>computed</code>和<code>props</code>选项的初始化都已讲解，下面还剩下<code>methods</code>选项的初始化未讲解。看下面的代码</p>
+          <p>再次回到<code>initState</code>函数中，其中<code>data</code>、<code>watch</code>、<code>computed</code>和<code>props</code>选项的初始化都已经学完了，下面还剩下<code>methods</code>选项的初始化，看下面的代码。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (opts.<span class="property">methods</span>) <span class="title function_">initMethods</span>(vm, opts.<span class="property">methods</span>);</span><br></pre></td></tr></table></figure>
 
 <p>通过调用<code>initMethods</code>函数初始化<code>methods</code>选项，还需要传入实例对象<code>vm</code>和合并选项后的<code>methods</code>属性。</p>
-<h3 id="initMethods"><a href="#initMethods" class="headerlink" title="initMethods"></a><code>initMethods</code></h3><p>下面看下<code>initMethods</code> 函数的代码</p>
+<h3 id="initMethods"><a href="#initMethods" class="headerlink" title="initMethods"></a><code>initMethods</code></h3><p>下面看下<code>initMethods</code>函数的代码。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> props = vm.<span class="property">$options</span>.<span class="property">props</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> methods) &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>声明常量<code>props</code>存储合并选项后的<code>props</code>选项，这个常量在后面会用到。</p>
@@ -707,13 +707,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>前面章节通过初始化<code>data</code>选项的<code>initData</code>函数讲解了 Vue 的响应式系统。</p>
-<p>下面继续讲解<code>props</code>选项的初始化。</p>
+          <p>前面章节通过初始化<code>data</code>选项的<code>initData</code>函数学习了 Vue 的响应式系统。</p>
+<p>下面继续学习<code>props</code>选项的初始化。</p>
 <h3 id="props的初始化"><a href="#props的初始化" class="headerlink" title="props的初始化"></a><code>props</code>的初始化</h3><p>回到<code>initState</code>函数，查看初始化<code>props</code>选项的代码，在<code>core/instance/state.js</code>文件中</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (opts.<span class="property">props</span>) <span class="title function_">initProps</span>(vm, opts.<span class="property">props</span>);</span><br></pre></td></tr></table></figure>
 
 <p>通过调用<code>initProps</code>函数初始化<code>props</code>选项，还需要传入实例对象<code>vm</code>和合并选项后的<code>props</code>属性。</p>
-<p>下面看下<code>initProps</code>函数的代码</p>
+<p>下面看下<code>initProps</code>函数的代码。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">initProps</span>(<span class="params">vm: Component, propsOptions: <span class="built_in">Object</span></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> propsData = vm.<span class="property">$options</span>.<span class="property">propsData</span> || &#123;&#125;; <span class="comment">// ! 获取 props 数据来源</span></span><br><span class="line">  <span class="keyword">const</span> props = (vm.<span class="property">_props</span> = &#123;&#125;);</span><br><span class="line">  <span class="comment">// cache prop keys so that future props updates can iterate using Array</span></span><br><span class="line">  <span class="comment">// instead of dynamic object key enumeration.</span></span><br><span class="line">  <span class="keyword">const</span> keys = (vm.<span class="property">$options</span>.<span class="property">_propKeys</span> = []);</span><br><span class="line">  <span class="keyword">const</span> isRoot = !vm.<span class="property">$parent</span>;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>声明常量<code>propsData</code>存储<code>vm.$options.propsData</code>属性，这是外界传进来的<code>props</code>数据。</p>
@@ -994,7 +994,7 @@
 
       
           <h3 id="同步执行"><a href="#同步执行" class="headerlink" title="同步执行"></a>同步执行</h3><h4 id="单个观察者同步执行"><a href="#单个观察者同步执行" class="headerlink" title="单个观察者同步执行"></a>单个观察者同步执行</h4><p>先看下同步执行的代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ! 同步执行，不需要调用 nextTick 执行观察者 =&gt; 用于 watch 自定义的观察者</span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">sync</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">run</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ! 同步执行，不需要调用 nextTick 执行观察者 -&gt; 用于 watch 自定义的观察者</span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">sync</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">run</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果设置了观察者的<code>sync</code>属性为<code>true</code>的话，会执行了观察者的<code>run</code>方法，执行同步更新。</p>
           <!--noindex-->
