@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#e7ddc8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#181c27" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/resources/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resources/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"alanhaledc.com","root":"/","images":"/resources/img/","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"ETZWTJO7QM","apiKey":"2637d77dbb15451056cd521bebf6fb6c","indexName":"search_demo","hits":{"per_page":10}}}</script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/config.min.js"></script>
+
+    <meta name="description" content="Jest 是前端最流行的测试框架之一，使用非常简单，很多著名的前端项目比如Vue、React都在使用它。 基本配置初始化初始化一个基本的 Jest 配置，执行下面命令生成jest.config.js文件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jest入门学习笔记">
+<meta property="og:url" content="https://alanhaledc.com/blog/20190803/">
+<meta property="og:site_name" content="Alan&#39;s Notes">
+<meta property="og:description" content="Jest 是前端最流行的测试框架之一，使用非常简单，很多著名的前端项目比如Vue、React都在使用它。 基本配置初始化初始化一个基本的 Jest 配置，执行下面命令生成jest.config.js文件。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-03T12:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-15T06:52:03.263Z">
+<meta property="article:author" content="Alan Deng">
+<meta property="article:tag" content="Test">
+<meta property="article:tag" content="Jest">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://alanhaledc.com/blog/20190803/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://alanhaledc.com/blog/20190803/","path":"/blog/20190803/","title":"Jest入门学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Jest入门学习笔记 | Alan's Notes</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/resources/fonts/longcang/longcang-regular.css" >
+<link rel="stylesheet" href="/resources/fonts/lxgw/lxgwwenkailite-regular.css" >
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Alan's Notes</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="algolia-stats"><hr></div>
+  <div class="algolia-hits"></div>
+  <div class="algolia-pagination"></div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-text">基本配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%B9%E9%85%8D%E5%99%A8"><span class="nav-text">匹配器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="nav-text">命令行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E4%BB%A3%E7%A0%81%E6%B5%8B%E8%AF%95"><span class="nav-text">异步代码测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0"><span class="nav-text">钩子函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mock-%E5%87%BD%E6%95%B0"><span class="nav-text">mock 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E7%85%A7%E6%B5%8B%E8%AF%95"><span class="nav-text">快照测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class-%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="nav-text">class 的测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM-%E8%8A%82%E7%82%B9%E6%B5%8B%E8%AF%95"><span class="nav-text">DOM 节点测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96-API-1"><span class="nav-text">其他 API</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Alan Deng"
+      src="/resources/img/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Alan Deng</p>
+  <div class="site-description" itemprop="description">A Web Developer</div>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alanhaledc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alanhaledc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:alanhaledc@gmail.com" title="E-Mail → mailto:alanhaledc@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alanhaledc.com/blog/20190803/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/resources/img/avatar.jpeg">
+      <meta itemprop="name" content="Alan Deng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alan's Notes">
+      <meta itemprop="description" content="A Web Developer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Jest入门学习笔记 | Alan's Notes">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jest入门学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-03 20:00:00" itemprop="dateCreated datePublished" datetime="2019-08-03T20:00:00+08:00">2019-08-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Jest/" itemprop="url" rel="index"><span itemprop="name">Jest</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>13k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Jest 是前端最流行的测试框架之一，使用非常简单，很多著名的前端项目比如<code>Vue</code>、<code>React</code>都在使用它。</p>
+<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>初始化一个基本的 Jest 配置，执行下面命令生成<code>jest.config.js</code>文件。</p>
+<span id="more"></span>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jest --init</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置-Babel"><a href="#配置-Babel" class="headerlink" title="配置 Babel"></a>配置 Babel</h4><p>配置 Babel 后就可以使用 ES6 模块，而不仅仅局限于 Node.js 的 Commonjs 模块。</p>
+<ul>
+<li>首先安装依赖</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add @babel/core @babel/preset-env -D</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后在根目录中配置<code>babel.config.js</code>文件</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">presets</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">&quot;@babel/preset-env&quot;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">targets</span>: &#123;</span><br><span class="line">          <span class="attr">node</span>: <span class="string">&quot;current&quot;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="匹配器"><a href="#匹配器" class="headerlink" title="匹配器"></a>匹配器</h3><h4 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h4><ul>
+<li><code>toBe</code>：主要用于基本类型的匹配，包括数字，字符串，布尔值，<code>null</code>，<code>undefined</code>。 - <code>toEqual</code>：主要用于引用类型的匹配，包括数组，对象等。</li>
+</ul>
+<h4 id="数值"><a href="#数值" class="headerlink" title="数值"></a>数值</h4><ul>
+<li><code>toBeGreaterThan</code>：大于</li>
+<li><code>toBeGreaterThanOrEqual</code>：大于或者等于</li>
+<li><code>toBeLessThan</code>：小于</li>
+<li><code>toBeLessThanOrEqual</code>：小于或者等于</li>
+</ul>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><ul>
+<li><code>toMatch</code>：匹配正则表达式的字符串</li>
+</ul>
+<h4 id="布尔"><a href="#布尔" class="headerlink" title="布尔"></a>布尔</h4><ul>
+<li><code>toBeNull</code>：只匹配<code>null</code></li>
+<li><code>toBeUndefined</code>：只匹配<code>undefined</code></li>
+<li><code>toBeDefined</code>：与<code>toBeUndefined</code> 相反</li>
+<li><code>toBeTruthy</code>：匹配任何值为真的表达式</li>
+<li><code>toBeFalsy</code>：匹配任何值为假的表达式</li>
+</ul>
+<h4 id="数组和迭代器"><a href="#数组和迭代器" class="headerlink" title="数组和迭代器"></a>数组和迭代器</h4><ul>
+<li><code>toContain</code>：匹配是否包含值</li>
+</ul>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
+<li><code>toThrow</code> ：匹配异常</li>
+<li><code>not</code>：匹配器取反</li>
+<li><code>toBeCalled()</code>：匹配函数被调用</li>
+<li><code>toBeCalledWith(args)</code>：匹配函数被调用时传入的参数</li>
+<li><code>toHaveBeenCalledTimes(number)</code>：匹配函数被调用的次数</li>
+</ul>
+<h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jest --<span class="built_in">help</span> <span class="comment"># 查看 jest 命令行帮助</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>watch 模式</strong>：监听测试文件，有修改的时候重新运行测试文件。</p>
+<ul>
+<li><code>a</code>： 每次都运行全部的测试文件。<code>jest --watchAll</code> 使用这个模式。</li>
+<li><code>o</code>：只测试有修改的测试文件，需要配合<code>git</code>使用，只有带<code>git</code>的文件夹才能使用。<code>jest --watch</code>使用这个模式。</li>
+<li><code>p</code>：只运行匹配到的测试文件</li>
+<li><code>t</code>：只运行匹配到的测试名称的文件</li>
+<li><code>q</code>：退出观察模式</li>
+<li><code>enter</code>：重新测试文件</li>
+</ul>
+<h3 id="异步代码测试"><a href="#异步代码测试" class="headerlink" title="异步代码测试"></a>异步代码测试</h3><p>Jest 的异步测试代码无法等到异步结束就已经完成测试，所以返回的测试结果都是成功，这是错误的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">test</span>(<span class="string">&quot;the data is peanut butter&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">callback</span>(<span class="params">data</span>) &#123;</span><br><span class="line">    <span class="title function_">expect</span>(data).<span class="title function_">toBe</span>(<span class="string">&quot;peanut butter&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">fetchData</span>(callback);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-done"><a href="#使用-done" class="headerlink" title="使用 done"></a>使用 done</h4><p>传入 done 参数，然后在测试函数中调用<code>done()</code>，告诉 Jest 异步已经结束， 此时 Jest 才能准确返回测试结果。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">test</span>(<span class="string">&quot;the data is peanut butter&quot;</span>, <span class="function">(<span class="params">done</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">callback</span>(<span class="params">data</span>) &#123;</span><br><span class="line">    <span class="title function_">expect</span>(data).<span class="title function_">toBe</span>(<span class="string">&quot;peanut butter&quot;</span>);</span><br><span class="line">    <span class="title function_">done</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">fetchData</span>(callback);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-Promise"><a href="#使用-Promise" class="headerlink" title="使用 Promise"></a>使用 Promise</h4><p>在<code>then</code> 或者<code>catch</code> 方法里面编写异步测试代码。注意代码运行成功，无法使用 catch 捕获错误，需要使用<code>expect.assertions(number)</code>强制断言<code>expect</code>需要被执行，括号内为执行的次数。</p>
+<p><strong>注意</strong>：Promise 必须要返回测试的结果 ，使用<code>return</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">test</span>(<span class="string">&quot;the data is peanut butter&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">fetchData</span>().<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">expect</span>(data).<span class="title function_">toBe</span>(<span class="string">&quot;peanut butter&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;the fetch fails with an error&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  expect.<span class="title function_">assertions</span>(<span class="number">1</span>); <span class="comment">// 强制 expect 执行一次</span></span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">fetchData</span>().<span class="title function_">catch</span>(<span class="function">(<span class="params">e</span>) =&gt;</span> <span class="title function_">expect</span>(e).<span class="title function_">toMatch</span>(<span class="string">&quot;error&quot;</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 Jest 提供的<code>resolves</code> 和<code>rejects</code> API 来进行异步测试，示例代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">test</span>(<span class="string">&quot;the data is peanut butter&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">expect</span>(<span class="title function_">fetchData</span>()).<span class="property">resolves</span>.<span class="title function_">toBe</span>(<span class="string">&quot;peanut butter&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;the fetch fails with an error&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">expect</span>(<span class="title function_">fetchData</span>()).<span class="property">rejects</span>.<span class="title function_">toMatch</span>(<span class="string">&quot;error&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-Async-x2F-Await"><a href="#使用-Async-x2F-Await" class="headerlink" title="使用 Async&#x2F;Await"></a>使用 Async&#x2F;Await</h4><p>可以使用<code>Async/Await</code>进行异步测试，示例代码如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">test</span>(<span class="string">&quot;the data is peanut butter&quot;</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> <span class="title function_">fetchData</span>();</span><br><span class="line">  <span class="title function_">expect</span>(data).<span class="title function_">toBe</span>(<span class="string">&quot;peanut butter&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;the fetch fails with an error&quot;</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  expect.<span class="title function_">assertions</span>(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">fetchData</span>();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="title function_">expect</span>(e).<span class="title function_">toMatch</span>(<span class="string">&quot;error&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>还可以结合<code>resolves</code> 和<code>rejects</code> API 来测试，示例代码如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">test</span>(<span class="string">&quot;the data is peanut butter&quot;</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">expect</span>(<span class="title function_">fetchData</span>()).<span class="property">resolves</span>.<span class="title function_">toBe</span>(<span class="string">&quot;peanut butter&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;the fetch fails with an error&quot;</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">expect</span>(<span class="title function_">fetchData</span>()).<span class="property">rejects</span>.<span class="title function_">toThrow</span>(<span class="string">&quot;error&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="钩子函数"><a href="#钩子函数" class="headerlink" title="钩子函数"></a>钩子函数</h3><ul>
+<li><code>beforeAll</code>：每次测试之前运行，只执行一次。</li>
+<li><code>afterAll</code>：每次测试之后运行，只执行一次。</li>
+<li><code>beforeEach</code>：每个测试代码块测试之前都会运行，主要用于重置初始化条件，避免测试文件之间互相影响。</li>
+<li><code>afterEach</code>：每个测试代码块测试之后都会运行。</li>
+</ul>
+<p>注意：<code>beforeAll</code> 先于<code>beforeEach</code>，<code>afterAll</code> 后于<code>afterEach</code>。</p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p><code>describe</code>形成一个作用域，可以把文件中一些相同功能的测试代码块放在一起，便于区分管理。</p>
+<p>在<code>describe</code>作用域中，<code>beforeAll</code> 优先级始终最高，另外有多个<code>beforeAll</code> 时，先执行最外面作用域<code>beforeAll</code> 的，再执行里面作用域 的<code>beforeAll</code> ，然后每个代码块测试前再执行<code>beforeEach</code>。<code>afterAll</code> 同理。</p>
+<p>另外，不在钩子函数或者测试函数的代码会最先执行。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">describe</span>(<span class="string">&quot;test&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;console1&quot;</span>); <span class="comment">// 1 不在钩子函数的代码先执行</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">beforeAll</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;beforeAll outer&quot;</span>); <span class="comment">// 3</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">afterAll</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;afterAll outer&quot;</span>); <span class="comment">// 10 最外面的作用域的 afterAll 最后执行</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">beforeEach</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;beforeEach outer&quot;</span>); <span class="comment">// 5</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">afterEach</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;afterEach outer&quot;</span>); <span class="comment">// 8</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">describe</span>(<span class="string">&quot;test 1&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;console2&quot;</span>); <span class="comment">// =&gt; 2 不在钩子函数的代码先执行</span></span><br><span class="line"></span><br><span class="line">    <span class="title function_">beforeAll</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;beforeAll inner&quot;</span>); <span class="comment">// 4</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">afterAll</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;afterAll inner&quot;</span>); <span class="comment">// 9</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">beforeEach</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;beforeEach inner&quot;</span>); <span class="comment">// 6</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">afterEach</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;afterEach inner&quot;</span>); <span class="comment">// 7</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">test</span>(<span class="string">&quot;test&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">expect</span>(<span class="number">2</span>).<span class="title function_">toBe</span>(<span class="number">2</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>打印的执行顺序是：</p>
+<p>1.<code>console1</code> 2.<code>console2</code> 3.<code>beforeAll outer</code> 4.<code>beforeAll inner</code> 5.<code>beforeEach outer</code> 6.<code>beforeEach inner</code> 7.<code>afterEach inner</code> 8.<code>afterEach outer</code> 9.<code>afterAll inner</code> 10.<code>afterAll outer</code></p>
+<p>规律是：从外到内再到外，先<code>beforeAll</code> 后<code>beforeEach</code>，先<code>afterEach</code>后<code>afterAll</code>。</p>
+<h3 id="mock-函数"><a href="#mock-函数" class="headerlink" title="mock 函数"></a>mock 函数</h3><p>mock 函数是虚拟的函数，它可以模拟真实的函数，而且更好管控。</p>
+<h4 id="mock-函数的作用"><a href="#mock-函数的作用" class="headerlink" title="mock 函数的作用"></a>mock 函数的作用</h4><ul>
+<li>捕获函数的调用和返回结果，以及使用 this 和 调用顺序。</li>
+<li>自由的设置返回结果。</li>
+<li>改变内部函数的实现。</li>
+</ul>
+<h4 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">runCallback</span> = (<span class="params">callback</span>) =&gt; &#123;</span><br><span class="line">  <span class="title function_">callback</span>();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test runCallback&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> fn = jest.<span class="title function_">fn</span>();</span><br><span class="line">  <span class="title function_">runCallback</span>(fn);</span><br><span class="line">  <span class="title function_">expect</span>(fn).<span class="title function_">toBeCalled</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(fn.<span class="property">mock</span>); <span class="comment">// 打印 mock 函数的值</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>打印 mock 属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">calls</span>: [[]],</span><br><span class="line">    <span class="attr">instances</span>: [<span class="literal">undefined</span>],</span><br><span class="line">   	<span class="attr">invocationCallOrder</span>: [<span class="number">1</span>],</span><br><span class="line">    <span class="attr">results</span>: [&#123;<span class="attr">type</span>: <span class="string">&#x27;return&#x27;</span>, <span class="attr">value</span>: <span class="literal">undefined</span>&#125;]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="改进例子"><a href="#改进例子" class="headerlink" title="改进例子"></a>改进例子</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">runCallback</span> = (<span class="params">constr</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">new</span> <span class="title function_">constr</span>(<span class="string">&quot;abc&quot;</span>); <span class="comment">// 输入参数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test runCallback&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> fn = jest.<span class="title function_">fn</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;456&quot;</span>;</span><br><span class="line">  &#125;); <span class="comment">// 传入一个函数</span></span><br><span class="line">  <span class="title function_">runCallback</span>(fn);</span><br><span class="line">  <span class="title function_">runCallback</span>(fn); <span class="comment">// 再调用一次</span></span><br><span class="line">  <span class="title function_">expect</span>(fn.<span class="property">mock</span>.<span class="property">calls</span>.<span class="property">length</span>).<span class="title function_">toBe</span>(<span class="number">2</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(fn.<span class="property">mock</span>); <span class="comment">// 打印 mock 函数的值</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>打印 mock 属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">calls</span>: [[<span class="string">&#x27;abc&#x27;</span>], [<span class="string">&#x27;abc&#x27;</span>]],</span><br><span class="line">    <span class="attr">instances</span>: [mockConstructor &#123;&#125;, mockConstructor &#123;&#125;],</span><br><span class="line">   	<span class="attr">invocationCallOrder</span>: [<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">    <span class="attr">results</span>: [&#123;<span class="attr">type</span>: <span class="string">&#x27;return&#x27;</span>, <span class="attr">value</span>: <span class="string">&#x27;456&#x27;</span>&#125;, &#123;<span class="attr">type</span>: <span class="string">&#x27;return&#x27;</span>, <span class="attr">value</span>: <span class="string">&#x27;456&#x27;</span>&#125;]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>mock 函数的 mock 属性主要包含四个属性</p>
+<ul>
+<li><code>calls</code>：函数调用的次数，以及函数传入的参数</li>
+<li><code>instances</code>：每次调用的 this 指向，比如创建实例时 this 会指向实例</li>
+<li><code>invocationCallOrder</code>：函数的调用顺序</li>
+<li><code>results</code>：每次函数的调用的结果</li>
+</ul>
+<h4 id="设置-mock-函数的返回值"><a href="#设置-mock-函数的返回值" class="headerlink" title="设置 mock 函数的返回值"></a>设置 mock 函数的返回值</h4><ol>
+<li>直接在<code>fn()</code> 中传入一个有返回值的函数。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = jest.<span class="title function_">fn</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>手动设置返回值，更加灵活。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = jest.<span class="title function_">fn</span>();</span><br><span class="line">fn.<span class="title function_">mockReturnValueOnce</span>(<span class="number">10</span>).<span class="title function_">mockReturnValueOnce</span>(<span class="string">&quot;x&quot;</span>).<span class="title function_">mockReturnValue</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">myMock</span>(), <span class="title function_">myMock</span>(), <span class="title function_">myMock</span>(), <span class="title function_">myMock</span>());</span><br><span class="line"><span class="comment">// &gt; 10, &#x27;x&#x27;, true, true</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>fn.mockReturnValueOnce()</code>方法只设置一次的返回值，而<code>fn.mockReturnValue()</code>方法设置每一次的返回值。</p>
+<h4 id="模拟库（改变函数的内部实现）"><a href="#模拟库（改变函数的内部实现）" class="headerlink" title="模拟库（改变函数的内部实现）"></a>模拟库（改变函数的内部实现）</h4><p>在真实的测试项目中一般不会去发送真实的异步请求去请求后端数据，而是去模拟请求的数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">getData</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  axios.<span class="title function_">get</span>(<span class="string">&quot;/api&quot;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> res.<span class="property">data</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line">jest.<span class="title function_">mock</span>(axios);</span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test getData&quot;</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  axios.<span class="property">get</span>.<span class="title function_">mockResolvedValue</span>(&#123; <span class="attr">data</span>: <span class="string">&quot;hello&quot;</span> &#125;);</span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">getData</span>().<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">expect</span>(data).<span class="title function_">toBe</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>首先，需要把要模拟的库放入到<code>mock</code>方法中，然后设置模拟数据。</p>
+<p>其中，<code>mockResolvedValue()</code> 方法模拟异步返回的数据，同理<code>mockResolvedValueOnce()</code>模拟一次异步返回的数据。</p>
+<h4 id="其他-API"><a href="#其他-API" class="headerlink" title="其他 API"></a>其他 API</h4><ul>
+<li><code>mockImplementation()</code> 和<code>mockImplementationOnce()</code>这两个方法可以模拟函数。</li>
+</ul>
+<p>传入一个函数来模拟 mock 函数，和<code>jest.fn()</code>类似，<code>mockImplementationOnce</code> 方法只实现一次函数模拟。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = jest.<span class="title function_">fn</span>();</span><br><span class="line">fn.<span class="title function_">mockImplementation</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 相当于 const fn = jest.fn(() =&gt; &#x27;abc&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>mockReturnThis()</code>方法返回<code>this</code>。<ul>
+<li>等价于<code>mockImplementation(() =&gt; &#123;return this&#125;)</code></li>
+<li>等价于<code>jest.fn(() =&gt; &#123;return this&#125;)</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="模拟和替换掉方法"><a href="#模拟和替换掉方法" class="headerlink" title="模拟和替换掉方法"></a>模拟和替换掉方法</h4><p>创建<code>__mocks_</code>文件夹，然后在里面创建一个和需要模拟的方法同名的文件进行模拟。然后在测试文件中必须使用<code>jest.mock()</code>来引入原来的文件。</p>
+<p>比如有需要测试的文件<code>fetchData.js</code>，这个文件的代码如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">fetchData</span> = (<span class="params"></span>) =&gt; axios.<span class="title function_">get</span>(<span class="string">&quot;/api&quot;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> res.<span class="property">data</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后在<code>__mocks__</code> 文件夹下面创建同名的<code>fetchData.js</code>文件，编写下面的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 Promise 模拟异步请求</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">fetchData</span> = (<span class="params"></span>) =&gt;</span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">resolve</span>(&#123;</span><br><span class="line">      <span class="attr">data</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后在测试文件<code>fetchData.spec.js</code>中，使用<code>jest.mock()</code> 引入文件，这样真实的方法就会替换成<code>__mocks__</code>下面的方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">jest.<span class="title function_">mock</span>(<span class="string">&quot;./fetchData&quot;</span>); <span class="comment">// 使用 jest.mock() 引入文件，而不是使用模块引入</span></span><br><span class="line"><span class="keyword">import</span> &#123; fetchData &#125; <span class="keyword">from</span> <span class="string">&quot;./fetchData&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test fetchData&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> fetchData.<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">expect</span>(data).<span class="title function_">toBe</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>有时候，有的方法需要使用 mock 来替换掉，有的又不需要替换掉，它们可以共存呢?</p>
+<p>在真实文件<code>fetchData.js</code>中新增一个同步方法，这个不需要被 mock 方法替换掉，这个方法如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export const getNumber = () =&gt; &#x27;123&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>因为这个<code>getNumber</code>方法不需要使用 mock 方法替换掉，这时需要使用<code>jest.requireActual()</code>方法引入真实的方法，而不是默认使用 mock 的方法，这样就可以测试真实的方法了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; getNumber &#125; = jest.requireActual(<span class="string">&quot;./fetchData&quot;</span>); <span class="comment">// 使用 jest.requireActual() 引入</span></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test getNumber&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title function_">getNumber</span>()).<span class="title function_">toBe</span>(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Timers"><a href="#Timers" class="headerlink" title="Timers"></a>Timers</h4><p>测试 timers 函数的测试，如下面的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">timer</span> = (<span class="params">callback</span>) =&gt;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">callback</span>();</span><br><span class="line">  &#125;, <span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>使用测试代码可以正确测试上面的函数，但是发现很耗时间。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test timer&quot;</span>, <span class="function">(<span class="params">done</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">timer</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">expect</span>(<span class="number">1</span>).<span class="title function_">toBe</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="title function_">done</span>();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这里才定时 3000 毫秒，如果是定时几个小时甚至几天的话，按照上面的时间测试的话，还会需要更久。</p>
+<p>这时候需要使用 mock 函数来节省测试时间。下面使用 mock 函数模拟</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jest.<span class="title function_">useFakeTimers</span>();</span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test timer&quot;</span>, <span class="function">(<span class="params">done</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> fn = jest.<span class="title function_">fn</span>();</span><br><span class="line">  <span class="title function_">timer</span>(fn);</span><br><span class="line">  jest.<span class="title function_">runAllTimers</span>();</span><br><span class="line">  <span class="title function_">expect</span>(fn).<span class="title function_">toHaveBeenCalledTimes</span>(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>jest.useFakeTimers()</code>方法搭配<code>jest.runAllTimers()</code> 方法来取消 timer 的时间限制。</p>
+<p>其中，<code>jest.runAllTimers()</code> 会取消所有的 timer 的时间限制。</p>
+<p><strong>嵌套的 Timers</strong></p>
+<p>下面测试一个嵌套的 timers</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">timer</span> = (<span class="params">callback</span>) =&gt;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">callback</span>();</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">callback</span>();</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">  &#125;, <span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line">jest.<span class="title function_">useFakeTimers</span>();</span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test timer&quot;</span>, <span class="function">(<span class="params">done</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> fn = jest.<span class="title function_">fn</span>();</span><br><span class="line">  <span class="title function_">timer</span>(fn);</span><br><span class="line">  jest.<span class="title function_">runOnlyPendingTimers</span>(); <span class="comment">// 只运行队列中的 timer</span></span><br><span class="line">  <span class="title function_">expect</span>(fn).<span class="title function_">toHaveBeenCalledTimes</span>(<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>jest.runOnlyPendingTimers()</code> 方法只取消队列中的 timer 的时间限制。</p>
+<p>或者使用<code>jest.advanceTimersByTime(time)</code> 方法来快进时间，这样也相对取消了时间限制。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">timer</span> = (<span class="params">callback</span>) =&gt;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">callback</span>();</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">callback</span>();</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">  &#125;, <span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line">jest.<span class="title function_">useFakeTimers</span>();</span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test timer&quot;</span>, <span class="function">(<span class="params">done</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> fn = jest.<span class="title function_">fn</span>();</span><br><span class="line">  <span class="title function_">timer</span>(fn);</span><br><span class="line">  jest.<span class="title function_">advanceTimersByTime</span>(<span class="number">3000</span>); <span class="comment">// 快进 3 秒</span></span><br><span class="line">  <span class="title function_">expect</span>(fn).<span class="title function_">toHaveBeenCalledTimes</span>(<span class="number">1</span>);</span><br><span class="line">  jest.<span class="title function_">advanceTimersByTime</span>(<span class="number">3000</span>); <span class="comment">// 再快进 3 秒</span></span><br><span class="line">  <span class="title function_">expect</span>(fn).<span class="title function_">toHaveBeenCalledTimes</span>(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="快照测试"><a href="#快照测试" class="headerlink" title="快照测试"></a>快照测试</h3><p>下面是快照测试的示例代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">generateConfig</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="attr">port</span>: <span class="number">8080</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test generateConfig&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title function_">generateConfig</span>()).<span class="title function_">toMatchSnapshot</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>toMatchSnapshot</code>匹配器的时候，第一次会生成一个快照文件，存放在<code>__snapshots__</code>文件夹下，快照的名称和每个测试文件同名，比如测试文件<code>demo.spec.js</code> 的快照文件名为<code>demo.spec.js.snap</code>。</p>
+<p>上面的测试代码生成的快照文件如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// Jest Snapshot v1, https://goo.gl/fbAQLP</span><br><span class="line"></span><br><span class="line">exports[`<span class="built_in">test</span> generateConfig 1`] = `</span><br><span class="line">Object &#123;</span><br><span class="line">  <span class="string">&quot;host&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">  <span class="string">&quot;port&quot;</span>: 8080,</span><br><span class="line">&#125;</span><br><span class="line">`;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果你修改了配置文件，比如增加了新的字段<code>time: 2019</code>。此时，测试结果就会报错，因为 Jest 发现生成现在的快照和以前生成的快照不一样。</p>
+<p>这个时候，你可以在测试命令行中按下<code>u</code> 键更新快照文件，然后重新进行快照测试，测试才能通过。</p>
+<p>在快照测试报错后中，我们发现命令行中多了两个选项，分别是<code>u</code> 选项和<code>i</code> 选项</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">› Press u to update failing snapshots.</span><br><span class="line">› Press i to update failing snapshots interactively.</span><br></pre></td></tr></table></figure>
+
+<p>其中，按下<code>u</code> 键会更新所有的快照，而按下<code>i</code> 键则是交互的更新快照，不想按下<code>u</code>键一样一次性全部更新快照。</p>
+<p>其实，每个测试文件里面的所有的测试代码块生成的快照都保存同一个文件上。如果你想确认其中一个快照的修改，则需要按下<code>i</code> 键一个个来处理快照，如果可以更新这个快照，再按下<code>u</code> 更新。如果不想更新这个快照，再按下<code>s</code> (skip) 跳过这个快照的更新，进行下一个快照的操作。另外，你不更新快照也可以撤销代码的修改。</p>
+<p>快照测试每次都会保存这一次的快照，如果下一次的快照不一样就会报错，如果我们的快照每次都不一样呢？</p>
+<p>比如设置时间为最新的时间<code>time: new Date()</code>，这样不是每次运行测试都会报错，有没有别的办法避免这个问题？其实可以设置<code>time</code>的这个字段不去测试，在<code>toMatchSnapshot</code>中传入一个选项忽略这个字段即可。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">generateConfig</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="attr">port</span>: <span class="number">8080</span>,</span><br><span class="line">    <span class="attr">time</span>: <span class="keyword">new</span> <span class="title class_">Date</span>(),</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test generateConfig&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title function_">generateConfig</span>()).<span class="title function_">toMatchSnapshot</span>(&#123;</span><br><span class="line">    <span class="attr">time</span>: expect.<span class="title function_">any</span>(<span class="title class_">Date</span>), <span class="comment">// ! 忽略 time 字段的测试</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>行内快照测试</strong>：快照测试还有一种行内快照测试，它的 API 是<code>toMatchInlineSnapshot</code>。行内快照就不会把生成的快照文件放在专门的文件夹<code>__snapshots__</code> 下，而是保存在 API 的第二个参数上。</p>
+<p>注意：使用<code>toMatchInlineSnapshot</code>方法生成行内快照需要先安装<code>prettier</code> 这个库。另外这个功能是新出的，可能存在 BUG。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">generateConfig</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="attr">port</span>: <span class="number">8080</span>,</span><br><span class="line">    <span class="attr">time</span>: <span class="keyword">new</span> <span class="title class_">Date</span>(),</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test generateConfig&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title function_">generateConfig</span>()).<span class="title function_">toMatchInlineSnapshot</span>(</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">time</span>: expect.<span class="title function_">any</span>(<span class="title class_">Date</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// test 之后生成的行内快照</span></span><br><span class="line">    <span class="string">`</span></span><br><span class="line"><span class="string">    Object &#123;</span></span><br><span class="line"><span class="string">      &quot;host&quot;: &quot;127.0.0.1&quot;,</span></span><br><span class="line"><span class="string">      &quot;port&quot;: 8080,</span></span><br><span class="line"><span class="string">      &quot;time&quot;: Any&lt;Date&gt;,</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="class-的测试"><a href="#class-的测试" class="headerlink" title="class 的测试"></a>class 的测试</h3><p>下面是 class 测试的示例代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Util</span> &#123;</span><br><span class="line">  <span class="title function_">init</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  <span class="title function_">a</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  <span class="title function_">b</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">func</span> = (<span class="params">a, b</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> util = <span class="keyword">new</span> <span class="title class_">Util</span>();</span><br><span class="line">  util.<span class="title function_">a</span>(a);</span><br><span class="line">  util.<span class="title function_">b</span>(b);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line">jest.<span class="title function_">mock</span>(<span class="string">&quot;./util&quot;</span>); <span class="comment">// 模拟类</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Util</span> <span class="keyword">from</span> <span class="string">&quot;./util&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> func <span class="keyword">from</span> <span class="string">&quot;./func&quot;</span>;</span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test func&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">func</span>();</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title class_">Util</span>).<span class="title function_">toHaveBeenCalled</span>();</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title class_">Util</span>.<span class="property">mock</span>.<span class="property">instances</span>[<span class="number">0</span>].<span class="property">a</span>).<span class="title function_">toHaveBeenCalled</span>();</span><br><span class="line">  <span class="title function_">expect</span>(<span class="title class_">Util</span>.<span class="property">mock</span>.<span class="property">instances</span>[<span class="number">0</span>].<span class="property">b</span>).<span class="title function_">toHaveBeenCalled</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>jest.mock()</code> 模拟类后，会自动把类的构造函数和方法转都换成 mock 函数。</p>
+<p>当前，也可以完全模拟和替换掉真实的类，在<code>__mocks__</code>文件夹下创建同名文件<code>util.js</code>，编写下面的模拟类的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Util</span> = jest.<span class="title function_">fn</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;constructor&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="title class_">Util</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">a</span> = jest.<span class="title function_">fn</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="title class_">Util</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">b</span> = jest.<span class="title function_">fn</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Util</span>;</span><br></pre></td></tr></table></figure>
+
+<p>也可以直接在<code>jest.mock()</code>方法的第二个参数上，传入一个 mock 函数来模拟类</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test</span></span><br><span class="line">jest.<span class="title function_">mock</span>(<span class="string">&quot;./util&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="title class_">Util</span> = jest.<span class="title function_">fn</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;constructor --&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="title class_">Util</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">a</span> = jest.<span class="title function_">fn</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;a --&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="title class_">Util</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">b</span> = jest.<span class="title function_">fn</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;b --&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Util</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="DOM-节点测试"><a href="#DOM-节点测试" class="headerlink" title="DOM 节点测试"></a>DOM 节点测试</h3><p>Jest 的默认测试模式就是浏览器测试，即<code>jsdom</code>模式，这个模式可以直接测试浏览器端的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">addDivToBody</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;div&quot;</span>);</span><br><span class="line">  div.<span class="property">className</span> = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">  div.<span class="property">innerText</span> = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(div);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;test addDivToBody&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">addDivToBody</span>();</span><br><span class="line">  <span class="title function_">addDivToBody</span>();</span><br><span class="line">  <span class="title function_">expect</span>(<span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;.hello&quot;</span>).<span class="property">length</span>).<span class="title function_">toBe</span>(<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他-API-1"><a href="#其他-API-1" class="headerlink" title="其他 API"></a>其他 API</h3><ul>
+<li><code>test.only()</code>：使用<code>only</code> 方法之后，重新运行测试文件时只会测试这一个测试，其他的测试都会被忽略。</li>
+<li><code>jest.unmock()</code>：取消 mock 。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Alan Deng
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://alanhaledc.com/blog/20190803/" title="Jest入门学习笔记">https://alanhaledc.com/blog/20190803/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Test/" rel="tag"><i class="fa fa-tag"></i> Test</a>
+              <a href="/tags/Jest/" rel="tag"><i class="fa fa-tag"></i> Jest</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/20190809/" rel="prev" title="TDD和BDD学习笔记">
+                  <i class="fa fa-chevron-left"></i> TDD和BDD学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/20190728/" rel="next" title="Webpack4之手动实现一个Plugin">
+                  Webpack4之手动实现一个Plugin <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="OTc4LzI0NzY0LzE1ODk="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fas fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alan Deng</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">456k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:55</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.staticfile.org/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/comments.min.js"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/utils.min.js"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/next-boot.min.js"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/pjax.min.js"></script>
+
+  
+<script src="https://cdn.staticfile.org/algoliasearch/4.14.2/algoliasearch-lite.umd.js" integrity="sha256-dImjLPUsG/6p3+i7gVKBiDM8EemJAhQ0VvkRK2pVsQY=" crossorigin="anonymous"></script>
+<script src="https://cdn.staticfile.org/instantsearch.js/4.49.0/instantsearch.production.min.js" integrity="sha256-5FvX4v/nWhVAZLvv1sbGwV6w8AY4kdd+R5FpIsXkh9w=" crossorigin="anonymous"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/search/algolia-search.min.js"></script>
+
+
+
+  <script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/fancybox.min.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.staticfile.org/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/math/mathjax.min.js"></script>
+
+
+<script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/comments/livere.min.js"></script>
+
+
+
+<script data-pjax type="text/javascript">
+  //jquery selector
+  var $linkList = $(".link-list");
+  if ($linkList.length != 0) {
+    var j = -1;
+    for	(var i = 0; i < $linkList.length; i++) {
+      const listPath = $linkList[i].getAttribute('json-src');
+      const iconPath = $linkList[i].getAttribute('icon-src');
+      //使用 getJSON 读取 JSON 文件中的数据
+      $.getJSON(listPath, function(data) {
+        j++;
+        //存储数据的变量 
+        var li = "";
+        //清空内容 
+        $linkList.eq(j).empty();
+        //将获取到的 json 格式数据遍历到 div 中
+        $.each(data, function(infoIndex, info) {
+          var labelWarn = '';
+          var labelInfo = '';
+          if (info['warn']) { 
+            labelWarn = '<span class="label warn">' + info['warn'] + '</span>';
+          }
+          if (info['info']) { 
+            labelInfo = '<span class="label info">' + info['info'] + '</span>';
+          }
+          li += '<div class="link-list-container">';
+          li += '<img class="link-list-image" src="' + iconPath + info['logo'] + '">';
+          li += '<p>' + info['title'] + labelInfo + labelWarn + '</p>';
+          li += '<p>' + info['intro'] + '</p>';
+          li += '<a href="' + info['url'] + '" rel="noopener" target="_blank" data-pjax-state=""></a>';
+          li += '</div>';
+        })
+        //显示处理后的数据 
+        $linkList.eq(j).html(li);
+      })
+    }
+  }
+</script>
+
+
+
+<script data-pjax type="text/javascript">
+  //jquery selector
+  var $cultureList = $(".culture-list");
+  if ($cultureList.length != 0) {
+    var j = -1;
+    for	(var i = 0; i < $cultureList.length; i++) {
+      const listPath = $cultureList[i].getAttribute('json-src');
+      const coverPath = $cultureList[i].getAttribute('cover-src');
+      //使用 getJSON 读取 JSON 文件中的数据
+      $.getJSON(listPath, function(data) {
+        j++;
+        //存储数据的变量 
+        var li = "";
+        //清空内容 
+        $cultureList.eq(j).empty();
+        //将获取到的 json 格式数据遍历到 div 中
+        $.each(data, function(infoIndex, info) {
+          //影评书评链接
+          var title = info['title'];
+          if (info['pid']) {
+            title = '<a href="/posts/'+ info['pid'] +'/" >' + info['title'] +'</a>';
+          }
+
+          //作者
+          if (info['author']) {
+            var author = '<span class="author">' + info['author'] +'</span>';
+          } else {
+            var author = '';
+          }
+
+          //简介
+          if (info['intro']) {
+            var intro = info['intro'];
+          } else {
+            var intro = '';
+          }
+          
+          //分数
+          if (info['score'] == null) {
+            var star = '';
+          } else {
+            //初始化
+            var colorStar = '';
+            var greyStar = '';
+            var int = info['score'] - info['score'] % 1; //整数部分
+            //是否有小数
+            var fract = 0; 
+            if (info['score'] % 1 != 0) {
+              fract = 1;
+            }
+            //整数星级
+            for	(var m = 0; m < int; m++) {
+              colorStar += '★';
+            }
+            //半星级
+            if (fract != 0) {
+              colorStar += '☆';
+            }
+            //用空缺星补齐五星
+            for	(var m = 0; m < (5 - fract - int); m++) {
+              greyStar += '☆';
+            }
+            if (info['score'] != 5) {
+              star = '<span class="star-score">'+ colorStar +'<span class="grey-star">'+ greyStar +'</span></span>';
+            } else {
+              star = '<span class="star-score">'+ colorStar +'</span>';
+            }
+          }
+
+          li += '<div class="media">';
+          li += '<div class="media-cover" style="background-image:url(' + coverPath + info['cover'] + ')"></div>';
+          li += '<div class="media-meta">';
+          li += '<div class="media-meta-item title">' + title + '</div>';
+          li += '<div class="media-meta-item">' + author + star +'</div>';
+          li += '<div class="media-meta-item intro">' + intro + '</div>';
+          li += '</div></div>';
+        })
+        
+        //显示处理后的数据 
+        $cultureList.eq(j).html(li);
+      })
+    }
+  }
+</script>
+
+
+
+
+<script src="/resources/minigrid.min.js"></script>
+<script data-pjax type="text/javascript">
+  var $album = $(".album")[0];
+  if($album) {
+    // 相册列表 JSON 数据
+    var imgDataPath = $album.getAttribute('json-src');
+    // 照片存储路径
+    var imgPath = $album.getAttribute('photo-src');
+    // 最多显示数量
+    var imgMaxNum = 50;
+    // 获取窗口大小以决定图片宽度
+    var windowWidth = window.innerWidth
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
+    if (windowWidth < 768) {
+        var imageWidth = 145; // 移动端图片宽度
+    } else {
+        var imageWidth = 235;
+    }
+
+    // 腾讯云自定义样式 (数据万象外网流量需要付费)
+    //var imgStyle = '!' + imageWidth + 'x';
+    //var imgStyle = '!300x';
+
+    // 生成相册
+    var LinkDataPath = imgDataPath;
+    photo = {
+        page: 1,
+        offset: imgMaxNum,
+        init: function () {
+            var that = this;
+            $.getJSON(LinkDataPath, function (data) {
+                that.render(that.page, data);
+            });
+        },
+        render: function (page, data) {
+            var begin = (page - 1) * this.offset;
+            var end = page * this.offset;
+            if (begin >= data.length) return;
+            var imgNameWithPattern, imgName, imageSize, imageX, imageY, li = "";
+            for (var i = begin; i < end && i < data.length; i++) {
+                imgNameWithPattern = data[i].split(' ')[1];
+                imgName = imgNameWithPattern.split('.')[0]
+                imageSize = data[i].split(' ')[0];
+                imageX = imageSize.split('.')[0];
+                imageY = imageSize.split('.')[1];
+                li += '<div class="card" style="width:' + imageWidth + 'px" >'
+                li += '<div class="album-photo" style="height:'+ imageWidth * imageY / imageX + 'px">'
+                li += '<a class="fancybox fancybox.image" href="' + imgPath + imgNameWithPattern + '" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url" data-fancybox="group" rel="group" data-caption="' + imgName + '" title="' +  imgName + '">'
+                li += '<img data-src="' + imgPath + imgNameWithPattern + '" src="' + imgPath + imgNameWithPattern + '" alt="' +  imgName + '" data-loaded="true">'
+                li += '</a>'
+                li += '</div>'
+                li += '</div>'
+            }
+            $(".album").append(li);
+            this.minigrid();
+        },
+
+        minigrid: function() {
+          var grid = new Minigrid({
+              container: '.album',
+              item: '.card',
+              gutter: 12
+          });
+          grid.mount();
+          $(window).resize(function() {
+              grid.mount();
+          });
+        }
+    }
+    photo.init();
+  }
+</script>
+</body>
+</html>

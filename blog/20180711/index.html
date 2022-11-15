@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#e7ddc8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#181c27" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/resources/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resources/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"alanhaledc.com","root":"/","images":"/resources/img/","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"ETZWTJO7QM","apiKey":"2637d77dbb15451056cd521bebf6fb6c","indexName":"search_demo","hits":{"per_page":10}}}</script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/config.min.js"></script>
+
+    <meta name="description" content="在学习 CSS 中，经常会听到 BFC 这个词，特别是在浮动布局或者是在外边距处理的时候，那么什么是 BFC 呢？BFC 到底有什么作用呢？ 什么是 BFC?我们来看一看MDN中对 BFC 概念的解释。  块格式化上下文（Block Formatting Context，BFC） 是 Web 页面的可视化 CSS 渲染的一部分，是布局过程中生成块级盒子的区域，也是浮动元素与其他元素的交互限定区域。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS之BFC的理解">
+<meta property="og:url" content="https://alanhaledc.com/blog/20180711/">
+<meta property="og:site_name" content="Alan&#39;s Notes">
+<meta property="og:description" content="在学习 CSS 中，经常会听到 BFC 这个词，特别是在浮动布局或者是在外边距处理的时候，那么什么是 BFC 呢？BFC 到底有什么作用呢？ 什么是 BFC?我们来看一看MDN中对 BFC 概念的解释。  块格式化上下文（Block Formatting Context，BFC） 是 Web 页面的可视化 CSS 渲染的一部分，是布局过程中生成块级盒子的区域，也是浮动元素与其他元素的交互限定区域。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alanhaledc.com/images/iwatch_float.png">
+<meta property="og:image" content="https://alanhaledc.com/images/iwatch_bfc.png">
+<meta property="og:image" content="https://alanhaledc.com/images/float01.png">
+<meta property="og:image" content="https://alanhaledc.com/images/clear_float.png">
+<meta property="og:image" content="https://alanhaledc.com/images/margin01.png">
+<meta property="og:image" content="https://alanhaledc.com/images/margin02.png">
+<meta property="article:published_time" content="2018-07-11T12:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-14T02:09:20.544Z">
+<meta property="article:author" content="Alan Deng">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="BFC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alanhaledc.com/images/iwatch_float.png">
+
+
+<link rel="canonical" href="https://alanhaledc.com/blog/20180711/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://alanhaledc.com/blog/20180711/","path":"/blog/20180711/","title":"CSS之BFC的理解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CSS之BFC的理解 | Alan's Notes</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/resources/fonts/longcang/longcang-regular.css" >
+<link rel="stylesheet" href="/resources/fonts/lxgw/lxgwwenkailite-regular.css" >
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Alan's Notes</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="algolia-stats"><hr></div>
+  <div class="algolia-hits"></div>
+  <div class="algolia-pagination"></div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-BFC"><span class="nav-text">什么是 BFC?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC-%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-text">BFC 的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">BFC 的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Alan Deng"
+      src="/resources/img/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Alan Deng</p>
+  <div class="site-description" itemprop="description">A Web Developer</div>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alanhaledc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alanhaledc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:alanhaledc@gmail.com" title="E-Mail → mailto:alanhaledc@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alanhaledc.com/blog/20180711/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/resources/img/avatar.jpeg">
+      <meta itemprop="name" content="Alan Deng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alan's Notes">
+      <meta itemprop="description" content="A Web Developer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CSS之BFC的理解 | Alan's Notes">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS之BFC的理解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-07-11 20:00:00" itemprop="dateCreated datePublished" datetime="2018-07-11T20:00:00+08:00">2018-07-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在学习 CSS 中，经常会听到 BFC 这个词，特别是在浮动布局或者是在外边距处理的时候，那么什么是 BFC 呢？BFC 到底有什么作用呢？</p>
+<h3 id="什么是-BFC"><a href="#什么是-BFC" class="headerlink" title="什么是 BFC?"></a>什么是 BFC?</h3><p>我们来看一看<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context">MDN</a>中对 BFC 概念的解释。</p>
+<blockquote>
+<p>块格式化上下文（Block Formatting Context，BFC） 是 Web 页面的可视化 CSS 渲染的一部分，是布局过程中生成块级盒子的区域，也是浮动元素与其他元素的交互限定区域。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>从概念中可以看出，BFC 是生成块级盒子的区域，并且在与浮动元素的交互有特殊作用。那怎么样才能创造 BFC 区域呢？创造 BFC 的方法非常多，下面只列举常见的方法。</p>
+<ul>
+<li>根元素或包含根元素的元素</li>
+<li>浮动元素（元素的 float 不是 none）</li>
+<li>绝对定位元素（元素的 position 为 absolute 或 fixed）</li>
+<li>行内块元素（元素的 display 为 inline-block）</li>
+<li>表格单元格（元素的 display 为 table-cell，HTML 表格单元格默认为该值）</li>
+<li>overflow 值不为 visible 的块元素</li>
+<li>display 值为 flow-root 的元素</li>
+<li>弹性元素（display 为 flex 或 inline-flex 元素的直接子元素）</li>
+<li>网格元素（display 为 grid 或 inline-grid 元素的直接子元素）</li>
+</ul>
+<h3 id="BFC-的特性"><a href="#BFC-的特性" class="headerlink" title="BFC 的特性"></a>BFC 的特性</h3><p>同样看看 MDN 的解释吧：</p>
+<blockquote>
+<p>“创建了 BFC 的元素中的所有的内容都会被包含到该 BFC 中。块格式化上下文对浮动定位（参见 float）与清除浮动（参见 clear）都很重要。浮动定位和清除浮动时只会应用于同一个 BFC 内的元素。浮动不会影响其它 BFC 中元素的布局，而清除浮动只能清除同一 BFC 中在它前面的元素的浮动。外边距折叠（Margin collapsing）也只会发生在属于同一 BFC 的块级元素之间。”。</p>
+</blockquote>
+<p>通过上面的特性，我们了解到了以下信息：</p>
+<ul>
+<li>BFC 会把它里面的子元素都包含起来，其中包括脱离了文档流的浮动元素</li>
+<li>BFC 对于浮动有非常重要的应用</li>
+<li>BFC 对于外边距折叠也有影响</li>
+</ul>
+<p>下面，我们会通过几个案例来加深对上面特性的理解。</p>
+<h3 id="BFC-的应用"><a href="#BFC-的应用" class="headerlink" title="BFC 的应用"></a>BFC 的应用</h3><h4 id="清除文字环绕"><a href="#清除文字环绕" class="headerlink" title="清除文字环绕"></a>清除文字环绕</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">section</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./images/iwatch.jpg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    Apple Watch 是苹果公司于2014年9月10日公布的一款智能手表，有Apple</span><br><span class="line">    Watch、Apple Watch Sport 和Apple Watch Edition 三种风格不同的系列。Apple</span><br><span class="line">    Watch 采用人造蓝宝石水晶屏幕与Force Touch触摸技术，有多种颜色可供选择。Apple</span><br><span class="line">    Watch Sport 共10款：起价为2588元，最高2988元。Apple Watch</span><br><span class="line">    共20款，起价为4188元，最高8288元。Apple Watch Edition</span><br><span class="line">    共8款，起价为74800元，最高126800元。三个系列都于2015年4月10日接受预定，4月24日起正式发售。首发地区包括中国大陆、中国香港、美国、日本、英国、法国、加拿大、澳大利亚。Apple</span><br><span class="line">    Watch 于2015年4月10日开放试戴预约。</span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/iwatch_float.png" alt="image.png"></p>
+<p>这是最基本的文字环绕图片，图文混排的效果，其实浮动设计的最初目的就是为了图文混排效果的。但是如果我们要使得文字不要环绕图片，要怎么做呢？ 只需要使得<code>p</code>元素成为 BFC 就可以了，这样<code>p</code>元素就是一个独立的 BFC。这样就不会被外面的其他的元素所影响。怎么使得<code>p</code>元素成为 BFC 呢？这里选用最新的方法，添加显示<code>display:flow-root</code>，这个是<code>display</code>最新的属性，用来创建 BFC 的。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">section</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">display</span>: flow-root;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./images/iwatch.jpg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    Apple Watch 是苹果公司于2014年9月10日公布的一款智能手表，有Apple</span><br><span class="line">    Watch、Apple Watch Sport 和Apple Watch Edition 三种风格不同的系列。Apple</span><br><span class="line">    Watch 采用人造蓝宝石水晶屏幕与Force Touch触摸技术，有多种颜色可供选择。Apple</span><br><span class="line">    Watch Sport 共10款：起价为2588元，最高2988元。Apple Watch</span><br><span class="line">    共20款，起价为4188元，最高8288元。Apple Watch Edition</span><br><span class="line">    共8款，起价为74800元，最高126800元。三个系列都于2015年4月10日接受预定，4月24日起正式发售。首发地区包括中国大陆、中国香港、美国、日本、英国、法国、加拿大、澳大利亚。Apple</span><br><span class="line">    Watch 于2015年4月10日开放试戴预约。</span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/iwatch_bfc.png" alt="image.png"></p>
+<p>这样，文字就不会环绕图片了。当然，你也可以设置<code>p</code>元素也浮动起来<code>float:left</code>，这样<code>p</code>元素也是成为了 BFC，但是这个 BFC 和上面形成的 BFC 有些差异，不会主动占满右边的剩余空间。_如果想要达到两栏都浮动的效果的话，需要设置适当宽度才行（本身宽度加上图片宽度需要小于窗口的宽度），应为<code>p</code>是块级元素，默认是占满整行的，但是左边被图片占据了部分空间，就不能浮上来了_。其实这也就是两栏布局或者多栏浮动布局的原理。</p>
+<h4 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h4><p>浮动使得元素脱离<strong>文档流</strong>，但是没有脱离<strong>文本流</strong>，紧跟其后的元素也会在空间允许的情况下向上和向左（默认向左）浮动（填充）。这样就会打乱原先的布局，使得页面混乱。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">section</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">footer</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./images/iwatch.jpg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>It&#x27;s fun to float.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">  Here is the footer element that runs across the bottom of the page.</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/float01.png" alt="image.png"></p>
+<p>上面的代码中图片增加了浮动属性<code>float:left</code>，使得图片向左浮动起来，但是后面的<code>footer</code>元素竟然也跟着浮动起来了，紧跟在<code>p</code>元素后面，这就不是我们想要的结果了。（_浮动使得元素脱离了文档流(浮动起来)，但是没有脱离文本流，所以会占据一定的空间位置，浮动后面的元素如果在有空间的前提下，会一起挤上来填满空间，所以如果计算 BFC 的高度的话，需要把浮动元素的高度也要计算在内。只有绝对定位和固定定位的元素是完全脱离文档流和文本流的，所以会和其他的元素重叠在一起_。）</p>
+<p>这个时候就需要清除浮动了，使用 BFC 的特性很容易清除浮动。因为 BFC 会把浮动的子元素也包裹起来，并且和外届隔离开来。给父元素<code>section</code>元素添加<code>display:flow-root</code>属性使它成为 BFC，和外届隔离开来，即外面的元素不会受到 BFC 里面浮动元素的影响，即清除了 BFC 里面元素浮动的影响。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">section</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">display</span>: flow-root;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">footer</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./images/iwatch.jpg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>It&#x27;s fun to float.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">  Here is the footer element that runs across the bottom of the page.</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/clear_float.png" alt="image.png"></p>
+<h4 id="清除外边距折叠"><a href="#清除外边距折叠" class="headerlink" title="清除外边距折叠"></a>清除外边距折叠</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  * &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">section</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background</span>: red;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin-top</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">20px</span> <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background</span>: yellow;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>3<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/margin01.png" alt="image.png"></p>
+<p>在代码中我们不仅设置了<code>p</code>元素的上下的外边距为 20px，而且还设置了它的父元素<code>section</code>元素上外边距也为 20px。虽然设置了多处外边距，但是貌似没有达到我们想要的效果。从图片中可以看到，一些元素的外边距被折叠了，主要有两处：</p>
+<ul>
+<li>第一处是父子元素元素之间的折叠：<code>section</code>元素到根元素的上外边距和第一个<code>p</code>元素到<code>section</code>的外边距折叠了，显示的外边距是<code>section</code>元素到根元素的上外边距，也就是最上面白色部分的(因为没有设置根元素的背景色，所以默认是白色)，高度只有 20px。</li>
+<li>第二处是兄弟元素之间的折叠：各个<code>p</code>元素之间的外边距折叠了，外边距没有想加（20+20&#x3D;40px），而是只有 20px。</li>
+</ul>
+<p>在一开始就学 CSS 的时候我就知道，如果两个相邻边界都有外边距，外边距会折叠，只取最大的外边距。学习了 BFC 后才知道，外边距折叠也只会发生在属于同一 BFC 的块级元素之间，如果在不同的 BFC 的里，就不会折叠了，因为每个 BFC 都形成独立的区域。下面解决这两处外部去折叠的问题：</p>
+<ul>
+<li>给<code>section</code>元素添加属性<code>display:flow-root</code>，使它成为一个新的独立的 BFC，区别于以前所在的 BFC（由根元素形成的 BFC），之后这个 BFC 里面第一个<code>p</code>元素到<code>section</code>元素的上外边距就会显示出来了，为下图白色部分下面的红色部分。</li>
+<li>给第二个<code>p</code>元素外包一层<code>div</code>，为这个<code>div</code>设置属性，使它成为一个新的 BFC，区别于以前所在的 BFC（由<code>section</code>元素形成的 BFC），为了便于区分，增加一个蓝色的边框样式。设置之后，第二个<code>p</code>元素和前后的两个<code>p</code>元素之间的外边距就不会折叠了，它的外边距就会显示出来了，如下图所示。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  * &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">section</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background</span>: red;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin-top</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">display</span>: flow-root;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">20px</span> <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background</span>: yellow;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-class">.newBFC</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">display</span>: flow-root;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;newBFC&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span>2<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>3<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/margin02.png" alt="image.png"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过上面几个 BFC 实例的应用，我们知道了在页面上，每个 BFC 其实就是一个独立的容器（空间），容器里面的子元素不会影响到外面的元素，反之，外面的元素也不会影响到容器里面的元素。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Alan Deng
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://alanhaledc.com/blog/20180711/" title="CSS之BFC的理解">https://alanhaledc.com/blog/20180711/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
+              <a href="/tags/BFC/" rel="tag"><i class="fa fa-tag"></i> BFC</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/20180720/" rel="prev" title="CSS清除浮动">
+                  <i class="fa fa-chevron-left"></i> CSS清除浮动
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/20180706/" rel="next" title="JavaScript之箭头函数的不适用场景">
+                  JavaScript之箭头函数的不适用场景 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="OTc4LzI0NzY0LzE1ODk="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fas fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alan Deng</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">456k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:55</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.staticfile.org/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/comments.min.js"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/utils.min.js"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/next-boot.min.js"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/pjax.min.js"></script>
+
+  
+<script src="https://cdn.staticfile.org/algoliasearch/4.14.2/algoliasearch-lite.umd.js" integrity="sha256-dImjLPUsG/6p3+i7gVKBiDM8EemJAhQ0VvkRK2pVsQY=" crossorigin="anonymous"></script>
+<script src="https://cdn.staticfile.org/instantsearch.js/4.49.0/instantsearch.production.min.js" integrity="sha256-5FvX4v/nWhVAZLvv1sbGwV6w8AY4kdd+R5FpIsXkh9w=" crossorigin="anonymous"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/search/algolia-search.min.js"></script>
+
+
+
+  <script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/fancybox.min.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.staticfile.org/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/math/mathjax.min.js"></script>
+
+
+<script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/comments/livere.min.js"></script>
+
+
+
+<script data-pjax type="text/javascript">
+  //jquery selector
+  var $linkList = $(".link-list");
+  if ($linkList.length != 0) {
+    var j = -1;
+    for	(var i = 0; i < $linkList.length; i++) {
+      const listPath = $linkList[i].getAttribute('json-src');
+      const iconPath = $linkList[i].getAttribute('icon-src');
+      //使用 getJSON 读取 JSON 文件中的数据
+      $.getJSON(listPath, function(data) {
+        j++;
+        //存储数据的变量 
+        var li = "";
+        //清空内容 
+        $linkList.eq(j).empty();
+        //将获取到的 json 格式数据遍历到 div 中
+        $.each(data, function(infoIndex, info) {
+          var labelWarn = '';
+          var labelInfo = '';
+          if (info['warn']) { 
+            labelWarn = '<span class="label warn">' + info['warn'] + '</span>';
+          }
+          if (info['info']) { 
+            labelInfo = '<span class="label info">' + info['info'] + '</span>';
+          }
+          li += '<div class="link-list-container">';
+          li += '<img class="link-list-image" src="' + iconPath + info['logo'] + '">';
+          li += '<p>' + info['title'] + labelInfo + labelWarn + '</p>';
+          li += '<p>' + info['intro'] + '</p>';
+          li += '<a href="' + info['url'] + '" rel="noopener" target="_blank" data-pjax-state=""></a>';
+          li += '</div>';
+        })
+        //显示处理后的数据 
+        $linkList.eq(j).html(li);
+      })
+    }
+  }
+</script>
+
+
+
+<script data-pjax type="text/javascript">
+  //jquery selector
+  var $cultureList = $(".culture-list");
+  if ($cultureList.length != 0) {
+    var j = -1;
+    for	(var i = 0; i < $cultureList.length; i++) {
+      const listPath = $cultureList[i].getAttribute('json-src');
+      const coverPath = $cultureList[i].getAttribute('cover-src');
+      //使用 getJSON 读取 JSON 文件中的数据
+      $.getJSON(listPath, function(data) {
+        j++;
+        //存储数据的变量 
+        var li = "";
+        //清空内容 
+        $cultureList.eq(j).empty();
+        //将获取到的 json 格式数据遍历到 div 中
+        $.each(data, function(infoIndex, info) {
+          //影评书评链接
+          var title = info['title'];
+          if (info['pid']) {
+            title = '<a href="/posts/'+ info['pid'] +'/" >' + info['title'] +'</a>';
+          }
+
+          //作者
+          if (info['author']) {
+            var author = '<span class="author">' + info['author'] +'</span>';
+          } else {
+            var author = '';
+          }
+
+          //简介
+          if (info['intro']) {
+            var intro = info['intro'];
+          } else {
+            var intro = '';
+          }
+          
+          //分数
+          if (info['score'] == null) {
+            var star = '';
+          } else {
+            //初始化
+            var colorStar = '';
+            var greyStar = '';
+            var int = info['score'] - info['score'] % 1; //整数部分
+            //是否有小数
+            var fract = 0; 
+            if (info['score'] % 1 != 0) {
+              fract = 1;
+            }
+            //整数星级
+            for	(var m = 0; m < int; m++) {
+              colorStar += '★';
+            }
+            //半星级
+            if (fract != 0) {
+              colorStar += '☆';
+            }
+            //用空缺星补齐五星
+            for	(var m = 0; m < (5 - fract - int); m++) {
+              greyStar += '☆';
+            }
+            if (info['score'] != 5) {
+              star = '<span class="star-score">'+ colorStar +'<span class="grey-star">'+ greyStar +'</span></span>';
+            } else {
+              star = '<span class="star-score">'+ colorStar +'</span>';
+            }
+          }
+
+          li += '<div class="media">';
+          li += '<div class="media-cover" style="background-image:url(' + coverPath + info['cover'] + ')"></div>';
+          li += '<div class="media-meta">';
+          li += '<div class="media-meta-item title">' + title + '</div>';
+          li += '<div class="media-meta-item">' + author + star +'</div>';
+          li += '<div class="media-meta-item intro">' + intro + '</div>';
+          li += '</div></div>';
+        })
+        
+        //显示处理后的数据 
+        $cultureList.eq(j).html(li);
+      })
+    }
+  }
+</script>
+
+
+
+
+<script src="/resources/minigrid.min.js"></script>
+<script data-pjax type="text/javascript">
+  var $album = $(".album")[0];
+  if($album) {
+    // 相册列表 JSON 数据
+    var imgDataPath = $album.getAttribute('json-src');
+    // 照片存储路径
+    var imgPath = $album.getAttribute('photo-src');
+    // 最多显示数量
+    var imgMaxNum = 50;
+    // 获取窗口大小以决定图片宽度
+    var windowWidth = window.innerWidth
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
+    if (windowWidth < 768) {
+        var imageWidth = 145; // 移动端图片宽度
+    } else {
+        var imageWidth = 235;
+    }
+
+    // 腾讯云自定义样式 (数据万象外网流量需要付费)
+    //var imgStyle = '!' + imageWidth + 'x';
+    //var imgStyle = '!300x';
+
+    // 生成相册
+    var LinkDataPath = imgDataPath;
+    photo = {
+        page: 1,
+        offset: imgMaxNum,
+        init: function () {
+            var that = this;
+            $.getJSON(LinkDataPath, function (data) {
+                that.render(that.page, data);
+            });
+        },
+        render: function (page, data) {
+            var begin = (page - 1) * this.offset;
+            var end = page * this.offset;
+            if (begin >= data.length) return;
+            var imgNameWithPattern, imgName, imageSize, imageX, imageY, li = "";
+            for (var i = begin; i < end && i < data.length; i++) {
+                imgNameWithPattern = data[i].split(' ')[1];
+                imgName = imgNameWithPattern.split('.')[0]
+                imageSize = data[i].split(' ')[0];
+                imageX = imageSize.split('.')[0];
+                imageY = imageSize.split('.')[1];
+                li += '<div class="card" style="width:' + imageWidth + 'px" >'
+                li += '<div class="album-photo" style="height:'+ imageWidth * imageY / imageX + 'px">'
+                li += '<a class="fancybox fancybox.image" href="' + imgPath + imgNameWithPattern + '" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url" data-fancybox="group" rel="group" data-caption="' + imgName + '" title="' +  imgName + '">'
+                li += '<img data-src="' + imgPath + imgNameWithPattern + '" src="' + imgPath + imgNameWithPattern + '" alt="' +  imgName + '" data-loaded="true">'
+                li += '</a>'
+                li += '</div>'
+                li += '</div>'
+            }
+            $(".album").append(li);
+            this.minigrid();
+        },
+
+        minigrid: function() {
+          var grid = new Minigrid({
+              container: '.album',
+              item: '.card',
+              gutter: 12
+          });
+          grid.mount();
+          $(window).resize(function() {
+              grid.mount();
+          });
+        }
+    }
+    photo.init();
+  }
+</script>
+</body>
+</html>

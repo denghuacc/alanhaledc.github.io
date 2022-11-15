@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#e7ddc8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#181c27" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/resources/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resources/favicon/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"alanhaledc.com","root":"/","images":"/resources/img/","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"ETZWTJO7QM","apiKey":"2637d77dbb15451056cd521bebf6fb6c","indexName":"search_demo","hits":{"per_page":10}}}</script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/config.min.js"></script>
+
+    <meta name="description" content="在 core 文件夹下面的代码是 Vue 的核心代码，它并不涉及任何与平台相关的内容。 Vue 的平台目前主要有两个， 分别是 Web 平台和 Weex 平台。 Web 平台是和浏览器相关，它里面的代码运行在浏览器中。而 Weex 平台的代码却是和移动端相关的，这里不作介绍。 下面主要还是学习 Web 平台相关的代码。平台化包装也有两个版本，分别是 Runtime （运行时）版本和 Runtime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue2源码学习笔记之平台化包装">
+<meta property="og:url" content="https://alanhaledc.com/blog/20190826/">
+<meta property="og:site_name" content="Alan&#39;s Notes">
+<meta property="og:description" content="在 core 文件夹下面的代码是 Vue 的核心代码，它并不涉及任何与平台相关的内容。 Vue 的平台目前主要有两个， 分别是 Web 平台和 Weex 平台。 Web 平台是和浏览器相关，它里面的代码运行在浏览器中。而 Weex 平台的代码却是和移动端相关的，这里不作介绍。 下面主要还是学习 Web 平台相关的代码。平台化包装也有两个版本，分别是 Runtime （运行时）版本和 Runtime">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-26T12:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-15T06:39:36.016Z">
+<meta property="article:author" content="Alan Deng">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="源码学习">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://alanhaledc.com/blog/20190826/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://alanhaledc.com/blog/20190826/","path":"/blog/20190826/","title":"Vue2源码学习笔记之平台化包装"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vue2源码学习笔记之平台化包装 | Alan's Notes</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/resources/fonts/longcang/longcang-regular.css" >
+<link rel="stylesheet" href="/resources/fonts/lxgw/lxgwwenkailite-regular.css" >
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Alan's Notes</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="algolia-stats"><hr></div>
+  <div class="algolia-hits"></div>
+  <div class="algolia-pagination"></div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E7%89%88%E6%9C%AC"><span class="nav-text">运行时版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E7%BC%96%E8%AF%91%E7%89%88%E6%9C%AC"><span class="nav-text">带编译版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Alan Deng"
+      src="/resources/img/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">Alan Deng</p>
+  <div class="site-description" itemprop="description">A Web Developer</div>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alanhaledc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alanhaledc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:alanhaledc@gmail.com" title="E-Mail → mailto:alanhaledc@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alanhaledc.com/blog/20190826/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/resources/img/avatar.jpeg">
+      <meta itemprop="name" content="Alan Deng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alan's Notes">
+      <meta itemprop="description" content="A Web Developer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Vue2源码学习笔记之平台化包装 | Alan's Notes">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue2源码学习笔记之平台化包装
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-26 20:00:00" itemprop="dateCreated datePublished" datetime="2019-08-26T20:00:00+08:00">2019-08-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在 core 文件夹下面的代码是 Vue 的核心代码，它并不涉及任何与平台相关的内容。</p>
+<p>Vue 的平台目前主要有两个， 分别是 Web 平台和 Weex 平台。 Web 平台是和浏览器相关，它里面的代码运行在浏览器中。而 Weex 平台的代码却是和移动端相关的，这里不作介绍。</p>
+<p>下面主要还是学习 Web 平台相关的代码。平台化包装也有两个版本，分别是 Runtime （运行时）版本和 Runtime + Compiler （完整）版本。其中，运行时版本是完整版本的组成部分，完整版本还包含了编译器。</p>
+<span id="more"></span>
+
+<h3 id="运行时版本"><a href="#运行时版本" class="headerlink" title="运行时版本"></a>运行时版本</h3><p>运行时的版本比较简单，因为没有涉及到编译器，它的编译入口是<code>platforms/webpack/entry-runtime.js</code>，下面查看它的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&quot;./runtime/index&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Vue</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这个文件只是单独的引用了<code>platforms/web/runtime/index.js</code>文件中的<code>Vue</code>，然后再把它导出。</p>
+<p>现在打开这个引用的文件，查看它的代码。先看前面的部分代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* @flow */</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&quot;core/index&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> config <span class="keyword">from</span> <span class="string">&quot;core/config&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; extend, noop &#125; <span class="keyword">from</span> <span class="string">&quot;shared/util&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; mountComponent &#125; <span class="keyword">from</span> <span class="string">&quot;core/instance/lifecycle&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; devtools, inBrowser &#125; <span class="keyword">from</span> <span class="string">&quot;core/util/index&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  query,</span><br><span class="line">  mustUseProp,</span><br><span class="line">  isReservedTag,</span><br><span class="line">  isReservedAttr,</span><br><span class="line">  getTagNamespace,</span><br><span class="line">  isUnknownElement,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;web/util/index&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; patch &#125; <span class="keyword">from</span> <span class="string">&quot;./patch&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> platformDirectives <span class="keyword">from</span> <span class="string">&quot;./directives/index&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> platformComponents <span class="keyword">from</span> <span class="string">&quot;./components/index&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// install platform specific utils</span></span><br><span class="line"><span class="comment">// ! 设置 Web 平台配置选项</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">mustUseProp</span> = mustUseProp;</span><br><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">isReservedTag</span> = isReservedTag;</span><br><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">isReservedAttr</span> = isReservedAttr;</span><br><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">getTagNamespace</span> = getTagNamespace;</span><br><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">isUnknownElement</span> = isUnknownElement;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Vue</span>;</span><br></pre></td></tr></table></figure>
+
+<p>先不管导入的模块部分。看上面代码的最后几行，这里再次设置了 Vue 的构造函数的<code>config</code>属性。</p>
+<p>还记得我们在核心代码 core 中也设置<code>config</code>属性，不过那里的设置的都是些初始值或者空值。</p>
+<p>现在配置的值，都是和 Web 平台相关的。给构造函数<code>Vue</code>的<code>config</code>设置了五个属性，分别是：<code>mustUseProp</code>、<code>isReservedTag</code>、<code>isReservedAttr</code>、<code>getTagNamespace</code>和<code>isUnknownElement</code>，先不去管这些属性。</p>
+<p>继续查看下面的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ! 安装 Web 平台运行时的指令 v-model v-show 和组件 &lt;transition/&gt; &lt;transition-group/&gt;</span></span><br><span class="line"><span class="title function_">extend</span>(<span class="title class_">Vue</span>.<span class="property">options</span>.<span class="property">directives</span>, platformDirectives)</span><br><span class="line"><span class="title function_">extend</span>(<span class="title class_">Vue</span>.<span class="property">options</span>.<span class="property">components</span>, platformComponents)s</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>extend</code>方法，给<code>Vue</code>选项中的<code>directives</code>和<code>components</code>扩展内容。这些是和平台相关的组件和指令。</p>
+<p>那么到底扩展了什么内容呢？查看<code>runtime/directives/index.js</code>文件的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> model <span class="keyword">from</span> <span class="string">&quot;./model&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> show <span class="keyword">from</span> <span class="string">&quot;./show&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  model,</span><br><span class="line">  show,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这里给指令集<code>directives</code>扩展了两个新指令<code>model</code>和<code>show</code>，即<code>v-model</code>和<code>v-show</code>，这两个指令应该都非常熟悉吧，这里就不多介绍了。</p>
+<p>然后再查看<code>runtime/components/index.js</code>文件的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Transition</span> <span class="keyword">from</span> <span class="string">&quot;./transition&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TransitionGroup</span> <span class="keyword">from</span> <span class="string">&quot;./transition-group&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title class_">Transition</span>,</span><br><span class="line">  <span class="title class_">TransitionGroup</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这里给组件数组<code>components</code>扩展了两个新组件<code>Transition</code>和<code>TransitionGroup</code>，这两个组件是设置过渡动画的组件。</p>
+<p>接下来继续看<code>runtime/index.js</code>上的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// install platform patch functional</span></span><br><span class="line"><span class="comment">// ! 安装 Web 平台的 __patch__ 方法</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">__patch__</span> = inBrowser ? patch : noop;</span><br><span class="line"></span><br><span class="line"><span class="comment">// public mount method</span></span><br><span class="line"><span class="comment">// ! 安装 Web 平台的挂载方法 $mount （这里是 runtime 版本）</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$mount</span> = <span class="keyword">function</span> (<span class="params"></span></span><br><span class="line"><span class="params">  el?: string | Element,</span></span><br><span class="line"><span class="params">  hydrating?: boolean</span></span><br><span class="line"><span class="params"></span>): <span class="title class_">Component</span> &#123;</span><br><span class="line">  el = el &amp;&amp; inBrowser ? <span class="title function_">query</span>(el) : <span class="literal">undefined</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">mountComponent</span>(<span class="variable language_">this</span>, el, hydrating);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>给 Vue 构造函数的原型对象上添加了两个方法<code>__patch__</code>和<code>$mount</code>。</p>
+<p><code>__patch__</code>是把虚拟 DOM 转换成真实 DOM 的补丁方法。这里还判断了是否是浏览器环境，如果不是则为<code>noop</code>，<code>noop</code>是一个空函数。</p>
+<p><code>$mount</code>是组件的挂载方法，不过因为这里的是 Runtime 版本，在完整版本中还会对这个方法进行扩展，增加编译器相关的代码。</p>
+<p>再看最后的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (inBrowser) &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (config.<span class="property">devtools</span>) &#123;</span><br><span class="line">      <span class="comment">/* ... */</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Vue</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器环境中安装<code>vue-devtool</code>的全局钩子，用于在浏览器中进行开发调试。</p>
+<p>最后是导出 Vue 的构造函数<code>Vue</code>，这样运行时版本的 Vue 的平台化包装（扩展）就完成了。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p><strong>Runtime</strong> 版本的入口文件主要给 Vue 的构造函数添加了 Web 平台专用的属性和方法。</p>
+<ul>
+<li>在<code>Vue.config</code>配置了五个 Web 平台专用属性，分别是：<code>mustUseProp</code>、<code>isReservedTag</code>、<code>isReservedAttr</code>、<code>getTagNamespace</code>和<code>isUnknownElement</code>。</li>
+<li>在<code>Vue.options</code>的<code>filters</code>属性添加两个指令<code>v-model</code>和<code>v-show</code>。</li>
+<li>在<code>Vue.options</code>的<code>components</code>属性添加两个过渡动画组件<code>Transition</code>和<code>TransitionGroup</code>。</li>
+<li>在<code>Vue</code>的原型对象上增加两个方法<code>__patch__</code>和<code>$mount</code>。</li>
+<li>安装<code>vue-devtool</code>的全局钩子</li>
+</ul>
+<h3 id="带编译版本"><a href="#带编译版本" class="headerlink" title="带编译版本"></a>带编译版本</h3><p>下面再查看完整版本编译器的入口文件<code>platforms/webpack/entry-runtime-with-compiler.js</code>，对比运行时版本的入口文件，主要是增加了编译器相关的代码。</p>
+<p>打开这个文件，先看前面的部分代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> config <span class="keyword">from</span> <span class="string">&quot;core/config&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; warn, cached &#125; <span class="keyword">from</span> <span class="string">&quot;core/util/index&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; mark, measure &#125; <span class="keyword">from</span> <span class="string">&quot;core/util/perf&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&quot;./runtime/index&quot;</span>; <span class="comment">// ! 导入 runtime 版本的 Vue</span></span><br><span class="line"><span class="keyword">import</span> &#123; query &#125; <span class="keyword">from</span> <span class="string">&quot;./util/index&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; compileToFunctions &#125; <span class="keyword">from</span> <span class="string">&quot;./compiler/index&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  shouldDecodeNewlines,</span><br><span class="line">  shouldDecodeNewlinesForHref,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;./util/compat&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ! 通过 id 获取元素的 innerHTML</span></span><br><span class="line"><span class="keyword">const</span> idToTemplate = <span class="title function_">cached</span>(<span class="function">(<span class="params">id</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> el = <span class="title function_">query</span>(id);</span><br><span class="line">  <span class="keyword">return</span> el &amp;&amp; el.<span class="property">innerHTML</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>首先还是引入模块文件，其中包括引入 Runtime 版本的 Vue 的构造函数<code>Vue</code>。</p>
+<p>然后定义一个通过 id 获取元素的<code>innerHTML</code>的方法<code>idToTemplate</code>，在下面重写<code>$mount</code>方法中会用到。</p>
+<p>继续往下看代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mount = <span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$mount</span>; <span class="comment">// ! 缓存 runtime 版本的 $mount 方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ! 重写 $mount 方法 with compiler</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$mount</span> = <span class="keyword">function</span> (<span class="params"></span></span><br><span class="line"><span class="params">  el?: string | Element,</span></span><br><span class="line"><span class="params">  hydrating?: boolean</span></span><br><span class="line"><span class="params"></span>): <span class="title class_">Component</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>首先缓存了运行时版本的<code>$mount</code>方法，然后又重写了这个方法，主要是加入了编译器相关的代码。</p>
+<p>先不管重写的<code>$mount</code>方法，继续查看最后的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Get outerHTML of elements, taking care</span></span><br><span class="line"><span class="comment"> * of SVG elements in IE as well.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getOuterHTML</span>(<span class="params">el: Element</span>): string &#123;</span><br><span class="line">  <span class="keyword">if</span> (el.<span class="property">outerHTML</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> el.<span class="property">outerHTML</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> container = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;div&quot;</span>);</span><br><span class="line">    container.<span class="title function_">appendChild</span>(el.<span class="title function_">cloneNode</span>(<span class="literal">true</span>));</span><br><span class="line">    <span class="keyword">return</span> container.<span class="property">innerHTML</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property">compile</span> = compileToFunctions; <span class="comment">// ! 新增方法 compile</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Vue</span>;</span><br></pre></td></tr></table></figure>
+
+<p>定义了一个<code>getOuterHTML</code>方法，这个方法在上面重写<code>$mount</code>方法中会用到。</p>
+<p>然后给<code>Vue</code>新增了一个静态方法<code>compile</code>，赋值为<code>compileToFunctions</code>方法，从方法的名字可以看出这应该是一个编译的方法，把模板字符串编译成渲染函数。</p>
+<p>但是，这个方法从哪里来的呢？是从<code>platforms/web/compiler/index.js</code>文件中引入进来的，暂时先不管它。</p>
+<p>最后还是导出 Vue 的构造函数<code>Vue</code>，这样包含编译器的 Vue 的平台化包装（扩展）也完成了。</p>
+<p><strong>总结</strong>，这个带编译器的入口文件代码结构其实也很简单，就是重写运行时版本中 Vue 构造函数的原型对象的<code>$mount</code>方法，在重写的过程中添加编译相关的代码。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>到了这一步，Vue 的构造函数的扩展就已经初步完成。</p>
+<p>现在再次回顾下 Vue 的构造函数<code>Vue</code>最初的样子。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Vue</span>(<span class="params">options</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NODE_ENV</span> !== <span class="string">&quot;production&quot;</span> &amp;&amp; !(<span class="variable language_">this</span> <span class="keyword">instanceof</span> <span class="title class_">Vue</span>)) &#123;</span><br><span class="line">    <span class="title function_">warn</span>(<span class="string">&quot;Vue is a constructor and should be called with the `new` keyword&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">_init</span>(options);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>构造函数非常简单，如果把警告的代码再去掉，代码会更少，内容就只有一行</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Vue</span>(<span class="params">options</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">_init</span>(options);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，就是这么一个简单的构造函数，在经过一系列的扩展和包装后，就成为了一个非常复杂的前端框架。</p>
+<p>实在是有点不可思议，这也说明 Vue 的结构设计非常清晰明了！</p>
+<p>回顾下它是怎么扩展的：</p>
+<ul>
+<li><code>core/instance/index.js</code>：扩展构造函数的原型对象的属性和方法</li>
+<li><code>core/index.js</code>：扩展构造函数静态的属性和方法</li>
+<li><code>platforms/webpack/entry-runtime.js</code>：扩展 Web 平台专用的属性和方法</li>
+<li><code>platforms/webpack/entry-runtime-with-compiler.js</code>：重写运行时的<code>$mount</code>方法，添加编译相关的代码。</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://hcysun.me/vue-design/zh/">Vue 技术内幕</a></li>
+<li><a target="_blank" rel="noopener" href="https://ustbhuangyi.github.io/vue-analysis/">Vue 技术揭秘</a></li>
+<li><a target="_blank" rel="noopener" href="https://cn.vuejs.org/">Vue 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/alanhaledc/vue/tree/learn-vue">Vue 源码学习分支</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Alan Deng
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://alanhaledc.com/blog/20190826/" title="Vue2源码学习笔记之平台化包装">https://alanhaledc.com/blog/20190826/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+              <a href="/tags/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 源码学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/20190828/" rel="prev" title="Vue2源码学习笔记之初始化开篇">
+                  <i class="fa fa-chevron-left"></i> Vue2源码学习笔记之初始化开篇
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/20190823/" rel="next" title="Vue2源码学习笔记之构造函数的扩展">
+                  Vue2源码学习笔记之构造函数的扩展 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="OTc4LzI0NzY0LzE1ODk="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fas fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alan Deng</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">456k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:55</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.staticfile.org/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.staticfile.org/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/comments.min.js"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/utils.min.js"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/next-boot.min.js"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/pjax.min.js"></script>
+
+  
+<script src="https://cdn.staticfile.org/algoliasearch/4.14.2/algoliasearch-lite.umd.js" integrity="sha256-dImjLPUsG/6p3+i7gVKBiDM8EemJAhQ0VvkRK2pVsQY=" crossorigin="anonymous"></script>
+<script src="https://cdn.staticfile.org/instantsearch.js/4.49.0/instantsearch.production.min.js" integrity="sha256-5FvX4v/nWhVAZLvv1sbGwV6w8AY4kdd+R5FpIsXkh9w=" crossorigin="anonymous"></script><script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/search/algolia-search.min.js"></script>
+
+
+
+  <script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/fancybox.min.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.staticfile.org/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/math/mathjax.min.js"></script>
+
+
+<script src="https://cdn.staticfile.org/hexo-theme-next/8.13.2/third-party/comments/livere.min.js"></script>
+
+
+
+<script data-pjax type="text/javascript">
+  //jquery selector
+  var $linkList = $(".link-list");
+  if ($linkList.length != 0) {
+    var j = -1;
+    for	(var i = 0; i < $linkList.length; i++) {
+      const listPath = $linkList[i].getAttribute('json-src');
+      const iconPath = $linkList[i].getAttribute('icon-src');
+      //使用 getJSON 读取 JSON 文件中的数据
+      $.getJSON(listPath, function(data) {
+        j++;
+        //存储数据的变量 
+        var li = "";
+        //清空内容 
+        $linkList.eq(j).empty();
+        //将获取到的 json 格式数据遍历到 div 中
+        $.each(data, function(infoIndex, info) {
+          var labelWarn = '';
+          var labelInfo = '';
+          if (info['warn']) { 
+            labelWarn = '<span class="label warn">' + info['warn'] + '</span>';
+          }
+          if (info['info']) { 
+            labelInfo = '<span class="label info">' + info['info'] + '</span>';
+          }
+          li += '<div class="link-list-container">';
+          li += '<img class="link-list-image" src="' + iconPath + info['logo'] + '">';
+          li += '<p>' + info['title'] + labelInfo + labelWarn + '</p>';
+          li += '<p>' + info['intro'] + '</p>';
+          li += '<a href="' + info['url'] + '" rel="noopener" target="_blank" data-pjax-state=""></a>';
+          li += '</div>';
+        })
+        //显示处理后的数据 
+        $linkList.eq(j).html(li);
+      })
+    }
+  }
+</script>
+
+
+
+<script data-pjax type="text/javascript">
+  //jquery selector
+  var $cultureList = $(".culture-list");
+  if ($cultureList.length != 0) {
+    var j = -1;
+    for	(var i = 0; i < $cultureList.length; i++) {
+      const listPath = $cultureList[i].getAttribute('json-src');
+      const coverPath = $cultureList[i].getAttribute('cover-src');
+      //使用 getJSON 读取 JSON 文件中的数据
+      $.getJSON(listPath, function(data) {
+        j++;
+        //存储数据的变量 
+        var li = "";
+        //清空内容 
+        $cultureList.eq(j).empty();
+        //将获取到的 json 格式数据遍历到 div 中
+        $.each(data, function(infoIndex, info) {
+          //影评书评链接
+          var title = info['title'];
+          if (info['pid']) {
+            title = '<a href="/posts/'+ info['pid'] +'/" >' + info['title'] +'</a>';
+          }
+
+          //作者
+          if (info['author']) {
+            var author = '<span class="author">' + info['author'] +'</span>';
+          } else {
+            var author = '';
+          }
+
+          //简介
+          if (info['intro']) {
+            var intro = info['intro'];
+          } else {
+            var intro = '';
+          }
+          
+          //分数
+          if (info['score'] == null) {
+            var star = '';
+          } else {
+            //初始化
+            var colorStar = '';
+            var greyStar = '';
+            var int = info['score'] - info['score'] % 1; //整数部分
+            //是否有小数
+            var fract = 0; 
+            if (info['score'] % 1 != 0) {
+              fract = 1;
+            }
+            //整数星级
+            for	(var m = 0; m < int; m++) {
+              colorStar += '★';
+            }
+            //半星级
+            if (fract != 0) {
+              colorStar += '☆';
+            }
+            //用空缺星补齐五星
+            for	(var m = 0; m < (5 - fract - int); m++) {
+              greyStar += '☆';
+            }
+            if (info['score'] != 5) {
+              star = '<span class="star-score">'+ colorStar +'<span class="grey-star">'+ greyStar +'</span></span>';
+            } else {
+              star = '<span class="star-score">'+ colorStar +'</span>';
+            }
+          }
+
+          li += '<div class="media">';
+          li += '<div class="media-cover" style="background-image:url(' + coverPath + info['cover'] + ')"></div>';
+          li += '<div class="media-meta">';
+          li += '<div class="media-meta-item title">' + title + '</div>';
+          li += '<div class="media-meta-item">' + author + star +'</div>';
+          li += '<div class="media-meta-item intro">' + intro + '</div>';
+          li += '</div></div>';
+        })
+        
+        //显示处理后的数据 
+        $cultureList.eq(j).html(li);
+      })
+    }
+  }
+</script>
+
+
+
+
+<script src="/resources/minigrid.min.js"></script>
+<script data-pjax type="text/javascript">
+  var $album = $(".album")[0];
+  if($album) {
+    // 相册列表 JSON 数据
+    var imgDataPath = $album.getAttribute('json-src');
+    // 照片存储路径
+    var imgPath = $album.getAttribute('photo-src');
+    // 最多显示数量
+    var imgMaxNum = 50;
+    // 获取窗口大小以决定图片宽度
+    var windowWidth = window.innerWidth
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
+    if (windowWidth < 768) {
+        var imageWidth = 145; // 移动端图片宽度
+    } else {
+        var imageWidth = 235;
+    }
+
+    // 腾讯云自定义样式 (数据万象外网流量需要付费)
+    //var imgStyle = '!' + imageWidth + 'x';
+    //var imgStyle = '!300x';
+
+    // 生成相册
+    var LinkDataPath = imgDataPath;
+    photo = {
+        page: 1,
+        offset: imgMaxNum,
+        init: function () {
+            var that = this;
+            $.getJSON(LinkDataPath, function (data) {
+                that.render(that.page, data);
+            });
+        },
+        render: function (page, data) {
+            var begin = (page - 1) * this.offset;
+            var end = page * this.offset;
+            if (begin >= data.length) return;
+            var imgNameWithPattern, imgName, imageSize, imageX, imageY, li = "";
+            for (var i = begin; i < end && i < data.length; i++) {
+                imgNameWithPattern = data[i].split(' ')[1];
+                imgName = imgNameWithPattern.split('.')[0]
+                imageSize = data[i].split(' ')[0];
+                imageX = imageSize.split('.')[0];
+                imageY = imageSize.split('.')[1];
+                li += '<div class="card" style="width:' + imageWidth + 'px" >'
+                li += '<div class="album-photo" style="height:'+ imageWidth * imageY / imageX + 'px">'
+                li += '<a class="fancybox fancybox.image" href="' + imgPath + imgNameWithPattern + '" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url" data-fancybox="group" rel="group" data-caption="' + imgName + '" title="' +  imgName + '">'
+                li += '<img data-src="' + imgPath + imgNameWithPattern + '" src="' + imgPath + imgNameWithPattern + '" alt="' +  imgName + '" data-loaded="true">'
+                li += '</a>'
+                li += '</div>'
+                li += '</div>'
+            }
+            $(".album").append(li);
+            this.minigrid();
+        },
+
+        minigrid: function() {
+          var grid = new Minigrid({
+              container: '.album',
+              item: '.card',
+              gutter: 12
+          });
+          grid.mount();
+          $(window).resize(function() {
+              grid.mount();
+          });
+        }
+    }
+    photo.init();
+  }
+</script>
+</body>
+</html>
